@@ -1,30 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>JoMagicBackpack</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Jo'Magic Backpack</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <h2>Welcome</h2>
-            <p>This is a clean rebuild of the JoMagicBackpack site. More content coming soon.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
-    </footer>
-    <script src="js/main.js"></script>
+  <header>
+    <div class="container">
+      <h1>JoMagicBackpack</h1>
+      <button class="menu-toggle">&#9776;</button>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <h2>Welcome to JoMagicBackpack</h2>
+        <p>Discover unique reseller treasures curated just for you.</p>
+      </div>
+    </section>
+
+    <!-- Products section -->
+    <section id="products" class="products-section">
+      <div class="container">
+        <h2>Featured Products</h2>
+        <div class="products-grid">
+          <!-- Example product cards -->
+          <div class="product-card">
+            <img src="https://via.placeholder.com/200x150" alt="Vintage Camera">
+            <h3>Vintage Camera</h3>
+            <p>A retro film camera for collectors and photography enthusiasts.</p>
+            <span class="price">$85</span>
+          </div>
+          <div class="product-card">
+            <img src="https://via.placeholder.com/200x150" alt="Leather Satchel">
+            <h3>Leather Satchel</h3>
+            <p>A rugged yet stylish leather satchel perfect for everyday carry.</p>
+            <span class="price">$120</span>
+          </div>
+          <div class="product-card">
+            <img src="https://via.placeholder.com/200x150" alt="Porcelain Teapot">
+            <h3>Porcelain Teapot</h3>
+            <p>A delicate hand-painted teapot for your afternoon tea sessions.</p>
+            <span class="price">$45</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <h2>About JoMagicBackpack</h2>
+        <p>JoMagicBackpack is run by Jordan, an experienced reseller with a keen eye for hidden gems. With years of experience uncovering unique items, Jordan brings a curated selection of vintage, quirky, and collectible items directly to you. Each piece has a story and is chosen for its character and charm.</p>
+      </div>
+    </section>
+
+    <!-- Reviews section -->
+    <section id="reviews" class="reviews-section">
+      <div class="container">
+        <h2>What Our Customers Say</h2>
+        <div class="reviews">
+          <blockquote>
+            "I love the unique finds at JoMagicBackpack. Each item feels like a story waiting to be discovered!"<br><span>- Alex P.</span>
+          </blockquote>
+          <blockquote>
+            "Fast shipping and amazing quality. I can't wait to see what's added next!"<br><span>- Casey M.</span>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <p>Have a question or looking for something special? Drop us a line!</p>
+        <form action="mailto:info@jomagicbackpack.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
