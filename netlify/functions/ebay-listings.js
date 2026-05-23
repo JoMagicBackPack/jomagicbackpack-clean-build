@@ -121,8 +121,11 @@ function buildSearchURL(query) {
   const limit = Number(query.limit || env('EBAY_DEFAULT_LIMIT') || 12);
   const sort = (query.sort || 'new').toString().toLowerCase();
   const order = (query.order || 'desc').toString().toLowerCase();
+      const searchQ = q || (seller ? 'a' : '');
+    if (searchQ) params.set('q', searchQ);
 
-  if (q) params.set('q', q);
+
+/TEST/if (q) params.set('q', q);
   if (seller) params.set('filter', `seller_username:{${seller}}`);
   params.set('limit', String(Math.max(1, Math.min(limit, 50))));
 
