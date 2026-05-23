@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fetch and display latest products from the eBay RSS feed via rss2json
   const feedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' +
-    'https://www.ebay.com/sch/i.html?_rss=1&_sasl=jomagicbackpack&_sop=10';&_sop=10';
+      encodeURIComponent('https://www.ebay.com/sch/i.html?_ssn=jomagicbackpack&_rss=1');
   fetch(feedUrl)
     .then(response => response.json())
     .then(data => {
