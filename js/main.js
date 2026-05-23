@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Fetch and display latest products from Netlify eBay function
   const productsGrid = document.querySelector('.products-grid');
   if (productsGrid) {
-    fetch('/.netlify/functions/ebay-listings?seller=jomagicbackpack&limit=12')
+fetch('/.netlify/functions/ebay-listings?seller=jomagicbackpack&q=a&limit=12')
       .then(response => response.json())
       .then(data => {
         if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
