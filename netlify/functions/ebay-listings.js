@@ -1,4 +1,4 @@
-=== Filename: netlify/functions/ebay-listings.js ===
+
 /**
  * Netlify Function: ebay-listings
  * Fetch eBay items via the Buy Browse API using OAuth Client Credentials.
