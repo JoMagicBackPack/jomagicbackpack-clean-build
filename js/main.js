@@ -8,56 +8,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Fetch and display latest products from the eBay RSS feed via rss2json
-  const feedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' +
-      encodeURIComponent('https://www.ebay.com/sch/i.html?_ssn=jomagicbackpack&_rss=1');
-  fetch(feedUrl)
-    .then(response => response.json())
-    .then(data => {
-      const productsGrid = document.querySelector('.products-grid');
-      if (!productsGrid) return;
-      // Clear any static product cards
-      productsGrid.innerHTML = '';
-
-      data.items.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-
-        // Image
-        const img = document.createElement('img');
-        img.src = item.thumbnail || (item.enclosure && item.enclosure.link) || 'https://via.placeholder.com/200x150';
-        img.alt = item.title || 'Product image';
-
-        // Title
-        const title = document.createElement('h3');
-        title.textContent = item.title;
-
-        // Description
-        const desc = document.createElement('p');
-        desc.textContent = item.contentSnippet || '';
-
-        // Extract price from the content HTML if present
-        let priceText = '';
-        if (item.content) {
-          const match = item.content.match(/\$[0-9.,]+/);
-          if (match) {
-            priceText = match[0];
-          }
+  // Fetch and display latest products from Netlify eBay function
+  const productsGrid = document.querySelector('.products-grid');
+  if (productsGrid) {
+    fetch('/.netlify/functions/ebay-listings?seller=jomagicbackpack&limit=12')
+      .then(response => response.json())
+      .then(data => {
+        if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
+          return;
         }
-        const price = document.createElement('span');
-        price.className = 'price';
-        price.textContent = priceText;
+        productsGrid.innerHTML = '';
+        data.result.items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          const imageSrc = item.image || 'https://via.placeholder.com/200x150';
 
-        // Assemble card
-        card.appendChild(img);
-        card.appendChild(title);
-        card.appendChild(desc);
-        card.appendChild(price);
+          const link = document.createElement('a');
+          link.href = item.url || '#';
+          link.target = '_blank';
+          link.className = 'product-image';
 
-        productsGrid.appendChild(card);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching products:', error);
-    });
+          const img = document.createElement('img');
+          img.src = imageSrc;
+          img.alt = item.title || 'product image';
+          link.appendChild(img);
+
+          const titleEl = document.createElement('h3');
+          titleEl.textContent = item.title || '';
+
+          const priceEl = document.createElement('p');
+          priceEl.textContent = item.price || '';
+
+          card.appendChild(link);
+          card.appendChild(titleEl);
+          card.appendChild(priceEl);
+
+          productsGrid.appendChild(card);
+        });
+      })
+      .catch(err => console.error(err));
+  }
 });
