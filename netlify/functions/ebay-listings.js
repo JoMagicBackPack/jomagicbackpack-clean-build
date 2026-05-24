@@ -62,12 +62,12 @@ async function getAccessToken() {
   const body = new URLSearchParams({ grant_type: 'client_credentials', scope });
 
   const res = await fetch(`${API_HOST}/identity/v1/oauth2/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${basic}`,
-    },
-    body,
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Authorization: `Basic ${basic}`,
+  },
+  body,
   });
 
   if (!res.ok) {
@@ -125,8 +125,13 @@ function buildSearchURL(query) {
   const searchQ = q || (seller ? 'a' : '');
   if (searchQ) params.set('q', searchQ);
 
-  if (seller) params.set('filter', `seller_username:${seller}`);
-  
+  // Combine filters: sellers filter and buyingOptions filter
+  let filterParts = ['buyingOptions:{FIXED_PRICE|BEST_OFFER|AUCTION}'];
+  if (seller) {
+    filterParts.unshift(`sellers:{${seller}}`);
+  }
+  params.set('filter', filterParts.join(','));
+
   params.set('limit', String(Math.max(1, Math.min(limit, 50))));
 
   // Sort mapping
@@ -138,8 +143,6 @@ function buildSearchURL(query) {
     params.set('sort', 'newlyListed');
   }
 
-  // limit to purchasable items
-  params.append('filter', 'buyingOptions:{FIXED_PRICE|BEST_OFFER|AUCTION}');
   params.set('fieldgroups', 'EXTENDED');
 
   return `${API_HOST}/buy/browse/v1/item_summary/search?${params.toString()}`;
