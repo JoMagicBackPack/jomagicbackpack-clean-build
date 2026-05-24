@@ -126,6 +126,7 @@ function buildSearchURL(query) {
   if (searchQ) params.set('q', searchQ);
 
   if (seller) params.set('filter', `seller_username:${seller}`);
+  
   params.set('limit', String(Math.max(1, Math.min(limit, 50))));
 
   // Sort mapping
