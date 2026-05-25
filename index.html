@@ -62,15 +62,18 @@
 
     <section id="reviews" class="reviews-section">
       <div class="container">
+        <p class="eyebrow">Buyer feedback</p>
         <h2>What Buyers Say</h2>
-        <div class="reviews">
-          <blockquote>
-            "Great seller. Fast shipping. A+"
-          </blockquote>
-          <blockquote>
-            "Exactly as described. Packed with care."
-          </blockquote>
+        <div class="review-carousel" aria-live="polite">
+          <button id="reviewPrev" class="review-arrow" type="button" aria-label="Previous review">‹</button>
+          <div class="review-card">
+            <p id="reviewQuote" class="review-quote">Loading buyer feedback…</p>
+            <p id="reviewSource" class="review-source"></p>
+          </div>
+          <button id="reviewNext" class="review-arrow" type="button" aria-label="Next review">›</button>
         </div>
+        <div id="reviewDots" class="review-dots" aria-label="Review navigation"></div>
+        <a class="view-all-link" href="https://www.ebay.com/fdbk/feedback_profile/jomagicbackpack" target="_blank" rel="noopener noreferrer">See feedback on eBay</a>
       </div>
     </section>
 
