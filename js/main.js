@@ -17,42 +17,54 @@ document.addEventListener('DOMContentLoaded', () => {
       label: 'Latest Finds',
       heading: 'Latest Finds',
       description: 'Fresh pieces currently showing from the backpack.',
-      queries: ['a']
+      queries: ['a'],
+      include: [],
+      exclude: []
     },
     {
       key: 'clothing',
       label: 'Clothing',
       heading: 'Clothing',
       description: 'Shirts, jackets, sweaters, pants, and other wearable finds.',
-      queries: ['shirt', 'jacket', 'sweater', 'pants']
+      queries: ['shirt', 'jacket', 'sweater', 'pants'],
+      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'shorts', 'coat', 'vest', 'flannel', 'hoodie', 'dress', 'skirt', 'blouse', 'top'],
+      exclude: ['doll', 'toy', 'figure', 'figurine', 'wall', 'decor', 'ornament', 'plate', 'mug', 'book', 'poster', 'print', 'art']
     },
     {
       key: 'shoes',
       label: 'Shoes',
       heading: 'Shoes',
-      description: 'Shoes, boots, sneakers, sandals, and other footwear.',
-      queries: ['shoes', 'boots', 'sneakers', 'sandals']
+      description: 'Actual wearable shoes, boots, sneakers, sandals, and other footwear.',
+      queries: ['shoes', 'boots', 'sneakers', 'sandals'],
+      include: ['shoe', 'shoes', 'boot', 'boots', 'sneaker', 'sneakers', 'sandal', 'sandals', 'loafer', 'loafers', 'heel', 'heels', 'cleat', 'cleats', 'slipper', 'slippers', 'footwear'],
+      exclude: ['figurine', 'figure', 'mini', 'miniature', 'tiny', 'doll', 'toy', 'wall', 'decor', 'decoration', 'ornament', 'charm', 'pin', 'brooch', 'pendant', 'plaque', 'sign', 'art', 'print', 'poster', 'picture', 'painting', 'ceramic', 'porcelain', 'resin', 'glass', 'bookend', 'ashtray']
     },
     {
       key: 'bags',
       label: 'Bags & Accessories',
       heading: 'Bags & Accessories',
-      description: 'Bags, wallets, hats, belts, scarves, jewelry, and smaller oddments.',
-      queries: ['bag', 'purse', 'wallet', 'backpack', 'hat']
+      description: 'Bags, wallets, hats, belts, scarves, jewelry, and smaller wearable accessories.',
+      queries: ['bag', 'purse', 'wallet', 'backpack', 'hat'],
+      include: ['bag', 'purse', 'wallet', 'backpack', 'tote', 'clutch', 'satchel', 'hat', 'cap', 'belt', 'scarf', 'jewelry', 'necklace', 'bracelet', 'earrings', 'brooch', 'pin'],
+      exclude: ['wall', 'decor', 'plate', 'mug', 'bowl', 'vase', 'book', 'toy', 'figure', 'figurine', 'poster', 'print']
     },
     {
       key: 'home',
       label: 'Home & Housewares',
       heading: 'Home & Housewares',
       description: 'Dishes, glassware, decor, kitchen pieces, and useful home finds.',
-      queries: ['plate', 'bowl', 'mug', 'vase', 'glass', 'decor']
+      queries: ['plate', 'bowl', 'mug', 'vase', 'glass', 'decor'],
+      include: ['plate', 'bowl', 'mug', 'cup', 'vase', 'glass', 'ceramic', 'porcelain', 'kitchen', 'decor', 'wall', 'plaque', 'frame', 'figurine', 'figure', 'statue', 'candle', 'dish', 'tray', 'canister'],
+      exclude: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'sneaker', 'sneakers', 'boot', 'boots', 'sandals', 'purse', 'wallet']
     },
     {
       key: 'collectibles',
       label: 'Collectibles',
       heading: 'Collectibles',
       description: 'Books, toys, media, art, vintage pieces, and category-resistant treasures.',
-      queries: ['vintage', 'collectible', 'toy', 'book', 'art', 'Pokemon']
+      queries: ['vintage', 'collectible', 'toy', 'book', 'art', 'Pokemon'],
+      include: ['vintage', 'collectible', 'toy', 'figure', 'figurine', 'book', 'media', 'art', 'pokemon', 'disney', 'dvd', 'cd', 'vhs', 'game', 'poster', 'print', 'ornament', 'miniature'],
+      exclude: []
     }
   ];
 
@@ -79,6 +91,28 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
+  function textForItem(item) {
+    return [item.title, item.condition, item.seller]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+  }
+
+  function hasAny(text, words) {
+    if (!words || words.length === 0) return false;
+    return words.some(word => text.includes(word.toLowerCase()));
+  }
+
+  function belongsInCategory(item, category) {
+    if (!category || category.key === 'latest') return true;
+
+    const text = textForItem(item);
+    const included = hasAny(text, category.include);
+    const excluded = hasAny(text, category.exclude);
+
+    return included && !excluded;
+  }
+
   function setActive(key) {
     document.querySelectorAll('.category-pill').forEach(button => {
       button.classList.toggle('is-active', button.dataset.category === key);
@@ -101,9 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  async function fetchItemsForQueries(queries) {
+  async function fetchItemsForCategory(category) {
     const responses = await Promise.allSettled(
-      queries.map(query =>
+      category.queries.map(query =>
         fetch(functionUrl(query))
           .then(response => response.json())
           .then(data => {
@@ -119,7 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
       result.status === 'fulfilled' ? result.value : []
     );
 
-    return uniqueItems(combined).slice(0, 24);
+    return uniqueItems(combined)
+      .filter(item => belongsInCategory(item, category))
+      .slice(0, 24);
   }
 
   function renderItems(items) {
@@ -188,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setStatus(`Loading ${category.label.toLowerCase()}…`);
 
     try {
-      const items = await fetchItemsForQueries(category.queries);
+      const items = await fetchItemsForCategory(category);
       renderItems(items);
     } catch (error) {
       console.error(error);
