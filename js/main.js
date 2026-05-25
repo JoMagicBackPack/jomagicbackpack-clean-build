@@ -17,42 +17,42 @@ document.addEventListener('DOMContentLoaded', () => {
       label: 'Latest Finds',
       heading: 'Latest Finds',
       description: 'Fresh pieces currently showing from the backpack.',
-      query: 'a'
+      queries: ['a']
     },
     {
       key: 'clothing',
       label: 'Clothing',
       heading: 'Clothing',
       description: 'Shirts, jackets, sweaters, pants, and other wearable finds.',
-      query: 'shirt jacket sweater pants clothing'
+      queries: ['shirt', 'jacket', 'sweater', 'pants']
     },
     {
       key: 'shoes',
       label: 'Shoes',
       heading: 'Shoes',
       description: 'Shoes, boots, sneakers, sandals, and other footwear.',
-      query: 'shoes boots sneakers sandals loafers'
+      queries: ['shoes', 'boots', 'sneakers', 'sandals']
     },
     {
       key: 'bags',
       label: 'Bags & Accessories',
       heading: 'Bags & Accessories',
       description: 'Bags, wallets, hats, belts, scarves, jewelry, and smaller oddments.',
-      query: 'bag purse wallet clutch backpack hat belt scarf jewelry accessories'
+      queries: ['bag', 'purse', 'wallet', 'backpack', 'hat']
     },
     {
       key: 'home',
       label: 'Home & Housewares',
       heading: 'Home & Housewares',
       description: 'Dishes, glassware, decor, kitchen pieces, and useful home finds.',
-      query: 'plate bowl mug vase glass ceramic kitchen decor housewares'
+      queries: ['plate', 'bowl', 'mug', 'vase', 'glass', 'decor']
     },
     {
       key: 'collectibles',
       label: 'Collectibles',
       heading: 'Collectibles',
       description: 'Books, toys, media, art, vintage pieces, and category-resistant treasures.',
-      query: 'vintage collectible toy figure book media art Disney Pokemon'
+      queries: ['vintage', 'collectible', 'toy', 'book', 'art', 'Pokemon']
     }
   ];
 
@@ -71,11 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
-  function functionUrl(query) {
+  function functionUrl(query, limit = 6) {
     const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
     url.searchParams.set('seller', seller);
     url.searchParams.set('q', query || 'a');
-    url.searchParams.set('limit', '24');
+    url.searchParams.set('limit', String(limit));
     return url.toString();
   }
 
@@ -88,6 +88,38 @@ document.addEventListener('DOMContentLoaded', () => {
   function setStatus(message) {
     if (!productsGrid) return;
     productsGrid.innerHTML = `<div class="product-status">${message}</div>`;
+  }
+
+  function uniqueItems(items) {
+    const seen = new Set();
+
+    return items.filter(item => {
+      const key = item.id || item.url || item.title;
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  async function fetchItemsForQueries(queries) {
+    const responses = await Promise.allSettled(
+      queries.map(query =>
+        fetch(functionUrl(query))
+          .then(response => response.json())
+          .then(data => {
+            if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
+              return [];
+            }
+            return data.result.items;
+          })
+      )
+    );
+
+    const combined = responses.flatMap(result =>
+      result.status === 'fulfilled' ? result.value : []
+    );
+
+    return uniqueItems(combined).slice(0, 24);
   }
 
   function renderItems(items) {
@@ -124,19 +156,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.appendChild(link);
       card.appendChild(titleEl);
-      if (item.price) card.appendChild(priceEl);
+
+      if (item.price) {
+        card.appendChild(priceEl);
+      }
+
       productsGrid.appendChild(card);
     });
   }
 
-  function loadCategory(category) {
+  async function loadCategory(category) {
     if (!category) return;
 
     setActive(category.key);
+
     if (heading) heading.textContent = category.heading;
     if (description) description.textContent = category.description;
+
+    const viewQuery = category.queries.find(query => query !== 'a') || '';
+
     if (viewAllLink) {
-      viewAllLink.href = category.key === 'latest' ? storeUrl : ebaySearchUrl(category.query);
+      viewAllLink.href = category.key === 'latest'
+        ? storeUrl
+        : ebaySearchUrl(viewQuery);
+
       viewAllLink.textContent = category.key === 'latest'
         ? 'View all items on eBay'
         : `View all ${category.label} on eBay`;
@@ -144,19 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setStatus(`Loading ${category.label.toLowerCase()}…`);
 
-    fetch(functionUrl(category.query))
-      .then(response => response.json())
-      .then(data => {
-        if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
-          setStatus('The live eBay feed did not return items. Use the view-all link to open the store directly.');
-          return;
-        }
-        renderItems(data.result.items);
-      })
-      .catch(error => {
-        console.error(error);
-        setStatus('The live eBay feed did not load. Use the view-all link to open the store directly.');
-      });
+    try {
+      const items = await fetchItemsForQueries(category.queries);
+      renderItems(items);
+    } catch (error) {
+      console.error(error);
+      setStatus('The live eBay feed did not load. Use the view-all link to open the store directly.');
+    }
   }
 
   if (categoryControls) {
@@ -166,7 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     categoryControls.addEventListener('click', event => {
       const button = event.target.closest('.category-pill');
+
       if (!button) return;
+
       const category = categories.find(item => item.key === button.dataset.category);
       loadCategory(category);
     });
