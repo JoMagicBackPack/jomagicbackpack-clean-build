@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
+  <meta name="description" content="JoMagicBackpack — vintage, new, and unpredictable finds from the backpack.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header>
     <div class="container">
       <h1>JoMagicBackpack</h1>
-      <button class="menu-toggle">&#9776;</button>
+      <button class="menu-toggle" aria-label="Open navigation">&#9776;</button>
       <nav>
         <ul class="nav-list">
           <li><a href="#home">Home</a></li>
@@ -18,91 +19,66 @@
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">eBay Store</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Hero section -->
     <section id="home" class="hero">
       <div class="container">
         <h2>Welcome to JoMagicBackpack</h2>
-        <p>Discover unique reseller treasures curated just for you.</p>
+        <p>Vintage, new, and unpredictable. If it sparks curiosity, it goes in the pack.</p>
+        <a class="primary-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">Visit the eBay Store</a>
       </div>
     </section>
 
-    <!-- Products section -->
     <section id="products" class="products-section">
       <div class="container">
-        <h2>Featured Products</h2>
-        <div class="products-grid">
-          <!-- Example product cards -->
-          <div class="product-card">
-            <img src="https://via.placeholder.com/200x150" alt="Vintage Camera">
-            <h3>Vintage Camera</h3>
-            <p>A retro film camera for collectors and photography enthusiasts.</p>
-            <span class="price">$85</span>
-          </div>
-          <div class="product-card">
-            <img src="https://via.placeholder.com/200x150" alt="Leather Satchel">
-            <h3>Leather Satchel</h3>
-            <p>A rugged yet stylish leather satchel perfect for everyday carry.</p>
-            <span class="price">$120</span>
-          </div>
-          <div class="product-card">
-            <img src="https://via.placeholder.com/200x150" alt="Porcelain Teapot">
-            <h3>Porcelain Teapot</h3>
-            <p>A delicate hand-painted teapot for your afternoon tea sessions.</p>
-            <span class="price">$45</span>
-          </div>
+        <h2 id="products-heading">Latest Finds</h2>
+        <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
+
+        <div id="categoryControls" class="category-controls" aria-label="Product categories"></div>
+
+        <div class="products-toolbar">
+          <button id="scrollLeft" class="carousel-button" type="button" aria-label="Scroll products left">‹</button>
+          <button id="scrollRight" class="carousel-button" type="button" aria-label="Scroll products right">›</button>
+          <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
+        </div>
+
+        <div class="products-grid" aria-live="polite">
+          <div class="product-status">Loading latest finds…</div>
         </div>
       </div>
     </section>
 
-    <!-- About section -->
     <section id="about" class="about-section">
       <div class="container">
         <h2>About JoMagicBackpack</h2>
-        <p>JoMagicBackpack is run by Jordan, an experienced reseller with a keen eye for hidden gems. With years of experience uncovering unique items, Jordan brings a curated selection of vintage, quirky, and collectible items directly to you. Each piece has a story and is chosen for its character and charm.</p>
+        <p>JoMagicBackpack is a menagerie of finds: part vintage, part new, always surprising. Each piece is chosen because it has character, usefulness, humor, beauty, or some odd little spark that makes it worth noticing.</p>
       </div>
     </section>
 
-    <!-- Reviews section -->
     <section id="reviews" class="reviews-section">
       <div class="container">
-        <h2>What Our Customers Say</h2>
+        <h2>What Buyers Say</h2>
         <div class="reviews">
           <blockquote>
-            "I love the unique finds at JoMagicBackpack. Each item feels like a story waiting to be discovered!"<br><span>- Alex P.</span>
+            "Great seller. Fast shipping. A+"
           </blockquote>
           <blockquote>
-            "Fast shipping and amazing quality. I can't wait to see what's added next!"<br><span>- Casey M.</span>
+            "Exactly as described. Packed with care."
           </blockquote>
         </div>
       </div>
     </section>
 
-    <!-- Contact section -->
     <section id="contact" class="contact-section">
       <div class="container">
-        <h2>Contact Us</h2>
-        <p>Have a question or looking for something special? Drop us a line!</p>
-        <form action="mailto:info@jomagicbackpack.com" method="post" enctype="text/plain">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-          </div>
-          <button type="submit">Send Message</button>
-        </form>
+        <h2>Contact</h2>
+        <p>Questions about an item? Message the shop through eBay or email info@jomagicbackpack.com.</p>
+        <a class="primary-link" href="mailto:info@jomagicbackpack.com">Email JoMagicBackpack</a>
       </div>
     </section>
   </main>
