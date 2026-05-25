@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function restartTimer() {
     if (timer) clearInterval(timer);
-    timer = setInterval(nextReview, 6500);
+    timer = setInterval(nextReview, 5500);
   }
 
   function initializeReviewCarousel(data) {
