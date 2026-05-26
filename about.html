@@ -7,44 +7,69 @@
   <meta name="description" content="About JoMagicBackpack and the kind of finds that go into the pack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
   <link rel="stylesheet" href="css/styles.css">
+
   <style>
     .about-hero {
       position: relative;
       overflow: hidden;
-      min-height: 80vh;
+      min-height: 88vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(to bottom, #0f1722, #0b1017);
+      background:
+        radial-gradient(circle at top, rgba(88,180,255,.14), transparent 40%),
+        linear-gradient(to bottom, #0f1722, #0a1017);
     }
 
-    .about-sketch {
+    .about-overlay {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(155, 230, 255, 0.18);
-      pointer-events: none;
+      background: linear-gradient(to right, rgba(9,14,20,.88) 0%, rgba(9,14,20,.72) 45%, rgba(9,14,20,.28) 100%);
+      z-index: 1;
     }
 
-    .about-sketch svg {
-      width: min(95vw, 900px);
-      height: auto;
-      transform: translateX(8%);
+    .traveler-bg {
+      position: absolute;
+      right: -3%;
+      bottom: 0;
+      width: min(72vw, 720px);
+      opacity: .22;
+      filter: grayscale(1) hue-rotate(175deg) saturate(.7);
+      z-index: 0;
+      mix-blend-mode: screen;
     }
 
     .about-content {
       position: relative;
       z-index: 2;
-      max-width: 720px;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+      max-width: 640px;
+      padding: 3rem 0;
     }
 
     .about-content p {
-      margin-top: 1rem;
-      font-size: 1.05rem;
-      color: #c7d9e7;
-      line-height: 1.8;
+      margin-top: 1.2rem;
+      font-size: 1.08rem;
+      line-height: 1.9;
+      color: #c8d7e4;
+      text-shadow: 0 2px 12px rgba(0,0,0,.45);
+    }
+
+    .about-note {
+      color: #9ddfff;
+      opacity: .82;
+      font-style: italic;
+      margin-top: 1.8rem;
+    }
+
+    @media (max-width: 768px) {
+      .traveler-bg {
+        width: 110vw;
+        right: -34%;
+        opacity: .18;
+      }
+
+      .about-overlay {
+        background: linear-gradient(to bottom, rgba(9,14,20,.82), rgba(9,14,20,.72));
+      }
     }
   </style>
 </head>
@@ -52,6 +77,7 @@
   <header>
     <div class="container header-inner">
       <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home"><span>JoMagicBackpack</span></a>
+
       <nav aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
@@ -59,7 +85,7 @@
           <li><a href="about.html">About</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer" aria-label="Visit eBay store"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay"></a></li>
+          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay"></a></li>
         </ul>
       </nav>
     </div>
@@ -67,38 +93,29 @@
 
   <main>
     <section class="about-hero page-section">
-      <div class="about-sketch" aria-hidden="true">
-        <svg viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M475 160c38 8 69 42 72 84 2 34-12 61-34 79" stroke-width="7" opacity="0.22"/>
-            <path d="M516 328c22-9 53-5 75 10 37 25 53 77 40 125" stroke-width="7" opacity="0.18"/>
-            <path d="M453 248c-22 8-44 31-51 61-8 34 1 72 28 101" stroke-width="7" opacity="0.18"/>
-            <path d="M447 210c24-18 52-27 82-22" stroke-width="6" opacity="0.2"/>
-            <path d="M426 253c18-9 35-10 53-5" stroke-width="5" opacity="0.18"/>
-            <path d="M466 339c-34 11-58 39-67 77-15 62 11 134 70 170 59 35 139 29 189-15" stroke-width="9" opacity="0.22"/>
-            <path d="M496 355c52-8 110 22 136 73 28 56 15 130-33 174" stroke-width="9" opacity="0.24"/>
-            <path d="M476 335c16 36 48 64 88 74 44 11 88 0 122-30" stroke-width="7" opacity="0.16"/>
-            <path d="M510 145c31 28 39 67 29 101" stroke-width="6" opacity="0.18"/>
-            <path d="M530 150c8 18 9 35 5 52" stroke-width="5" opacity="0.15"/>
-            <path d="M503 193c13 18 18 41 14 62" stroke-width="5" opacity="0.15"/>
-            <path d="M391 461c-42 29-65 77-62 126 4 59 42 112 98 138" stroke-width="7" opacity="0.16"/>
-            <path d="M673 449c40 25 64 69 64 116 0 58-35 108-88 135" stroke-width="7" opacity="0.14"/>
-            <path d="M461 292c14 16 36 24 58 21 22-2 41-15 50-34" stroke-width="5" opacity="0.18"/>
-            <path d="M467 227c11-13 27-19 43-18" stroke-width="4" opacity="0.16"/>
-            <path d="M689 236l10 21 21 10-21 10-10 21-10-21-21-10 21-10 10-21z" stroke-width="4" opacity="0.18"/>
-            <path d="M243 603l7 15 15 7-15 7-7 15-7-15-15-7 15-7 7-15z" stroke-width="4" opacity="0.14"/>
-          </g>
-        </svg>
-      </div>
+      <img class="traveler-bg" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200&auto=format&fit=crop" alt="">
+      <div class="about-overlay"></div>
 
       <div class="container about-content">
-        <div class="hero-title"><span class="hero-title-main">About the Pack</span></div>
-        <p>JoMagicBackpack is a menagerie of finds: part vintage, part new, always surprising. Each piece is chosen because it has character, usefulness, humor, beauty, or some odd little spark that makes it worth noticing.</p>
-        <p>The pack is not built around one strict theme. It is built around curiosity — the useful, the strange, the beautiful, the funny, and the overlooked things that still have life in them.</p>
+        <div class="hero-title">
+          <span class="hero-title-main">About the Pack</span>
+        </div>
+
+        <p>JoMagicBackpack is a wandering collection of strange, useful, beautiful, nostalgic, and overlooked things. Some are vintage. Some are modern. Some are difficult to explain. All of them earned their way into the pack somehow.</p>
+
+        <p>The idea is simple: if something sparks curiosity, humor, wonder, usefulness, or memory — it belongs here. The backpack became less of a logo over time and more of a symbol for carrying pieces of the world that still feel alive.</p>
+
+        <p>Part thrift expedition. Part curiosity cabinet. Part digital backpack carried from one strange find to the next.</p>
+
+        <p class="about-note">Some people collect things. Some people collect stories attached to them.</p>
       </div>
     </section>
   </main>
 
-  <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
