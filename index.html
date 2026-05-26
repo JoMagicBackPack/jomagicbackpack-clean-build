@@ -12,14 +12,13 @@
   <header>
     <div class="container header-inner">
       <a class="brand-mark" href="#home" aria-label="JoMagicBackpack home">
-        <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="JoMagicBackpack backpack logo">
         <span>JoMagicBackpack</span>
       </a>
       <button class="menu-toggle" aria-label="Open navigation">&#9776;</button>
       <nav>
         <ul class="nav-list">
           <li><a href="#home">Home</a></li>
-          <li><a href="#products">Products</a></li>
+          <li><a href="#products">Open the Backpack</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -32,31 +31,42 @@
   <main>
     <section id="home" class="hero">
       <div class="container hero-inner">
-        <img class="hero-logo" src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="Magical backpack logo">
         <div class="hero-title" aria-label="JoMagicBackpack">
           <span class="hero-title-main">Jo’Magic</span>
           <span class="hero-title-sub">Backpack</span>
         </div>
         <p>Vintage, new, and unpredictable. If it sparks curiosity, it goes in the pack.</p>
-        <a class="primary-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">Visit the eBay Store</a>
+        <a class="primary-link" href="#products">Open the Backpack</a>
       </div>
     </section>
 
     <section id="products" class="products-section">
       <div class="container">
-        <h2 id="products-heading">Latest Finds</h2>
-        <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
-
-        <div id="categoryControls" class="category-controls" aria-label="Product categories"></div>
-
-        <div class="products-toolbar">
-          <button id="scrollLeft" class="carousel-button" type="button" aria-label="Scroll products left">‹</button>
-          <button id="scrollRight" class="carousel-button" type="button" aria-label="Scroll products right">›</button>
-          <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
+        <div id="backpackGate" class="backpack-gate">
+          <p class="gate-kicker">Take a peek inside</p>
+          <button id="openBackpack" class="backpack-button" type="button" aria-label="Open the backpack and show product categories">
+            <span class="gate-arrow gate-arrow-left">↓</span>
+            <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="Open the JoMagicBackpack">
+            <span class="gate-arrow gate-arrow-right">↓</span>
+          </button>
+          <p class="gate-copy">Open the backpack</p>
         </div>
 
-        <div class="products-grid" aria-live="polite">
-          <div class="product-status">Loading latest finds…</div>
+        <div id="shopInterface" class="shop-interface" aria-hidden="true">
+          <h2 id="products-heading">Latest Finds</h2>
+          <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
+
+          <div id="categoryControls" class="category-controls" aria-label="Product categories"></div>
+
+          <div class="products-toolbar">
+            <button id="scrollLeft" class="carousel-button" type="button" aria-label="Scroll products left">‹</button>
+            <button id="scrollRight" class="carousel-button" type="button" aria-label="Scroll products right">›</button>
+            <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
+          </div>
+
+          <div class="products-grid" aria-live="polite">
+            <div class="product-status">Loading latest finds…</div>
+          </div>
         </div>
       </div>
     </section>
