@@ -7,6 +7,46 @@
   <meta name="description" content="About JoMagicBackpack and the kind of finds that go into the pack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .about-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(to bottom, #0f1722, #0b1017);
+    }
+
+    .about-sketch {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(155, 230, 255, 0.18);
+      pointer-events: none;
+    }
+
+    .about-sketch svg {
+      width: min(95vw, 900px);
+      height: auto;
+      transform: translateX(8%);
+    }
+
+    .about-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+    }
+
+    .about-content p {
+      margin-top: 1rem;
+      font-size: 1.05rem;
+      color: #c7d9e7;
+      line-height: 1.8;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -28,26 +68,25 @@
   <main>
     <section class="about-hero page-section">
       <div class="about-sketch" aria-hidden="true">
-        <svg viewBox="0 0 900 900" role="img">
-          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M322 208c41-52 117-43 151 2 30 41 16 92-14 121" stroke-width="7" opacity=".26"/>
-            <path d="M360 268c-22 9-48 26-62 55-21 44-7 94 13 127 22 37 59 58 96 70" stroke-width="8" opacity=".20"/>
-            <path d="M419 342c36-20 91-24 137-2 50 24 80 70 86 123 8 70-30 134-92 160-59 25-132 11-177-37" stroke-width="8" opacity=".24"/>
-            <path d="M505 331c39 2 94 17 120 57 18 28 20 65 9 94" stroke-width="5" opacity=".22"/>
-            <path d="M458 400c-3-55 25-94 72-104 54-11 107 28 112 88l18 198c5 58-35 104-93 104H449c-52 0-93-42-91-94l9-134c2-31 26-56 57-58h34z" stroke-width="8" opacity=".34"/>
-            <path d="M458 400c19 31 56 49 95 45 38-4 70-30 84-64" stroke-width="6" opacity=".25"/>
-            <path d="M409 508h195" stroke-width="6" opacity=".22"/>
-            <path d="M431 568h151" stroke-width="6" opacity=".22"/>
-            <path d="M425 641c32 19 112 20 147 0" stroke-width="6" opacity=".18"/>
-            <path d="M363 446c-37 18-64 53-72 94-11 59 17 119 70 150" stroke-width="6" opacity=".18"/>
-            <path d="M651 410c33 10 58 37 68 71 13 45-2 92-39 121" stroke-width="6" opacity=".18"/>
-            <path d="M514 294c5-32 20-54 44-66" stroke-width="5" opacity=".18"/>
-            <path d="M265 696c66 40 146 62 231 62 87 0 169-23 236-64" stroke-width="4" opacity=".12"/>
-            <path d="M687 227l9 21 21 9-21 9-9 21-9-21-21-9 21-9 9-21z" stroke-width="4" opacity=".24"/>
-            <path d="M222 334l6 15 15 6-15 6-6 15-6-15-15-6 15-6 6-15z" stroke-width="4" opacity=".20"/>
-            <path d="M705 637l5 12 12 5-12 5-5 12-5-12-12-5 12-5 5-12z" stroke-width="4" opacity=".16"/>
-            <circle cx="610" cy="238" r="8" stroke-width="4" opacity=".18"/>
-            <circle cx="255" cy="617" r="5" stroke-width="4" opacity=".15"/>
+        <svg viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M475 160c38 8 69 42 72 84 2 34-12 61-34 79" stroke-width="7" opacity="0.22"/>
+            <path d="M516 328c22-9 53-5 75 10 37 25 53 77 40 125" stroke-width="7" opacity="0.18"/>
+            <path d="M453 248c-22 8-44 31-51 61-8 34 1 72 28 101" stroke-width="7" opacity="0.18"/>
+            <path d="M447 210c24-18 52-27 82-22" stroke-width="6" opacity="0.2"/>
+            <path d="M426 253c18-9 35-10 53-5" stroke-width="5" opacity="0.18"/>
+            <path d="M466 339c-34 11-58 39-67 77-15 62 11 134 70 170 59 35 139 29 189-15" stroke-width="9" opacity="0.22"/>
+            <path d="M496 355c52-8 110 22 136 73 28 56 15 130-33 174" stroke-width="9" opacity="0.24"/>
+            <path d="M476 335c16 36 48 64 88 74 44 11 88 0 122-30" stroke-width="7" opacity="0.16"/>
+            <path d="M510 145c31 28 39 67 29 101" stroke-width="6" opacity="0.18"/>
+            <path d="M530 150c8 18 9 35 5 52" stroke-width="5" opacity="0.15"/>
+            <path d="M503 193c13 18 18 41 14 62" stroke-width="5" opacity="0.15"/>
+            <path d="M391 461c-42 29-65 77-62 126 4 59 42 112 98 138" stroke-width="7" opacity="0.16"/>
+            <path d="M673 449c40 25 64 69 64 116 0 58-35 108-88 135" stroke-width="7" opacity="0.14"/>
+            <path d="M461 292c14 16 36 24 58 21 22-2 41-15 50-34" stroke-width="5" opacity="0.18"/>
+            <path d="M467 227c11-13 27-19 43-18" stroke-width="4" opacity="0.16"/>
+            <path d="M689 236l10 21 21 10-21 10-10 21-10-21-21-10 21-10 10-21z" stroke-width="4" opacity="0.18"/>
+            <path d="M243 603l7 15 15 7-15 7-7 15-7-15-15-7 15-7 7-15z" stroke-width="4" opacity="0.14"/>
           </g>
         </svg>
       </div>
