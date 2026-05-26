@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backpack - JoMagicBackpack</title>
+  <meta name="description" content="Open the JoMagicBackpack and browse current finds by category.">
+  <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home">
+        <span>JoMagicBackpack</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open navigation">&#9776;</button>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="backpack.html">Backpack</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">eBay Store</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="products" class="products-section page-section">
+      <div class="container">
+        <div id="backpackGate" class="backpack-gate">
+          <button id="openBackpack" class="backpack-button" type="button" aria-label="Open the backpack and show product categories">
+            <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="Open the JoMagicBackpack">
+          </button>
+          <p class="gate-copy">Click the pack to see what’s inside</p>
+        </div>
+
+        <div id="shopInterface" class="shop-interface" aria-hidden="true">
+          <h1 id="products-heading">Latest Finds</h1>
+          <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
+
+          <div id="categoryControls" class="category-controls" aria-label="Product categories"></div>
+
+          <div class="products-toolbar">
+            <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
+          </div>
+
+          <div class="products-grid" aria-live="polite">
+            <div class="product-status">Loading latest finds…</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
