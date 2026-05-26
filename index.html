@@ -7,6 +7,117 @@
   <meta name="description" content="JoMagicBackpack — vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
   <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .backpack-gate {
+      text-align: center;
+      padding-top: .5rem;
+    }
+
+    .backpack-button {
+      position: relative;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      isolation: isolate;
+    }
+
+    .backpack-button::before {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 68%;
+      height: 68%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(120,220,255,.22), rgba(120,220,255,0));
+      filter: blur(18px);
+      animation: backpackPulse 4.2s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .backpack-button::after {
+      content: 'tap to open';
+      position: absolute;
+      left: 50%;
+      bottom: -2px;
+      transform: translateX(-50%);
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(218,240,255,.68);
+      opacity: 0;
+      transition: opacity .25s ease, transform .25s ease;
+      pointer-events: none;
+      font-weight: 700;
+    }
+
+    .backpack-button:hover::after,
+    .backpack-button:focus-visible::after,
+    .backpack-button:active::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    .backpack-button img {
+      width: min(82vw, 390px);
+      max-height: 390px;
+      object-fit: contain;
+      transition: transform .28s ease, filter .28s ease;
+      animation: backpackFloat 5.8s ease-in-out infinite;
+      filter: drop-shadow(0 0 22px rgba(110,210,255,.18));
+    }
+
+    .backpack-button:hover img,
+    .backpack-button:focus-visible img,
+    .backpack-button:active img {
+      transform: scale(1.035) translateY(-4px);
+      filter: drop-shadow(0 0 34px rgba(110,210,255,.34));
+    }
+
+    .gate-copy {
+      display: none;
+    }
+
+    .trust-strip {
+      margin: 0 auto 2rem;
+      padding: .85rem 1.2rem;
+      width: fit-content;
+      border-radius: 999px;
+      background: rgba(19,30,42,.78);
+      border: 1px solid rgba(126,208,255,.12);
+      color: #dce9f4;
+      font-size: .92rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+    }
+
+    .trust-strip span {
+      color: #9fe4ff;
+    }
+
+    @keyframes backpackPulse {
+      0%, 100% {
+        opacity: .55;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        opacity: .95;
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    @keyframes backpackFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -14,6 +125,7 @@
       <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home">
         <span>JoMagicBackpack</span>
       </a>
+
       <nav aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
@@ -51,6 +163,10 @@
         </div>
 
         <div id="shopInterface" class="shop-interface" aria-hidden="true">
+          <div class="trust-strip">
+            <span>100% Positive Feedback</span> • Top Rated Seller on eBay
+          </div>
+
           <h2 id="products-heading">Latest Finds</h2>
           <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
 
