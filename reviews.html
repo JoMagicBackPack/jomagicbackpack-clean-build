@@ -29,10 +29,24 @@
 <div class="container hero-inner">
 <div class="hero-title"><span class="hero-title-main">Buyer Reviews</span></div>
 <p>Real feedback from customers who took a peek inside the backpack.</p>
+
+<div class="review-carousel-card">
+  <button id="reviewPrev" class="review-arrow" aria-label="Previous review">←</button>
+
+  <div class="review-carousel-content">
+    <blockquote id="reviewQuote">Loading reviews…</blockquote>
+    <p id="reviewSource"></p>
+    <div id="reviewDots" class="review-dots"></div>
+  </div>
+
+  <button id="reviewNext" class="review-arrow" aria-label="Next review">→</button>
+</div>
 </div>
 </section>
 </main>
 
 <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
+
+<script src="js/reviews.js"></script>
 </body>
 </html>
