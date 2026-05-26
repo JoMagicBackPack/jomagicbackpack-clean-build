@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const backpackGate = document.getElementById('backpackGate');
+  const openBackpack = document.getElementById('openBackpack');
+  const shopInterface = document.getElementById('shopInterface');
+
+  if (openBackpack && backpackGate && shopInterface) {
+    openBackpack.addEventListener('click', () => {
+      backpackGate.classList.add('opened');
+      shopInterface.classList.add('is-visible');
+      shopInterface.setAttribute('aria-hidden', 'false');
+      shopInterface.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   const seller = 'jomagicbackpack';
   const storeUrl = `https://www.ebay.com/str/${seller}`;
 
@@ -83,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
-  function functionUrl(query, limit = 6) {
+  function functionUrl(query, limit = 8) {
     const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
     url.searchParams.set('seller', seller);
     url.searchParams.set('q', query || 'a');
