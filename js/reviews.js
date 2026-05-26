@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let timer = null;
 
   const fallbackReviews = [
-    { quote: 'Great seller. Fast shipping. A+', source: 'eBay buyer feedback' },
-    { quote: 'Exactly as described. Packed with care.', source: 'eBay buyer feedback' },
-    { quote: 'Item arrived safely and as described.', source: 'eBay buyer feedback' },
-    { quote: 'Smooth transaction. Thank you.', source: 'eBay buyer feedback' }
+    { quote: 'Great seller. Fast shipping. A+', source: 'eBay buyer feedback', buyer: 'm***7' },
+    { quote: 'Exactly as described. Packed with care.', source: 'eBay buyer feedback', buyer: 'r***k' },
+    { quote: 'Item arrived safely and as described.', source: 'eBay buyer feedback', buyer: 'c***2' },
+    { quote: 'Smooth transaction. Thank you.', source: 'eBay buyer feedback', buyer: 't***x' }
   ];
 
   function renderDots() {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     quoteEl.textContent = `“${review.quote}”`;
 
     if (sourceEl) {
-      sourceEl.textContent = review.source || 'eBay buyer feedback';
+      sourceEl.innerHTML = `${review.source || 'eBay buyer feedback'} <span style="opacity:.7;">• buyer ${review.buyer || 'anonymous'}</span>`;
     }
 
     renderDots();
