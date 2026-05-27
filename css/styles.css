@@ -87,8 +87,6 @@ nav {
 
 .ebay-link img {
   width: 32px;
-  height: auto;
-  display: block;
 }
 
 section {
@@ -106,19 +104,13 @@ section {
   max-width: 760px;
 }
 
-.hero-title {
-  margin-bottom: 1rem;
-}
-
 .hero-title-main {
   font-family: 'Caveat', cursive;
   font-size: clamp(4rem, 10vw, 7rem);
   font-weight: 700;
   color: #bdefff;
   text-shadow: 0 0 22px rgba(126, 220, 255, 0.12);
-  letter-spacing: 0.01em;
   line-height: 0.95;
-  animation: fadeRise 1.4s ease forwards;
 }
 
 .hero p {
@@ -134,43 +126,12 @@ section {
   padding-top: 2rem;
 }
 
-.backpack-gate {
-  text-align: center;
-  padding: 0.5rem 0 1.5rem;
-}
-
-.backpack-button {
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.backpack-button img {
-  width: min(76vw, 360px);
-  max-height: 360px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 18px rgba(126, 208, 255, 0.18));
-  transition: transform 0.22s ease, filter 0.22s ease;
-}
-
-.backpack-button:hover img {
-  transform: translateY(-2px) scale(1.01);
-}
-
-.gate-copy {
-  color: #dff5ff;
-  font-size: clamp(1.2rem, 4vw, 2rem);
-  font-weight: 700;
-  margin-top: 0.25rem;
-}
-
 .shop-interface {
   display: none;
 }
 
 .shop-interface.is-visible {
   display: block;
-  animation: fadeRise 0.5s ease forwards;
 }
 
 .backpack-gate.opened {
@@ -178,20 +139,72 @@ section {
 }
 
 .category-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  align-items: center;
-  margin: 1rem 0;
+  display: none;
 }
 
-.category-pill {
-  border: 1px solid rgba(126, 208, 255, 0.22);
-  background: #152132;
-  color: #dff4ff;
-  border-radius: 999px;
-  padding: 0.55rem 0.85rem;
-  font-weight: 700;
+.showcase-intro {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+
+.showcase-intro p {
+  color: #dff7ff;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  opacity: 0.9;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.showcase-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(22,34,50,0.95), rgba(14,22,34,0.98));
+  border: 1px solid rgba(126,208,255,0.12);
+  border-radius: 22px;
+  padding: 1.4rem;
+  min-height: 180px;
+  cursor: pointer;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+
+.showcase-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(126,208,255,0.28);
+  box-shadow: 0 12px 36px rgba(0,0,0,.26);
+}
+
+.showcase-glow {
+  position: absolute;
+  inset: auto auto -40px -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(126,208,255,.18), transparent 70%);
+}
+
+.showcase-emblem {
+  font-size: 2.2rem;
+  margin-bottom: .8rem;
+  opacity: 0.95;
+}
+
+.showcase-card h3 {
+  color: #f2fbff;
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+}
+
+.showcase-card p {
+  color: #a9c5d9;
+  font-size: .96rem;
+  line-height: 1.5;
+  max-width: 24ch;
 }
 
 .view-all-link {
@@ -201,12 +214,6 @@ section {
   font-weight: 700;
   text-decoration: none;
   text-shadow: 0 0 12px rgba(143, 232, 255, 0.28);
-  transition: color 0.2s ease, text-shadow 0.2s ease;
-}
-
-.view-all-link:hover {
-  color: #dffbff;
-  text-shadow: 0 0 18px rgba(143, 232, 255, 0.5);
 }
 
 .products-grid {
@@ -251,17 +258,6 @@ footer {
   padding: 2rem 0;
 }
 
-@keyframes fadeRise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @media (max-width: 768px) {
   .header-inner {
     flex-direction: column;
@@ -286,6 +282,10 @@ footer {
     padding: 0.35rem 0.58rem;
     background: rgba(21, 33, 50, 0.7);
     font-size: 0.78rem;
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
   }
 
   .products-grid {
