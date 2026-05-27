@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const initialVisibleCount = 24;
   const loadMoreStep = 24;
   const fetchLimitPerQuery = 60;
+  const recentListingDays = 30;
 
   let activeItems = [];
   let visibleItemCount = initialVisibleCount;
@@ -26,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       label: 'Newly Listed',
       emblem: '✦',
       heading: 'Newly Listed',
-      description: 'Discover the most recently listed items.',
-      mood: 'Discover the most recently listed items.',
+      description: `Items listed within the last ${recentListingDays} days.`,
+      mood: 'Fresh finds recently added to the backpack.',
       queries: [''],
       viewQuery: ''
     },
@@ -110,6 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
+  function isRecentListing(item, days = recentListingDays) {
+    const start = Date.parse(item.startTime || '');
+    if (!start) return false;
+
+    const ageMs = Date.now() - start;
+    const ageDays = ageMs / (1000 * 60 * 60 * 24);
+
+    return ageDays <= days;
+  }
+
   function textForItem(item) {
     return [item.title, item.condition, item.seller].filter(Boolean).join(' ').toLowerCase();
   }
@@ -119,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function belongsInCategory(item, category) {
-    if (!category || category.key === 'latest') return true;
+    if (!category) return false;
+
+    if (category.key === 'latest') {
+      return isRecentListing(item);
+    }
 
     const text = textForItem(item);
 
