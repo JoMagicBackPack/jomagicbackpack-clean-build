@@ -259,60 +259,115 @@ section {
 .category-showcase {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  max-width: 920px;
+  gap: 1.05rem;
+  max-width: 940px;
   margin: 0 auto;
+  perspective: 900px;
 }
 
 .category-card {
   appearance: none;
-  border: 1px solid rgba(126,208,255,0.16);
-  background: linear-gradient(145deg, rgba(22,34,50,0.96), rgba(13,22,34,0.98));
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(164, 224, 255, 0.22);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.055), rgba(255,255,255,0.01) 32%, rgba(121,214,255,0.035) 68%, rgba(194,151,255,0.055)),
+    radial-gradient(circle at 18% 14%, rgba(158, 232, 255, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 90%, rgba(171, 119, 255, 0.10), transparent 36%),
+    linear-gradient(145deg, rgba(25,39,58,0.84), rgba(12,20,32,0.94));
   color: #e7f7ff;
-  border-radius: 22px;
-  padding: 1.25rem;
-  min-height: 150px;
+  border-radius: 24px;
+  padding: 1.35rem;
+  min-height: 158px;
   text-align: left;
   cursor: pointer;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.22);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(126,208,255,0.05),
+    0 16px 38px rgba(0,0,0,0.28),
+    0 0 24px rgba(91, 190, 255, 0.055);
+  backdrop-filter: blur(10px);
+  transform: translateZ(0);
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease, background-position 0.24s ease;
+}
+
+.category-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.08) 32%, rgba(147,225,255,0.05) 48%, transparent 68%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 14px);
+  opacity: 0.42;
+  transform: translateX(-8%);
+  transition: opacity 0.24s ease, transform 0.6s ease;
+}
+
+.category-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 23px;
+  border: 1px solid rgba(255,255,255,0.045);
+  pointer-events: none;
 }
 
 .category-card:hover,
 .category-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: rgba(126,208,255,0.34);
-  box-shadow: 0 16px 42px rgba(0,0,0,0.3);
+  transform: translateY(-4px) scale(1.012);
+  border-color: rgba(170, 235, 255, 0.44);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 0 -1px 0 rgba(126,208,255,0.08),
+    0 22px 52px rgba(0,0,0,0.36),
+    0 0 34px rgba(110,210,255,0.16);
   outline: none;
+}
+
+.category-card:hover::before,
+.category-card:focus-visible::before {
+  opacity: 0.68;
+  transform: translateX(5%);
 }
 
 .category-emblem {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  margin-bottom: 0.8rem;
-  border-radius: 50%;
-  background: rgba(126,208,255,0.12);
-  color: #aeeaff;
-  font-size: 1.45rem;
-  border: 1px solid rgba(126,208,255,0.16);
+  width: 46px;
+  height: 46px;
+  margin-bottom: 0.85rem;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.16), transparent 45%),
+    rgba(126,208,255,0.095);
+  color: #bff2ff;
+  font-size: 1.55rem;
+  line-height: 1;
+  border: 1px solid rgba(158,232,255,0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 0 18px rgba(126,208,255,0.12);
+  text-shadow: 0 0 12px rgba(158,232,255,0.35);
 }
 
 .category-title {
   display: block;
   color: #f3fbff;
-  font-size: 1.18rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  margin-bottom: 0.38rem;
+  margin-bottom: 0.42rem;
+  letter-spacing: 0.01em;
 }
 
 .category-description {
   display: block;
-  color: #abc6da;
-  font-size: 0.95rem;
+  color: #b7ccdc;
+  font-size: 0.96rem;
   line-height: 1.45;
+  max-width: 32ch;
 }
 
 .product-panel {
@@ -426,6 +481,25 @@ footer {
   50% { transform: translateY(-6px); }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .category-card {
+    animation: categoryDrift 9s ease-in-out infinite;
+  }
+
+  .category-card:nth-child(2n) {
+    animation-delay: -2.4s;
+  }
+
+  .category-card:nth-child(3n) {
+    animation-delay: -4.6s;
+  }
+}
+
+@keyframes categoryDrift {
+  0%, 100% { background-position: 0% 0%, 0% 0%, 100% 100%, 0% 0%; }
+  50% { background-position: 8% 0%, 6% 4%, 94% 96%, 0% 0%; }
+}
+
 @media (max-width: 768px) {
   .container {
     width: 92%;
@@ -478,7 +552,7 @@ footer {
 
   .category-card {
     min-height: auto;
-    padding: 1.1rem;
+    padding: 1.15rem;
   }
 
   .products-grid {
