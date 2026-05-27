@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadMoreStep = 24;
   const fetchLimitPerQuery = 60;
   const recentListingDays = 30;
+  const minimumRecentItems = 10;
 
   let activeItems = [];
   let visibleItemCount = initialVisibleCount;
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       label: 'Newly Listed',
       emblem: '✦',
       heading: 'Newly Listed',
-      description: `Items listed within the last ${recentListingDays} days.`,
+      description: `Fresh finds from the last ${recentListingDays} days, with newer items prioritized first.`,
       mood: 'Fresh finds recently added to the backpack.',
       queries: [''],
       viewQuery: ''
@@ -132,11 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function belongsInCategory(item, category) {
     if (!category) return false;
 
-    if (category.key === 'latest') {
-      return isRecentListing(item);
-    }
-
     const text = textForItem(item);
+
+    if (category.key === 'latest') {
+      return true;
+    }
 
     if (category.key === 'curiosities') {
       return !hasAny(text, category.exclude || []);
@@ -161,6 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const bTime = Date.parse(b.startTime || '') || 0;
       return bTime - aTime;
     });
+  }
+
+  function prioritizeRecent(items) {
+    const recent = items.filter(item => isRecentListing(item));
+    const older = items.filter(item => !isRecentListing(item));
+
+    if (recent.length >= minimumRecentItems) {
+      return [...recent, ...older];
+    }
+
+    return [...recent, ...older];
   }
 
   function renderCategories() {
@@ -234,9 +246,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return data.result.items;
     });
 
-    return sortNewestFirst(
-      uniqueItems(combined).filter(item => belongsInCategory(item, category))
-    );
+    let filtered = uniqueItems(combined).filter(item => belongsInCategory(item, category));
+
+    filtered = sortNewestFirst(filtered);
+
+    if (category.key === 'latest') {
+      filtered = prioritizeRecent(filtered);
+    }
+
+    return filtered;
   }
 
   function productCardMarkup(item) {
