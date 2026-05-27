@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mood: 'Stylish threads from outside the algorithm.',
       queries: ['shirt', 'jacket', 'sweater', 'pants'],
       include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress'],
-      exclude: ['doll', 'toy'],
+      exclude: ['doll', 'toy', 'plate', 'mug'],
       viewQuery: 'shirt jacket sweater pants'
     },
     {
@@ -64,32 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
       mood: 'Kitchenware, tableware, and culinary curiosities.',
       queries: ['plate', 'bowl', 'mug', 'glass'],
       include: ['plate', 'bowl', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware'],
-      exclude: ['shirt', 'shoe'],
-      viewQuery: 'plate bowl mug kitchen'
-    },
-    {
-      key: 'decor',
-      label: 'Decor & Atmosphere',
-      emblem: '✧',
-      heading: 'Decor & Atmosphere',
-      description: 'Objects chosen for mood and presence.',
-      mood: 'Objects chosen for mood and presence.',
-      queries: ['decor', 'art', 'lamp', 'vase'],
-      include: ['decor', 'art', 'lamp', 'vase', 'frame', 'painting', 'wall', 'candle'],
-      exclude: [],
-      viewQuery: 'decor art lamp vase'
-    },
-    {
-      key: 'collectibles',
-      label: 'Collectibles',
-      emblem: '◇',
-      heading: 'Collectibles',
-      description: 'Media, relics, oddities, and hidden gems.',
-      mood: 'Media, relics, oddities, and hidden gems.',
-      queries: ['collectible', 'vintage', 'toy', 'book', 'media'],
-      include: ['collectible', 'vintage', 'media', 'toy', 'book', 'pokemon', 'dvd', 'game', 'figurine'],
-      exclude: [],
-      viewQuery: 'collectible vintage media'
+      exclude: ['shirt', 'shoe', 'wallet'],
+      viewQuery: 'plate bowl mug kitchen cookware'
     },
     {
       key: 'accessories',
@@ -100,20 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
       mood: 'The smaller details that complete the picture.',
       queries: ['bag', 'wallet', 'hat', 'belt'],
       include: ['bag', 'wallet', 'hat', 'belt', 'jewelry', 'necklace', 'bracelet', 'earrings'],
-      exclude: [],
-      viewQuery: 'bag wallet hat jewelry'
+      exclude: ['plate', 'bowl'],
+      viewQuery: 'bag wallet hat jewelry accessories'
     },
     {
-      key: 'sidepocket',
-      label: 'The Side Pocket',
+      key: 'curiosities',
+      label: 'Curiosities',
       emblem: '✺',
-      heading: 'The Side Pocket',
-      description: 'Strange finds and category-resistant objects.',
-      mood: 'Strange finds and category-resistant objects.',
-      queries: ['odd', 'strange', 'unusual'],
+      heading: 'Curiosities',
+      description: 'Relics, oddities, atmosphere, and things that resist categories.',
+      mood: 'Relics, oddities, atmosphere, and things that resist categories.',
+      queries: ['vintage', 'art', 'odd', 'decor', 'collectible'],
       include: [],
-      exclude: [],
-      viewQuery: 'odd unusual strange'
+      exclude: ['shirt', 'pants', 'shoe', 'boot', 'plate', 'bowl', 'mug', 'wallet'],
+      viewQuery: 'vintage collectible art decor oddities'
     }
   ];
 
@@ -147,10 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const text = textForItem(item);
 
-    if (category.key === 'sidepocket') {
-      return !hasAny(text, [
-        'shirt','pants','shoe','boot','plate','mug','wallet','hat','collectible'
-      ]);
+    if (category.key === 'curiosities') {
+      return !hasAny(text, category.exclude || []);
     }
 
     return hasAny(text, category.include || []) && !hasAny(text, category.exclude || []);
