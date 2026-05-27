@@ -7,171 +7,11 @@
   <meta name="description" content="JoMagicBackpack — vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
   <link rel="stylesheet" href="css/styles.css">
-
-  <style>
-    .backpack-gate {
-      text-align: center;
-      padding-top: .5rem;
-    }
-
-    .backpack-button {
-      position: relative;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      isolation: isolate;
-      padding: .25rem;
-      transform-style: preserve-3d;
-    }
-
-    .backpack-button::before {
-      content: "";
-      position: absolute;
-      inset: 50% auto auto 50%;
-      width: 78%;
-      height: 78%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(120,220,255,.34), rgba(120,220,255,.08) 42%, rgba(120,220,255,0) 70%);
-      filter: blur(14px);
-      animation: backpackPulse 2.8s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    .backpack-button .bubble-cue {
-      position: absolute;
-      top: 19%;
-      left: 7%;
-      background: rgba(224, 245, 255, .96);
-      color: #0b1420;
-      border: 1px solid rgba(120,220,255,.45);
-      border-radius: 999px;
-      padding: .58rem .95rem;
-      font-size: .95rem;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: .03em;
-      box-shadow: 0 8px 24px rgba(0,0,0,.22), 0 0 18px rgba(120,220,255,.16);
-      animation: bubbleBob 3.1s ease-in-out infinite;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .backpack-button .bubble-cue::after {
-      content: "";
-      position: absolute;
-      right: -18px;
-      bottom: -30px;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: rgba(224, 245, 255, .88);
-      box-shadow:
-        18px 18px 0 -1px rgba(186, 232, 255, .72),
-        38px 39px 0 -2px rgba(150, 220, 255, .55);
-    }
-
-    .backpack-button img {
-      width: min(84vw, 410px);
-      max-height: 410px;
-      object-fit: contain;
-      transition: transform .28s ease, filter .28s ease;
-      animation: backpackFloat 4.6s ease-in-out infinite;
-      filter: drop-shadow(0 16px 28px rgba(0,0,0,.28)) drop-shadow(0 0 24px rgba(110,210,255,.24));
-    }
-
-    .backpack-button:hover img,
-    .backpack-button:focus-visible img,
-    .backpack-button:active img {
-      transform: perspective(700px) rotateX(2deg) rotateY(-3deg) scale(1.045) translateY(-5px);
-      filter: drop-shadow(0 20px 34px rgba(0,0,0,.32)) drop-shadow(0 0 42px rgba(110,210,255,.42));
-    }
-
-    .backpack-button:hover .bubble-cue,
-    .backpack-button:focus-visible .bubble-cue,
-    .backpack-button:active .bubble-cue {
-      transform: translateY(-4px) scale(1.04);
-    }
-
-    .gate-copy {
-      display: none;
-    }
-
-    .trust-strip {
-      margin: 0 auto 2rem;
-      padding: .85rem 1.2rem;
-      width: fit-content;
-      border-radius: 999px;
-      background: rgba(19,30,42,.78);
-      border: 1px solid rgba(126,208,255,.12);
-      color: #dce9f4;
-      font-size: .92rem;
-      font-weight: 600;
-      letter-spacing: .02em;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.16);
-    }
-
-    .trust-strip span {
-      color: #9fe4ff;
-    }
-
-    @keyframes backpackPulse {
-      0%, 100% {
-        opacity: .55;
-        transform: translate(-50%, -50%) scale(.96);
-      }
-      50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.15);
-      }
-    }
-
-    @keyframes backpackFloat {
-      0%, 100% {
-        transform: translateY(0px) scale(1);
-      }
-      50% {
-        transform: translateY(-10px) scale(1.012);
-      }
-    }
-
-    @keyframes bubbleBob {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-7px);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .backpack-button .bubble-cue {
-        top: 15%;
-        left: 5%;
-        font-size: .9rem;
-        padding: .52rem .88rem;
-      }
-
-      .backpack-button .bubble-cue::after {
-        right: -16px;
-        bottom: -30px;
-        width: 8px;
-        height: 8px;
-        box-shadow:
-          16px 17px 0 -1px rgba(186, 232, 255, .72),
-          33px 36px 0 -2px rgba(150, 220, 255, .55);
-      }
-    }
-  </style>
 </head>
 <body>
   <header>
     <div class="container header-inner">
-      <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home">
-        <span>JoMagicBackpack</span>
-      </a>
-
+      <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home"><span>JoMagicBackpack</span></a>
       <nav aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
@@ -179,11 +19,7 @@
           <li><a href="about.html">About</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li>
-            <a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer" aria-label="Visit eBay store">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay">
-            </a>
-          </li>
+          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer" aria-label="Visit eBay store"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay"></a></li>
         </ul>
       </nav>
     </div>
@@ -192,9 +28,7 @@
   <main>
     <section id="home" class="hero">
       <div class="container hero-inner">
-        <div class="hero-title" aria-label="JoMagicBackpack">
-          <span class="hero-title-main">Jo’Magic Backpack</span>
-        </div>
+        <div class="hero-title" aria-label="JoMagicBackpack"><span class="hero-title-main">Jo’Magic Backpack</span></div>
         <p>Vintage, new, and unpredictable. If it sparks curiosity, it goes in the pack.</p>
       </div>
     </section>
@@ -202,41 +36,35 @@
     <section id="products" class="products-section">
       <div class="container">
         <div id="backpackGate" class="backpack-gate">
-          <button id="openBackpack" class="backpack-button" type="button" aria-label="Open the backpack and show product categories">
+          <button id="openBackpack" class="backpack-button" type="button" aria-label="Open the backpack">
             <span class="bubble-cue">click me</span>
             <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="Open the JoMagicBackpack">
           </button>
-          <p class="gate-copy">Click the pack to see what’s inside</p>
         </div>
 
         <div id="shopInterface" class="shop-interface" aria-hidden="true">
-          <div class="trust-strip">
-            <span>100% Positive Feedback</span> • Top Rated Seller on eBay
+          <div class="trust-strip"><span>100% Positive Feedback</span> • Top Rated Seller on eBay</div>
+
+          <div id="categoryIntro" class="category-intro">
+            <h2>Inside the Backpack</h2>
+            <p>Choose a path and see what turns up.</p>
           </div>
 
-          <h2 id="products-heading">Latest Finds</h2>
-          <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
+          <div id="categoryShowcase" class="category-showcase" aria-label="Shop categories"></div>
 
-          <div id="categoryControls" class="category-controls" aria-label="Product categories"></div>
-
-          <div class="products-toolbar">
-            <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
-          </div>
-
-          <div class="products-grid" aria-live="polite">
-            <div class="product-status">Loading latest finds…</div>
+          <div id="productPanel" class="product-panel" hidden>
+            <button id="backToCategories" class="back-link" type="button">← Back to categories</button>
+            <h2 id="products-heading">Latest Finds</h2>
+            <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
+            <div class="products-toolbar"><a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a></div>
+            <div id="productsGrid" class="products-grid" aria-live="polite"></div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
-    </div>
-  </footer>
-
+  <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
   <script src="js/main.js"></script>
 </body>
 </html>
