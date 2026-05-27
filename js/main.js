@@ -20,70 +20,94 @@ document.addEventListener('DOMContentLoaded', () => {
       label: 'Newly Listed',
       emblem: '✦',
       heading: 'Newly Listed',
-      description: 'Fresh additions recently added to the backpack.',
-      mood: 'Fresh additions recently added to the backpack.',
+      description: 'Discover the most recently listed items.',
+      mood: 'Discover the most recently listed items.',
       queries: [''],
       viewQuery: ''
     },
     {
       key: 'clothing',
       label: 'Clothing',
-      emblem: '👕',
+      emblem: '◫',
       heading: 'Clothing',
-      description: 'Shirts, jackets, sweaters, pants, and other wearable finds.',
-      mood: 'Wearable pieces with character and history.',
+      description: 'Stylish threads from outside the algorithm.',
+      mood: 'Stylish threads from outside the algorithm.',
       queries: ['shirt', 'jacket', 'sweater', 'pants'],
-      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'shorts', 'coat', 'vest', 'flannel', 'hoodie', 'dress', 'skirt', 'blouse', 'top'],
-      exclude: ['doll', 'toy', 'figure', 'figurine', 'wall', 'decor', 'ornament', 'plate', 'mug', 'book', 'poster', 'print', 'art'],
+      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress'],
+      exclude: ['doll', 'toy'],
       viewQuery: 'shirt jacket sweater pants'
     },
     {
-      key: 'home',
-      label: 'Home & Housewares',
-      emblem: '🏺',
-      heading: 'Home & Housewares',
-      description: 'Dishes, glassware, decor, kitchen pieces, and useful home finds.',
-      mood: 'Objects meant to be lived with and used.',
-      queries: ['plate', 'bowl', 'mug', 'vase', 'glass', 'decor'],
-      include: ['plate', 'bowl', 'mug', 'cup', 'vase', 'glass', 'ceramic', 'porcelain', 'kitchen', 'decor', 'wall', 'plaque', 'frame', 'figurine', 'figure', 'statue', 'candle', 'dish', 'tray', 'canister'],
-      exclude: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'sneaker', 'sneakers', 'boot', 'boots', 'sandals', 'purse', 'wallet'],
-      viewQuery: 'plate bowl mug vase glass decor'
+      key: 'footwear',
+      label: 'Footwear',
+      emblem: '⌁',
+      heading: 'Footwear',
+      description: 'Footwear for every kind of wandering.',
+      mood: 'Footwear for every kind of wandering.',
+      queries: ['shoes', 'boots', 'sneakers', 'sandals'],
+      include: ['shoe', 'shoes', 'boot', 'boots', 'sneaker', 'sandals'],
+      exclude: ['figurine', 'toy'],
+      viewQuery: 'shoes boots sneakers sandals'
+    },
+    {
+      key: 'kitchen',
+      label: 'Kitchen & Dining',
+      emblem: '◌',
+      heading: 'Kitchen & Dining',
+      description: 'Kitchenware, tableware, and culinary curiosities.',
+      mood: 'Kitchenware, tableware, and culinary curiosities.',
+      queries: ['plate', 'bowl', 'mug', 'glass'],
+      include: ['plate', 'bowl', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware'],
+      exclude: ['shirt', 'shoe'],
+      viewQuery: 'plate bowl mug kitchen'
+    },
+    {
+      key: 'decor',
+      label: 'Decor & Atmosphere',
+      emblem: '✧',
+      heading: 'Decor & Atmosphere',
+      description: 'Objects chosen for mood and presence.',
+      mood: 'Objects chosen for mood and presence.',
+      queries: ['decor', 'art', 'lamp', 'vase'],
+      include: ['decor', 'art', 'lamp', 'vase', 'frame', 'painting', 'wall', 'candle'],
+      exclude: [],
+      viewQuery: 'decor art lamp vase'
     },
     {
       key: 'collectibles',
       label: 'Collectibles',
-      emblem: '✨',
+      emblem: '◇',
       heading: 'Collectibles',
-      description: 'Books, toys, media, art, vintage pieces, and category-resistant treasures.',
-      mood: 'Unexpected relics and harder-to-find oddities.',
-      queries: ['vintage', 'collectible', 'toy', 'book', 'art', 'Pokemon'],
-      include: ['vintage', 'collectible', 'toy', 'figure', 'figurine', 'book', 'media', 'art', 'pokemon', 'disney', 'dvd', 'cd', 'vhs', 'game', 'poster', 'print', 'ornament', 'miniature'],
+      description: 'Media, relics, oddities, and hidden gems.',
+      mood: 'Media, relics, oddities, and hidden gems.',
+      queries: ['collectible', 'vintage', 'toy', 'book', 'media'],
+      include: ['collectible', 'vintage', 'media', 'toy', 'book', 'pokemon', 'dvd', 'game', 'figurine'],
       exclude: [],
-      viewQuery: 'vintage collectible toy book art'
+      viewQuery: 'collectible vintage media'
     },
     {
-      key: 'bags',
-      label: 'Bags & Accessories',
-      emblem: '👜',
-      heading: 'Bags & Accessories',
-      description: 'Bags, wallets, hats, belts, scarves, jewelry, and smaller wearable accessories.',
-      mood: 'Useful carry pieces and smaller curiosities.',
-      queries: ['bag', 'purse', 'wallet', 'backpack', 'hat'],
-      include: ['bag', 'purse', 'wallet', 'backpack', 'tote', 'clutch', 'satchel', 'hat', 'cap', 'belt', 'scarf', 'jewelry', 'necklace', 'bracelet', 'earrings', 'brooch', 'pin'],
-      exclude: ['wall', 'decor', 'plate', 'mug', 'bowl', 'vase', 'book', 'toy', 'figure', 'figurine', 'poster', 'print'],
-      viewQuery: 'bag purse wallet hat'
+      key: 'accessories',
+      label: 'Accessories',
+      emblem: '◎',
+      heading: 'Accessories',
+      description: 'The smaller details that complete the picture.',
+      mood: 'The smaller details that complete the picture.',
+      queries: ['bag', 'wallet', 'hat', 'belt'],
+      include: ['bag', 'wallet', 'hat', 'belt', 'jewelry', 'necklace', 'bracelet', 'earrings'],
+      exclude: [],
+      viewQuery: 'bag wallet hat jewelry'
     },
     {
-      key: 'shoes',
-      label: 'Shoes',
-      emblem: '👞',
-      heading: 'Shoes',
-      description: 'Wearable shoes, boots, sneakers, sandals, and other footwear.',
-      mood: 'Footwear with plenty of miles still left in it.',
-      queries: ['shoes', 'boots', 'sneakers', 'sandals'],
-      include: ['shoe', 'shoes', 'boot', 'boots', 'sneaker', 'sneakers', 'sandal', 'sandals', 'loafer', 'loafers', 'heel', 'heels', 'cleat', 'cleats', 'slipper', 'slippers', 'footwear'],
-      exclude: ['figurine', 'figure', 'mini', 'miniature', 'tiny', 'doll', 'toy', 'wall', 'decor', 'decoration', 'ornament', 'charm', 'pin', 'brooch', 'pendant', 'plaque', 'sign', 'art', 'print', 'poster', 'picture', 'painting', 'ceramic', 'porcelain', 'resin', 'glass', 'bookend', 'ashtray'],
-      viewQuery: 'shoes boots sneakers sandals'
+      key: 'sidepocket',
+      label: 'The Side Pocket',
+      emblem: '✺',
+      heading: 'The Side Pocket',
+      description: 'Strange finds and category-resistant objects.',
+      mood: 'Strange finds and category-resistant objects.',
+      queries: ['odd', 'strange', 'unusual'],
+      include: [],
+      exclude: [],
+      viewQuery: 'odd unusual strange'
     }
   ];
 
@@ -114,7 +138,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function belongsInCategory(item, category) {
     if (!category || category.key === 'latest') return true;
+
     const text = textForItem(item);
+
+    if (category.key === 'sidepocket') {
+      return !hasAny(text, [
+        'shirt','pants','shoe','boot','plate','mug','wallet','hat','collectible'
+      ]);
+    }
+
     return hasAny(text, category.include || []) && !hasAny(text, category.exclude || []);
   }
 
@@ -130,14 +162,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sortNewestFirst(items) {
     return [...items].sort((a, b) => {
-      const aTime = Date.parse(a.startTime || a.listingStartTime || a.date || '') || 0;
-      const bTime = Date.parse(b.startTime || b.listingStartTime || b.date || '') || 0;
+      const aTime = Date.parse(a.startTime || '') || 0;
+      const bTime = Date.parse(b.startTime || '') || 0;
       return bTime - aTime;
     });
   }
 
   function renderCategories() {
     if (!categoryShowcase) return;
+
     categoryShowcase.innerHTML = categories.map(category => `
       <button class="category-card" type="button" data-category="${category.key}">
         <span class="category-emblem" aria-hidden="true">${category.emblem}</span>
@@ -149,24 +182,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showProductPanel(category) {
     if (!categoryIntro || !categoryShowcase || !productPanel) return;
+
     categoryIntro.hidden = true;
     categoryShowcase.hidden = true;
     productPanel.hidden = false;
     productPanel.classList.add('is-visible');
+
     if (heading) heading.textContent = category.heading;
     if (description) description.textContent = category.description;
+
     if (viewAllLink) {
-      viewAllLink.href = category.key === 'latest' ? storeUrl : ebaySearchUrl(category.viewQuery || category.queries[0] || '');
-      viewAllLink.textContent = category.key === 'latest' ? 'View all items on eBay' : `View all ${category.label} on eBay`;
+      viewAllLink.href = category.key === 'latest'
+        ? storeUrl
+        : ebaySearchUrl(category.viewQuery || category.queries[0] || '');
+
+      viewAllLink.textContent = category.key === 'latest'
+        ? 'View all items on eBay'
+        : `View all ${category.label} on eBay`;
     }
   }
 
   function showCategoryPanel() {
     if (!categoryIntro || !categoryShowcase || !productPanel) return;
+
     productPanel.hidden = true;
     productPanel.classList.remove('is-visible');
     categoryIntro.hidden = false;
     categoryShowcase.hidden = false;
+
     if (productsGrid) productsGrid.innerHTML = '';
   }
 
@@ -177,21 +220,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function fetchItemsForCategory(category) {
     const responses = await Promise.allSettled(
-      category.queries.map(query => fetch(functionUrl(query)).then(response => response.json()))
+      category.queries.map(query =>
+        fetch(functionUrl(query)).then(response => response.json())
+      )
     );
 
     const combined = responses.flatMap(result => {
       if (result.status !== 'fulfilled') return [];
+
       const data = result.value;
-      if (!data.ok || !data.result || !Array.isArray(data.result.items)) return [];
+
+      if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
+        return [];
+      }
+
       return data.result.items;
     });
 
-    return sortNewestFirst(uniqueItems(combined).filter(item => belongsInCategory(item, category))).slice(0, 24);
+    return sortNewestFirst(
+      uniqueItems(combined).filter(item => belongsInCategory(item, category))
+    ).slice(0, 24);
   }
 
   function renderItems(items) {
     if (!productsGrid) return;
+
     if (!items.length) {
       setStatus('No matching items loaded here. Use the view-all link to open the full eBay results.');
       return;
@@ -211,6 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadCategory(category) {
     showProductPanel(category);
     setStatus(`Loading ${category.label.toLowerCase()}…`);
+
     try {
       const items = await fetchItemsForCategory(category);
       renderItems(items);
@@ -233,7 +287,9 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryShowcase.addEventListener('click', event => {
       const card = event.target.closest('.category-card');
       if (!card) return;
+
       const category = categories.find(item => item.key === card.dataset.category);
+
       if (category) loadCategory(category);
     });
   }
