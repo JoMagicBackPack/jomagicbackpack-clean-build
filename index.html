@@ -15,7 +15,7 @@
       <nav aria-label="Main navigation">
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
-          <li><a href="#products">Backpack</a></li>
+          <li><a href="categories.html">Backpack</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -33,38 +33,18 @@
       </div>
     </section>
 
-    <section id="products" class="products-section">
+    <section id="products" class="products-section home-backpack-section">
       <div class="container">
         <div id="backpackGate" class="backpack-gate">
-          <button id="openBackpack" class="backpack-button" type="button" aria-label="Open the backpack">
+          <a id="openBackpack" class="backpack-button" href="categories.html" aria-label="Take a peek inside the backpack">
             <span class="bubble-cue">click me</span>
             <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="Open the JoMagicBackpack">
-          </button>
-        </div>
-
-        <div id="shopInterface" class="shop-interface" aria-hidden="true">
-          <div class="trust-strip"><span>100% Positive Feedback</span> • Top Rated Seller on eBay</div>
-
-          <div id="categoryIntro" class="category-intro">
-            <h2>Take a Peek</h2>
-            <p>Choose a path and see what turns up.</p>
-          </div>
-
-          <div id="categoryShowcase" class="category-showcase" aria-label="Shop categories"></div>
-
-          <div id="productPanel" class="product-panel" hidden>
-            <button id="backToCategories" class="back-link" type="button">← Back to categories</button>
-            <h2 id="products-heading">Latest Finds</h2>
-            <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
-            <div class="products-toolbar"><a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a></div>
-            <div id="productsGrid" class="products-grid" aria-live="polite"></div>
-          </div>
+          </a>
         </div>
       </div>
     </section>
   </main>
 
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-  <script src="js/main.js"></script>
 </body>
 </html>
