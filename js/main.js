@@ -24,6 +24,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const seller = 'jomagicbackpack';
   const storeUrl = `https://www.ebay.com/str/${seller}`;
 
+  const showcaseCards = [
+    {
+      title: 'Clothing',
+      mood: 'Wearable finds with history still stitched into them.'
+    },
+    {
+      title: 'Home & Housewares',
+      mood: 'Objects that survived kitchens, shelves, garages, and decades.'
+    },
+    {
+      title: 'Collectibles',
+      mood: 'Strange little artifacts waiting for the right person.'
+    },
+    {
+      title: 'Bags & Accessories',
+      mood: 'Pocket-sized curiosities and everyday carry relics.'
+    }
+  ];
+
   const categories = [
     {
       key: 'latest',
@@ -86,8 +105,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const heading = document.getElementById('products-heading');
   const description = document.getElementById('products-description');
   const viewAllLink = document.getElementById('viewAllCategory');
-  const scrollLeft = document.getElementById('scrollLeft');
-  const scrollRight = document.getElementById('scrollRight');
+
+  function renderShowcase() {
+    if (!productsGrid) return;
+
+    productsGrid.innerHTML = `
+      <div class="showcase-intro">
+        <p>Not a catalog. A collection.</p>
+      </div>
+      <div class="showcase-grid">
+        ${showcaseCards.map(card => `
+          <div class="showcase-card">
+            <div class="showcase-glow"></div>
+            <h3>${card.title}</h3>
+            <p>${card.mood}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
 
   function ebaySearchUrl(query) {
     const url = new URL('https://www.ebay.com/sch/i.html');
@@ -260,17 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (scrollLeft && productsGrid) {
-    scrollLeft.addEventListener('click', () => {
-      productsGrid.scrollBy({ left: -320, behavior: 'smooth' });
-    });
-  }
+  if (heading) heading.textContent = 'Inside the Backpack';
+  if (description) description.textContent = 'Choose a path and see what turns up.';
 
-  if (scrollRight && productsGrid) {
-    scrollRight.addEventListener('click', () => {
-      productsGrid.scrollBy({ left: 320, behavior: 'smooth' });
-    });
-  }
-
-  loadCategory(categories[0]);
+  renderShowcase();
 });
