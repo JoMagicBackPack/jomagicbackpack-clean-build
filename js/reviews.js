@@ -7,9 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!quoteEl) return;
 
+  quoteEl.style.fontSize = 'clamp(1.45rem, 3vw, 2rem)';
+  quoteEl.style.lineHeight = '1.6';
+  quoteEl.style.letterSpacing = '0.015em';
+  quoteEl.style.minHeight = '8rem';
+
+  if (dotsEl) {
+    dotsEl.style.display = 'none';
+  }
+
   let reviews = [];
   let currentIndex = 0;
   let timer = null;
+  let typingTimer = null;
 
   const fallbackReviews = [
     { quote: 'Great seller. Fast shipping. A+', source: 'eBay buyer feedback', buyer: 'm***7' },
@@ -18,12 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
     { quote: 'Smooth transaction. Thank you.', source: 'eBay buyer feedback', buyer: 't***x' }
   ];
 
-  function renderDots() {
-    if (!dotsEl) return;
+  function typeReview(text) {
+    if (typingTimer) clearInterval(typingTimer);
 
-    dotsEl.innerHTML = reviews.map((_, index) => (
-      `<button class="review-dot${index === currentIndex ? ' is-active' : ''}" type="button" aria-label="Show review ${index + 1}" data-review-index="${index}"></button>`
-    )).join('');
+    quoteEl.textContent = '“';
+
+    let characterIndex = 0;
+
+    typingTimer = setInterval(() => {
+      quoteEl.textContent = `“${text.slice(0, characterIndex + 1)}`;
+      characterIndex += 1;
+
+      if (characterIndex >= text.length) {
+        clearInterval(typingTimer);
+        quoteEl.textContent = `“${text}”`;
+      }
+    }, 18);
   }
 
   function showReview(index) {
@@ -32,13 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIndex = (index + reviews.length) % reviews.length;
     const review = reviews[currentIndex];
 
-    quoteEl.textContent = `“${review.quote}”`;
+    typeReview(review.quote);
 
     if (sourceEl) {
       sourceEl.innerHTML = `${review.source || 'eBay buyer feedback'} <span style="opacity:.7;">• buyer ${review.buyer || 'anonymous'}</span>`;
+      sourceEl.style.fontSize = '1.1rem';
+      sourceEl.style.marginTop = '1.25rem';
     }
-
-    renderDots();
   }
 
   function nextReview() {
@@ -51,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function restartTimer() {
     if (timer) clearInterval(timer);
-    timer = setInterval(nextReview, 5500);
+    timer = setInterval(nextReview, 8000);
   }
 
   function initializeReviewCarousel(data) {
@@ -70,15 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       nextReview();
-      restartTimer();
-    });
-  }
-
-  if (dotsEl) {
-    dotsEl.addEventListener('click', event => {
-      const dot = event.target.closest('.review-dot');
-      if (!dot) return;
-      showReview(Number(dot.dataset.reviewIndex));
       restartTimer();
     });
   }
