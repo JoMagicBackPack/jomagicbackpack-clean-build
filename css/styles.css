@@ -194,6 +194,21 @@ section {
   font-weight: 700;
 }
 
+.view-all-link {
+  display: inline-block;
+  margin: 0.75rem 0 1.35rem;
+  color: #8fe8ff;
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: 0 0 12px rgba(143, 232, 255, 0.28);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.view-all-link:hover {
+  color: #dffbff;
+  text-shadow: 0 0 18px rgba(143, 232, 255, 0.5);
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
