@@ -40,8 +40,8 @@
 
     .backpack-button .bubble-cue {
       position: absolute;
-      top: 24%;
-      left: 14%;
+      top: 19%;
+      left: 7%;
       background: rgba(224, 245, 255, .96);
       color: #0b1420;
       border: 1px solid rgba(120,220,255,.45);
@@ -60,14 +60,15 @@
     .backpack-button .bubble-cue::after {
       content: "";
       position: absolute;
-      right: 14px;
-      bottom: -8px;
-      width: 14px;
-      height: 14px;
-      background: rgba(224, 245, 255, .96);
-      border-right: 1px solid rgba(120,220,255,.35);
-      border-bottom: 1px solid rgba(120,220,255,.35);
-      transform: rotate(45deg);
+      right: -18px;
+      bottom: -30px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(224, 245, 255, .88);
+      box-shadow:
+        18px 18px 0 -1px rgba(186, 232, 255, .72),
+        38px 39px 0 -2px rgba(150, 220, 255, .55);
     }
 
     .backpack-button img {
@@ -146,10 +147,20 @@
 
     @media (max-width: 768px) {
       .backpack-button .bubble-cue {
-        top: 18%;
-        left: 6%;
+        top: 15%;
+        left: 5%;
         font-size: .9rem;
         padding: .52rem .88rem;
+      }
+
+      .backpack-button .bubble-cue::after {
+        right: -16px;
+        bottom: -30px;
+        width: 8px;
+        height: 8px;
+        box-shadow:
+          16px 17px 0 -1px rgba(186, 232, 255, .72),
+          33px 36px 0 -2px rgba(150, 220, 255, .55);
       }
     }
   </style>
