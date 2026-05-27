@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const seller = 'jomagicbackpack';
   const storeUrl = `https://www.ebay.com/str/${seller}`;
+  const initialVisibleCount = 24;
+  const loadMoreStep = 24;
+  const fetchLimitPerQuery = 60;
+
+  let activeItems = [];
+  let visibleItemCount = initialVisibleCount;
 
   const categories = [
     {
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
-  function functionUrl(query, limit = 18) {
+  function functionUrl(query, limit = fetchLimitPerQuery) {
     const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
     url.searchParams.set('seller', seller);
     url.searchParams.set('q', query || 'a');
@@ -210,6 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryIntro.hidden = false;
     categoryShowcase.hidden = false;
 
+    activeItems = [];
+    visibleItemCount = initialVisibleCount;
     if (productsGrid) productsGrid.innerHTML = '';
   }
 
@@ -221,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fetchItemsForCategory(category) {
     const responses = await Promise.allSettled(
       category.queries.map(query =>
-        fetch(functionUrl(query)).then(response => response.json())
+        fetch(functionUrl(query, fetchLimitPerQuery)).then(response => response.json())
       )
     );
 
@@ -239,18 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     return sortNewestFirst(
       uniqueItems(combined).filter(item => belongsInCategory(item, category))
-    ).slice(0, 24);
+    );
   }
 
-  function renderItems(items) {
-    if (!productsGrid) return;
-
-    if (!items.length) {
-      setStatus('No matching items loaded here. Use the view-all link to open the full eBay results.');
-      return;
-    }
-
-    productsGrid.innerHTML = items.map(item => `
+  function productCardMarkup(item) {
+    return `
       <article class="product-card">
         <a class="product-image" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">
           <img src="${item.image || 'https://via.placeholder.com/300x220?text=JoMagicBackpack'}" alt="${item.title || 'JoMagicBackpack item'}">
@@ -258,7 +259,25 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
       </article>
-    `).join('');
+    `;
+  }
+
+  function renderItems(items = activeItems) {
+    if (!productsGrid) return;
+
+    if (!items.length) {
+      setStatus('No matching items loaded here. Use the view-all link to open the full eBay results.');
+      return;
+    }
+
+    const visibleItems = items.slice(0, visibleItemCount);
+    const remainingCount = Math.max(items.length - visibleItems.length, 0);
+
+    productsGrid.innerHTML = visibleItems.map(productCardMarkup).join('') + (
+      remainingCount > 0
+        ? `<div class="load-more-wrap"><button id="loadMoreItems" class="load-more-button" type="button">Load more items (${remainingCount} left)</button></div>`
+        : ''
+    );
   }
 
   async function loadCategory(category) {
@@ -266,8 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setStatus(`Loading ${category.label.toLowerCase()}…`);
 
     try {
-      const items = await fetchItemsForCategory(category);
-      renderItems(items);
+      activeItems = await fetchItemsForCategory(category);
+      visibleItemCount = initialVisibleCount;
+      renderItems(activeItems);
     } catch (error) {
       console.error(error);
       setStatus('The live eBay feed did not load. Use the view-all link to open the store directly.');
@@ -291,6 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const category = categories.find(item => item.key === card.dataset.category);
 
       if (category) loadCategory(category);
+    });
+  }
+
+  if (productsGrid) {
+    productsGrid.addEventListener('click', event => {
+      const loadMoreButton = event.target.closest('#loadMoreItems');
+      if (!loadMoreButton) return;
+
+      visibleItemCount += loadMoreStep;
+      renderItems(activeItems);
     });
   }
 
