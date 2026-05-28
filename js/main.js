@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'all',
       label: 'All Items',
-      emblem: 'ALL',
+      emblem: '✦',
       heading: 'All Items',
       description: 'Every active listing currently loaded from the backpack.',
       mood: 'Everything currently in the backpack.',
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'clothing',
       label: 'Clothing',
-      emblem: 'CLO',
+      emblem: '◩',
       heading: 'Clothing',
       description: 'Shirts, sweaters, jackets, pants, jeans, suits, and apparel.',
       mood: 'Wearable finds from the backpack.',
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'footwear',
       label: 'Shoes',
-      emblem: 'SHO',
+      emblem: '⌁',
       heading: 'Shoes',
       description: 'Shoes, boots, flats, sneakers, and sandals.',
       mood: 'Footwear for every kind of wandering.',
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'accessories',
       label: 'Bags & Accessories',
-      emblem: 'BAG',
+      emblem: '◇',
       heading: 'Bags & Accessories',
       description: 'Bags, hats, jewelry, pins, watches, belts, and smaller wearable details.',
       mood: 'The smaller details that complete the picture.',
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'kitchen',
       label: 'Kitchen & Dining',
-      emblem: 'DIN',
+      emblem: '◌',
       heading: 'Kitchen & Dining',
       description: 'Plates, bowls, mugs, glassware, serving pieces, and kitchen tools.',
       mood: 'Kitchenware, tableware, and culinary curiosities.',
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'home',
       label: 'Home Decor',
-      emblem: 'HOM',
+      emblem: '⌂',
       heading: 'Home Decor',
       description: 'Blankets, wall decor, vases, lights, tapestries, boxes, and display pieces.',
       mood: 'Pieces that make a room feel found, not furnished.',
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'toys',
       label: 'Toys & Character',
-      emblem: 'TOY',
+      emblem: '☻',
       heading: 'Toys & Character',
       description: 'Bears, action figures, dolls, Disney, Harry Potter, animation, and playful finds.',
       mood: 'Nostalgia, characters, and playful shelf treasures.',
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'crafts',
       label: 'Crafts',
-      emblem: 'ART',
+      emblem: '✄',
       heading: 'Crafts',
       description: 'Cross stitch, embroidery kits, craft books, and handmade project supplies.',
       mood: 'Kits, stitches, patterns, and hands-on finds.',
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'books',
       label: 'Books & Paper',
-      emblem: 'BK',
+      emblem: '▤',
       heading: 'Books & Paper',
       description: 'Books, collectible paper, ephemera, and printed pieces.',
       mood: 'Printed finds with a little history in them.',
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'collectibles',
       label: 'Collectibles',
-      emblem: 'COL',
+      emblem: '◈',
       heading: 'Collectibles',
       description: 'Figurines, sculptures, sports, vintage display pieces, and category-resistant treasures.',
       mood: 'Relics, oddities, atmosphere, and display-worthy finds.',
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'other',
       label: 'Other Finds',
-      emblem: 'OTH',
+      emblem: '✧',
       heading: 'Other Finds',
       description: 'Items that do not neatly belong in the other backpack pockets.',
       mood: 'The pleasantly hard-to-file discoveries.',
