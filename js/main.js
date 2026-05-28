@@ -15,10 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const storeUrl = `https://www.ebay.com/str/${seller}`;
   const initialVisibleCount = 24;
   const loadMoreStep = 24;
-  const fetchLimitPerQuery = 60;
+  const inventoryPageLimit = 50;
+  const inventoryPages = 6;
   const recentListingDays = 30;
-  const minimumRecentItems = 10;
 
+  let storeInventory = null;
+  let inventoryFetchPromise = null;
   let activeItems = [];
   let visibleItemCount = initialVisibleCount;
 
@@ -30,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Newly Listed',
       description: `Fresh finds from the last ${recentListingDays} days, with newer items prioritized first.`,
       mood: 'Fresh finds recently added to the backpack.',
-      queries: [''],
       viewQuery: ''
     },
     {
@@ -40,9 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Clothing',
       description: 'Stylish threads from outside the algorithm.',
       mood: 'Stylish threads from outside the algorithm.',
-      queries: ['shirt', 'jacket', 'sweater', 'pants'],
-      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress'],
-      exclude: ['doll', 'toy', 'plate', 'mug'],
+      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress', 'flannel', 'pullover', 'shorts'],
+      exclude: ['doll', 'toy', 'plate', 'mug', 'bowl', 'figurine'],
       viewQuery: 'shirt jacket sweater pants'
     },
     {
@@ -52,9 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Footwear',
       description: 'Footwear for every kind of wandering.',
       mood: 'Footwear for every kind of wandering.',
-      queries: ['shoes', 'boots', 'sneakers', 'sandals'],
-      include: ['shoe', 'shoes', 'boot', 'boots', 'sneaker', 'sandals'],
-      exclude: ['figurine', 'toy'],
+      include: ['shoe', 'shoes', 'boot', 'boots', 'sneaker', 'sneakers', 'sandals', 'loafer', 'loafers', 'heels'],
+      exclude: ['figurine', 'toy', 'plate'],
       viewQuery: 'shoes boots sneakers sandals'
     },
     {
@@ -64,8 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Kitchen & Dining',
       description: 'Kitchenware, tableware, and culinary curiosities.',
       mood: 'Kitchenware, tableware, and culinary curiosities.',
-      queries: ['plate', 'bowl', 'mug', 'glass'],
-      include: ['plate', 'bowl', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware'],
+      include: ['plate', 'plates', 'bowl', 'bowls', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware', 'cup', 'saucer', 'canister', 'pitcher', 'limoges', 'sasaki'],
       exclude: ['shirt', 'shoe', 'wallet'],
       viewQuery: 'plate bowl mug kitchen cookware'
     },
@@ -76,9 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Accessories',
       description: 'The smaller details that complete the picture.',
       mood: 'The smaller details that complete the picture.',
-      queries: ['bag', 'wallet', 'hat', 'belt'],
-      include: ['bag', 'wallet', 'hat', 'belt', 'jewelry', 'necklace', 'bracelet', 'earrings'],
-      exclude: ['plate', 'bowl'],
+      include: ['bag', 'wallet', 'hat', 'belt', 'jewelry', 'necklace', 'bracelet', 'earrings', 'purse', 'clutch', 'watch', 'scarf'],
+      exclude: ['plate', 'bowl', 'mug'],
       viewQuery: 'bag wallet hat jewelry accessories'
     },
     {
@@ -88,9 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Curiosities',
       description: 'Relics, oddities, atmosphere, and things that resist categories.',
       mood: 'Relics, oddities, atmosphere, and things that resist categories.',
-      queries: ['vintage', 'art', 'odd', 'decor', 'collectible'],
-      include: [],
-      exclude: ['shirt', 'pants', 'shoe', 'boot', 'plate', 'bowl', 'mug', 'wallet'],
+      exclude: ['shirt', 'pants', 'jeans', 'shoe', 'boot', 'sneaker', 'plate', 'bowl', 'mug', 'wallet', 'hat', 'belt'],
       viewQuery: 'vintage collectible art decor oddities'
     }
   ];
@@ -103,17 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
-  function functionUrl(query, limit = fetchLimitPerQuery) {
+  function inventoryUrl() {
     const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
     url.searchParams.set('seller', seller);
-    url.searchParams.set('q', query || 'a');
-    url.searchParams.set('limit', String(limit));
-    url.searchParams.set('sort', 'StartTimeNewest');
+    url.searchParams.set('q', 'a');
+    url.searchParams.set('limit', String(inventoryPageLimit));
+    url.searchParams.set('pages', String(inventoryPages));
+    url.searchParams.set('sort', 'new');
     return url.toString();
   }
 
+  function textForItem(item) {
+    const categoryText = Array.isArray(item.categories)
+      ? item.categories.map(category => `${category.categoryName || ''} ${category.categoryId || ''}`).join(' ')
+      : '';
+
+    return [item.title, item.condition, item.seller, categoryText].filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function hasAny(text, words = []) {
+    return words.some(word => text.includes(word.toLowerCase()));
+  }
+
   function isRecentListing(item, days = recentListingDays) {
-    const start = Date.parse(item.startTime || '');
+    const start = Date.parse(item.startTime || item.itemCreationDate || '');
     if (!start) return false;
 
     const ageMs = Date.now() - start;
@@ -122,22 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return ageDays <= days;
   }
 
-  function textForItem(item) {
-    return [item.title, item.condition, item.seller].filter(Boolean).join(' ').toLowerCase();
-  }
-
-  function hasAny(text, words = []) {
-    return words.some(word => text.includes(word.toLowerCase()));
-  }
-
   function belongsInCategory(item, category) {
     if (!category) return false;
 
-    const text = textForItem(item);
+    if (category.key === 'latest') return true;
 
-    if (category.key === 'latest') {
-      return true;
-    }
+    const text = textForItem(item);
 
     if (category.key === 'curiosities') {
       return !hasAny(text, category.exclude || []);
@@ -158,21 +156,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function sortNewestFirst(items) {
     return [...items].sort((a, b) => {
-      const aTime = Date.parse(a.startTime || '') || 0;
-      const bTime = Date.parse(b.startTime || '') || 0;
+      const aTime = Date.parse(a.startTime || itemCreationFallback(a)) || 0;
+      const bTime = Date.parse(b.startTime || itemCreationFallback(b)) || 0;
       return bTime - aTime;
     });
+  }
+
+  function itemCreationFallback(item) {
+    return item.itemCreationDate || item.raw?.itemCreationDate || item.raw?.itemOriginDate || '';
   }
 
   function prioritizeRecent(items) {
     const recent = items.filter(item => isRecentListing(item));
     const older = items.filter(item => !isRecentListing(item));
+    return [...recent, ...older];
+  }
 
-    if (recent.length >= minimumRecentItems) {
-      return [...recent, ...older];
+  async function fetchStoreInventory() {
+    if (storeInventory) return storeInventory;
+    if (inventoryFetchPromise) return inventoryFetchPromise;
+
+    inventoryFetchPromise = fetch(inventoryUrl())
+      .then(response => response.json())
+      .then(data => {
+        if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
+          throw new Error(data.error || 'Inventory feed did not return items.');
+        }
+
+        storeInventory = sortNewestFirst(uniqueItems(data.result.items));
+        return storeInventory;
+      })
+      .finally(() => {
+        inventoryFetchPromise = null;
+      });
+
+    return inventoryFetchPromise;
+  }
+
+  function getItemsForCategory(category, inventory) {
+    const filtered = inventory.filter(item => belongsInCategory(item, category));
+
+    if (category.key === 'latest') {
+      return prioritizeRecent(filtered);
     }
 
-    return [...recent, ...older];
+    return sortNewestFirst(filtered);
   }
 
   function renderCategories() {
@@ -201,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (viewAllLink) {
       viewAllLink.href = category.key === 'latest'
         ? storeUrl
-        : ebaySearchUrl(category.viewQuery || category.queries[0] || '');
+        : ebaySearchUrl(category.viewQuery || '');
 
       viewAllLink.textContent = category.key === 'latest'
         ? 'View all items on eBay'
@@ -227,41 +255,11 @@ document.addEventListener('DOMContentLoaded', () => {
     productsGrid.innerHTML = `<div class="product-status">${message}</div>`;
   }
 
-  async function fetchItemsForCategory(category) {
-    const responses = await Promise.allSettled(
-      category.queries.map(query =>
-        fetch(functionUrl(query, fetchLimitPerQuery)).then(response => response.json())
-      )
-    );
-
-    const combined = responses.flatMap(result => {
-      if (result.status !== 'fulfilled') return [];
-
-      const data = result.value;
-
-      if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
-        return [];
-      }
-
-      return data.result.items;
-    });
-
-    let filtered = uniqueItems(combined).filter(item => belongsInCategory(item, category));
-
-    filtered = sortNewestFirst(filtered);
-
-    if (category.key === 'latest') {
-      filtered = prioritizeRecent(filtered);
-    }
-
-    return filtered;
-  }
-
   function productCardMarkup(item) {
     return `
       <article class="product-card">
         <a class="product-image" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">
-          <img src="${item.image || 'https://via.placeholder.com/300x220?text=JoMagicBackpack'}" alt="${item.title || 'JoMagicBackpack item'}">
+          <img loading="lazy" src="${item.image || 'https://via.placeholder.com/300x220?text=JoMagicBackpack'}" alt="${item.title || 'JoMagicBackpack item'}">
         </a>
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
@@ -289,15 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadCategory(category) {
     showProductPanel(category);
-    setStatus(`Loading ${category.label.toLowerCase()}…`);
+    setStatus('Pulling full store inventory…');
 
     try {
-      activeItems = await fetchItemsForCategory(category);
+      const inventory = await fetchStoreInventory();
+      activeItems = getItemsForCategory(category, inventory);
       visibleItemCount = initialVisibleCount;
       renderItems(activeItems);
     } catch (error) {
       console.error(error);
-      setStatus('The live eBay feed did not load. Use the view-all link to open the store directly.');
+      setStatus('The live eBay inventory feed did not load. Use the view-all link to open the store directly.');
     }
   }
 
