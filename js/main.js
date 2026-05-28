@@ -307,6 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function assignedCategoryKey(item) {
+    if (item.categoryOverride) return item.categoryOverride;
+
     const categoryText = ebayCategoryText(item);
     const titleText = itemTitleText(item);
     const text = `${categoryText} ${titleText}`;

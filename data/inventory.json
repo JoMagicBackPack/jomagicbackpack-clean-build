@@ -253,7 +253,8 @@
         {
           "categoryName": "Plates & Plaques"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "204548316958",
@@ -733,7 +734,8 @@
         {
           "categoryName": "Canisters & Jars"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "204825762798",
@@ -853,7 +855,8 @@
         {
           "categoryName": "Boxes, Jars & Tins"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "204919116381",
@@ -1093,7 +1096,8 @@
         {
           "categoryName": "Salt & Pepper Shakers"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "204956963332",
@@ -1258,7 +1262,8 @@
         {
           "categoryName": "Creamers & Sugar Bowls"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205013057754",
@@ -1348,7 +1353,8 @@
         {
           "categoryName": "Boxes, Jars & Tins"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205026782134",
@@ -1768,7 +1774,8 @@
         {
           "categoryName": "Other Men's Vintage Clothing"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205082605231",
@@ -1933,7 +1940,8 @@
         {
           "categoryName": "Other Casino Memorabilia"
         }
-      ]
+      ],
+      "categoryOverride": "accessories"
     },
     {
       "id": "205131963794",
@@ -2248,7 +2256,8 @@
         {
           "categoryName": "Other African Collectibles"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205329877067",
@@ -3118,7 +3127,8 @@
         {
           "categoryName": "Football-NFL"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205677469316",
@@ -3478,7 +3488,8 @@
         {
           "categoryName": "Other Vintage US Beer Glasses"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205899901671",
@@ -3973,7 +3984,8 @@
         {
           "categoryName": "Football-NFL"
         }
-      ]
+      ],
+      "categoryOverride": "accessories"
     },
     {
       "id": "205989503381",
@@ -4468,7 +4480,8 @@
         {
           "categoryName": "Convertible Tops & Parts"
         }
-      ]
+      ],
+      "categoryOverride": "other"
     },
     {
       "id": "206271320058",
