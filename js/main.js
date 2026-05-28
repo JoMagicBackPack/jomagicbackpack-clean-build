@@ -90,6 +90,108 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
+  categories.splice(0, categories.length,
+    {
+      key: 'all',
+      label: 'All Items',
+      emblem: 'ALL',
+      heading: 'All Items',
+      description: 'Every active listing currently loaded from the backpack.',
+      mood: 'Everything currently in the backpack.',
+      viewQuery: ''
+    },
+    {
+      key: 'clothing',
+      label: 'Clothing',
+      emblem: 'CLO',
+      heading: 'Clothing',
+      description: 'Shirts, sweaters, jackets, pants, jeans, suits, and apparel.',
+      mood: 'Wearable finds from the backpack.',
+      viewQuery: 'shirt jacket sweater pants'
+    },
+    {
+      key: 'footwear',
+      label: 'Shoes',
+      emblem: 'SHO',
+      heading: 'Shoes',
+      description: 'Shoes, boots, flats, sneakers, and sandals.',
+      mood: 'Footwear for every kind of wandering.',
+      viewQuery: 'shoes boots sneakers sandals'
+    },
+    {
+      key: 'accessories',
+      label: 'Bags & Accessories',
+      emblem: 'BAG',
+      heading: 'Bags & Accessories',
+      description: 'Bags, hats, jewelry, pins, watches, belts, and smaller wearable details.',
+      mood: 'The smaller details that complete the picture.',
+      viewQuery: 'bag wallet hat jewelry accessories'
+    },
+    {
+      key: 'kitchen',
+      label: 'Kitchen & Dining',
+      emblem: 'DIN',
+      heading: 'Kitchen & Dining',
+      description: 'Plates, bowls, mugs, glassware, serving pieces, and kitchen tools.',
+      mood: 'Kitchenware, tableware, and culinary curiosities.',
+      viewQuery: 'plate bowl mug kitchen cookware'
+    },
+    {
+      key: 'home',
+      label: 'Home Decor',
+      emblem: 'HOM',
+      heading: 'Home Decor',
+      description: 'Blankets, wall decor, vases, lights, tapestries, boxes, and display pieces.',
+      mood: 'Pieces that make a room feel found, not furnished.',
+      viewQuery: 'home decor blanket vase wall art'
+    },
+    {
+      key: 'toys',
+      label: 'Toys & Character',
+      emblem: 'TOY',
+      heading: 'Toys & Character',
+      description: 'Bears, action figures, dolls, Disney, Harry Potter, animation, and playful finds.',
+      mood: 'Nostalgia, characters, and playful shelf treasures.',
+      viewQuery: 'toy bear doll disney pokemon'
+    },
+    {
+      key: 'crafts',
+      label: 'Crafts',
+      emblem: 'ART',
+      heading: 'Crafts',
+      description: 'Cross stitch, embroidery kits, craft books, and handmade project supplies.',
+      mood: 'Kits, stitches, patterns, and hands-on finds.',
+      viewQuery: 'cross stitch embroidery craft kit'
+    },
+    {
+      key: 'books',
+      label: 'Books & Paper',
+      emblem: 'BK',
+      heading: 'Books & Paper',
+      description: 'Books, collectible paper, ephemera, and printed pieces.',
+      mood: 'Printed finds with a little history in them.',
+      viewQuery: 'book vintage paper collectible'
+    },
+    {
+      key: 'collectibles',
+      label: 'Collectibles',
+      emblem: 'COL',
+      heading: 'Collectibles',
+      description: 'Figurines, sculptures, sports, vintage display pieces, and category-resistant treasures.',
+      mood: 'Relics, oddities, atmosphere, and display-worthy finds.',
+      viewQuery: 'vintage collectible art decor oddities'
+    },
+    {
+      key: 'other',
+      label: 'Other Finds',
+      emblem: 'OTH',
+      heading: 'Other Finds',
+      description: 'Items that do not neatly belong in the other backpack pockets.',
+      mood: 'The pleasantly hard-to-file discoveries.',
+      viewQuery: ''
+    }
+  );
+
   function ebaySearchUrl(query) {
     const url = new URL('https://www.ebay.com/sch/i.html');
     url.searchParams.set('_ssn', seller);
@@ -190,8 +292,74 @@ document.addEventListener('DOMContentLoaded', () => {
     return [item.title, item.condition, item.seller, categoryText].filter(Boolean).join(' ').toLowerCase();
   }
 
+  function ebayCategoryText(item) {
+    return Array.isArray(item.categories)
+      ? item.categories.map(category => category.categoryName || '').join(' ').toLowerCase()
+      : '';
+  }
+
+  function itemTitleText(item) {
+    return (item.title || '').toLowerCase();
+  }
+
   function hasAny(text, words = []) {
     return words.some(word => text.includes(word.toLowerCase()));
+  }
+
+  function assignedCategoryKey(item) {
+    const categoryText = ebayCategoryText(item);
+    const titleText = itemTitleText(item);
+    const text = `${categoryText} ${titleText}`;
+
+    if (hasAny(categoryText, ['athletic shoes', 'dress shoes', 'comfort shoes', 'boots', 'flats', "kids' shoes", 'sandals'])) {
+      return 'footwear';
+    }
+
+    if (hasAny(categoryText, ['bags', 'handbags', 'cases', 'hats', 'necklaces', 'pendants', 'cufflinks', 'badges', 'pins', 'buttons', 'jewelry', 'watches'])) {
+      return 'accessories';
+    }
+
+    if (hasAny(categoryText, ['activewear tops', 'casual shirts', 'button-down shirts', 't-shirts', 'sweaters', 'pants', 'jeans', 'coats', 'jackets', 'vests', 'suits', 'hoodies', 'sweatshirts', 'apparel', 'tops'])) {
+      return 'clothing';
+    }
+
+    if (hasAny(categoryText, ['cross stitch', 'embroidery', 'needlepoint', 'craft books', 'crafts']) ||
+        /\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books)\b/.test(titleText)) {
+      return 'crafts';
+    }
+
+    if (hasAny(categoryText, ['books', 'antiquarian', 'collectible']) && hasAny(text, ['book', 'books', 'isbn', 'paper'])) {
+      return 'books';
+    }
+
+    if (hasAny(categoryText, ['plates', 'bowls', 'mugs', 'drinkware', 'glassware', 'cup & saucers', 'canisters', 'jars', 'cutting boards', 'trays', 'colanders', 'strainers', 'pitchers', 'cream & sugar', 'creamers', 'napkin rings', 'kitchen tools', 'pottery & glass', 'trivets', 'coasters', 'salt & pepper shakers'])) {
+      return 'kitchen';
+    }
+
+    if (hasAny(categoryText, ['afghans', 'throw blankets', 'plaques', 'signs', 'suncatchers', 'mobiles', 'boxes', 'tins', 'ashtrays', 'tapestries', 'wood items', 'lights', 'decor', 'décor', 'vases', 'wall', 'pillows', 'villages', 'houses', 'bells'])) {
+      return 'home';
+    }
+
+    if (hasAny(categoryText, ['bears', 'action figures', 'model horses', 'dumbo', 'animation', 'harry potter', 'party decorations', 'toys', 'ccg mixed card lots']) ||
+        /\b(pokemon|disney|harry potter|gi joe|breyer|doll|plush)\b/.test(titleText)) {
+      return 'toys';
+    }
+
+    if (hasAny(categoryText, ['sculptures', 'figurines', 'paperweights', 'football-nfl', 'baseball-mlb', 'memorabilia', 'vintage', 'decorative collectibles', 'indian', 'wedding supplies', 'binoculars', '1970s', 'canada'])) {
+      return 'collectibles';
+    }
+
+    const allowTitleFallback = !categoryText || categoryText.startsWith('other ') || categoryText === 'other' || categoryText === 'vintage';
+    if (allowTitleFallback) {
+      if (/\b(shoes?|boots?|sneakers?|sandals?|loafers?|heels?)\b/.test(titleText)) return 'footwear';
+      if (/\b(bag|handbag|purse|clutch|hat|belt|wallet|necklace|pendant|cufflinks?|pin|watch|scarf)\b/.test(titleText)) return 'accessories';
+      if (/\b(shirt|sweater|jacket|coat|vest|pants|jeans|hoodie|sweatshirt|dress|shorts|skirt|blouse|tee|t-shirt|suit|flannel|pullover)\b/.test(titleText)) return 'clothing';
+      if (/\b(plate|bowl|mug|cup|saucer|glass|goblet|dish|tray|pitcher|canister|jar|creamer|drinkware|cookware|kitchen)\b/.test(titleText)) return 'kitchen';
+      if (/\b(blanket|afghan|pillow|vase|lamp|light|wall|plaque|sign|tapestry|decor|planter|basket|box|tin|ashtray|mobile|suncatcher)\b/.test(titleText)) return 'home';
+      if (/\b(collectible|figurine|sculpture|statue|paperweight|memorabilia|vintage|vtg|nfl|mlb|tiki|jester)\b/.test(titleText)) return 'collectibles';
+    }
+
+    return 'other';
   }
 
   function isRecentListing(item, days = recentListingDays) {
@@ -209,13 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (category.key === 'all') return true;
 
-    const text = textForItem(item);
-
-    if (category.key === 'curiosities') {
-      return !hasAny(text, category.exclude || []);
-    }
-
-    return hasAny(text, category.include || []) && !hasAny(text, category.exclude || []);
+    return assignedCategoryKey(item) === category.key;
   }
 
   function uniqueItems(items) {
