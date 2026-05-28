@@ -795,7 +795,8 @@
         {
           "categoryName": "D\u00e9cor"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "204904973003",
@@ -916,7 +917,8 @@
         {
           "categoryName": "Balloons"
         }
-      ]
+      ],
+      "categoryOverride": "toys"
     },
     {
       "id": "204944748042",
@@ -1081,7 +1083,8 @@
         {
           "categoryName": "Service & Repair Manuals"
         }
-      ]
+      ],
+      "categoryOverride": "books"
     },
     {
       "id": "204956959108",
@@ -1308,7 +1311,8 @@
         {
           "categoryName": "Shot Glasses"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205024932820",
@@ -1414,7 +1418,8 @@
         {
           "categoryName": "Animals & Nature"
         }
-      ]
+      ],
+      "categoryOverride": "toys"
     },
     {
       "id": "205033160274",
@@ -1474,7 +1479,8 @@
         {
           "categoryName": "Table D\u00e9cor"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205040163837",
@@ -1564,7 +1570,8 @@
         {
           "categoryName": "Vehicles"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205047235078",
@@ -1594,7 +1601,8 @@
         {
           "categoryName": "Dishes"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205048240086",
@@ -1684,7 +1692,8 @@
         {
           "categoryName": "Cookie Cutters"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205067866080",
@@ -1729,7 +1738,8 @@
         {
           "categoryName": "Teapots & Tea Sets"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205075706254",
@@ -1790,7 +1800,8 @@
         {
           "categoryName": "Ice Buckets & Coolers"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205095135999",
@@ -1820,7 +1831,8 @@
         {
           "categoryName": "Lamp Shades"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205106767153",
@@ -1910,7 +1922,8 @@
         {
           "categoryName": "Mixed Media Art & Collage Art"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205130606650",
@@ -1925,7 +1938,8 @@
         {
           "categoryName": "Polos"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205131476876",
@@ -2031,7 +2045,8 @@
         {
           "categoryName": "Gravy Boats"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205174862438",
@@ -2061,7 +2076,8 @@
         {
           "categoryName": "1960s"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205176805681",
@@ -2332,7 +2348,8 @@
         {
           "categoryName": "Heels"
         }
-      ]
+      ],
+      "categoryOverride": "footwear"
     },
     {
       "id": "205365708296",
@@ -2437,7 +2454,8 @@
         {
           "categoryName": "Other Latin Am. Collectibles"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205442880142",
@@ -2467,7 +2485,8 @@
         {
           "categoryName": "Great Dane"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205462253776",
@@ -2542,7 +2561,8 @@
         {
           "categoryName": "Socks"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205477353995",
@@ -2602,7 +2622,8 @@
         {
           "categoryName": "College-NCAA"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205502571317",
@@ -2662,7 +2683,8 @@
         {
           "categoryName": "Figures & Statues"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205509858346",
@@ -2782,7 +2804,8 @@
         {
           "categoryName": "Shorts"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205548973496",
@@ -2827,7 +2850,8 @@
         {
           "categoryName": "Coat of Arms"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205616063473",
@@ -2842,7 +2866,8 @@
         {
           "categoryName": "Topographical Postcards"
         }
-      ]
+      ],
+      "categoryOverride": "books"
     },
     {
       "id": "205616064541",
@@ -2872,7 +2897,8 @@
         {
           "categoryName": "Promotional"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205616756824",
@@ -2917,7 +2943,8 @@
         {
           "categoryName": "Slippers"
         }
-      ]
+      ],
+      "categoryOverride": "footwear"
     },
     {
       "id": "205620486661",
@@ -3022,7 +3049,8 @@
         {
           "categoryName": "Clothes Hangers"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205653045734",
@@ -3052,7 +3080,8 @@
         {
           "categoryName": "Jerseys"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205653048369",
@@ -3067,7 +3096,8 @@
         {
           "categoryName": "Refrigerator Magnets"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205655664696",
@@ -3112,7 +3142,8 @@
         {
           "categoryName": "Quilts & Coverlets"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205677063686",
@@ -3173,7 +3204,8 @@
         {
           "categoryName": "Glasses"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205686658073",
@@ -3203,7 +3235,8 @@
         {
           "categoryName": "Other Holiday Collectibles"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205730649138",
@@ -3293,7 +3326,8 @@
         {
           "categoryName": "South America"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205745069371",
@@ -3504,7 +3538,8 @@
         {
           "categoryName": "Hair Extensions"
         }
-      ]
+      ],
+      "categoryOverride": "accessories"
     },
     {
       "id": "205910055709",
@@ -3519,7 +3554,8 @@
         {
           "categoryName": "Casseroles"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205910057930",
@@ -3579,7 +3615,8 @@
         {
           "categoryName": "Quilts, Bedspreads & Coverlets"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205910852571",
@@ -3639,7 +3676,8 @@
         {
           "categoryName": "Art Prints"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "205918335171",
@@ -3654,7 +3692,8 @@
         {
           "categoryName": "Bulldog, English Bulldog"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "205919731467",
@@ -3774,7 +3813,8 @@
         {
           "categoryName": "Belts"
         }
-      ]
+      ],
+      "categoryOverride": "accessories"
     },
     {
       "id": "205936416649",
@@ -3849,7 +3889,8 @@
         {
           "categoryName": "Tray"
         }
-      ]
+      ],
+      "categoryOverride": "toys"
     },
     {
       "id": "205949342201",
@@ -3864,7 +3905,8 @@
         {
           "categoryName": "Florida"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205952083844",
@@ -3969,7 +4011,8 @@
         {
           "categoryName": "Glasses"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "205987659940",
@@ -4015,7 +4058,8 @@
         {
           "categoryName": "English Show Shirts"
         }
-      ]
+      ],
+      "categoryOverride": "clothing"
     },
     {
       "id": "205990124995",
@@ -4045,7 +4089,8 @@
         {
           "categoryName": "Electrical & Lighting"
         }
-      ]
+      ],
+      "categoryOverride": "other"
     },
     {
       "id": "206030051971",
@@ -4060,7 +4105,8 @@
         {
           "categoryName": "Golf"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "206043468023",
@@ -4090,7 +4136,8 @@
         {
           "categoryName": "Mirrors"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "206046988796",
@@ -4135,7 +4182,8 @@
         {
           "categoryName": "Casual Shoes"
         }
-      ]
+      ],
+      "categoryOverride": "footwear"
     },
     {
       "id": "206086076755",
@@ -4180,7 +4228,8 @@
         {
           "categoryName": "Statues & Figures"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "206163162921",
@@ -4210,7 +4259,8 @@
         {
           "categoryName": "Canteens, Bottles & Flasks"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "206185546198",
@@ -4225,7 +4275,8 @@
         {
           "categoryName": "1960s"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "206185569693",
@@ -4270,7 +4321,8 @@
         {
           "categoryName": "Copper"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "206195539720",
@@ -4285,7 +4337,8 @@
         {
           "categoryName": "Gloves & Mittens"
         }
-      ]
+      ],
+      "categoryOverride": "accessories"
     },
     {
       "id": "206199046835",
@@ -4315,7 +4368,8 @@
         {
           "categoryName": "Other Star Wars Collectibles"
         }
-      ]
+      ],
+      "categoryOverride": "toys"
     },
     {
       "id": "206201257059",
@@ -4330,7 +4384,8 @@
         {
           "categoryName": "Antiquarian & Collectible"
         }
-      ]
+      ],
+      "categoryOverride": "books"
     },
     {
       "id": "206203382053",
@@ -4375,7 +4430,8 @@
         {
           "categoryName": "Massagers"
         }
-      ]
+      ],
+      "categoryOverride": "other"
     },
     {
       "id": "206243762819",
@@ -4405,7 +4461,8 @@
         {
           "categoryName": "Quilts"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "206257930452",
@@ -4420,7 +4477,8 @@
         {
           "categoryName": "Indonesian"
         }
-      ]
+      ],
+      "categoryOverride": "home"
     },
     {
       "id": "206261438484",
@@ -4496,7 +4554,8 @@
         {
           "categoryName": "Scarves & Wraps"
         }
-      ]
+      ],
+      "categoryOverride": "accessories"
     },
     {
       "id": "206271325389",
@@ -4541,7 +4600,8 @@
         {
           "categoryName": "Ice Cream & Frozen Yoghurt Makers"
         }
-      ]
+      ],
+      "categoryOverride": "kitchen"
     },
     {
       "id": "206274271606",
@@ -4571,7 +4631,8 @@
         {
           "categoryName": "Movie Cameras"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "206277744031",
@@ -4586,7 +4647,8 @@
         {
           "categoryName": "Elves, Gnomes, Pixies"
         }
-      ]
+      ],
+      "categoryOverride": "collectibles"
     },
     {
       "id": "206279660682",
