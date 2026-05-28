@@ -1,15 +1,18 @@
 # JoMagicBackpack Clean Build
 
-This repository contains a fresh rebuild of the JoMagicBackpack site.
+This repository contains the JoMagicBackpack website published through Netlify.
 
 ## Structure
 
-- `index.html` — main page of the site
-- `css/` — contains CSS styles
-  - `styles.css` — basic layout and typography
-- `js/` — contains JavaScript files
-  - `main.js` — placeholder for future scripts
+- `index.html` - main page of the site
+- `categories.html` - Backpack inventory page
+- `css/styles.css` - site styling
+- `js/main.js` - category and inventory display logic
+- `data/inventory.json` - full inventory with available eBay image URLs
+- `data/inventory.csv` - eBay active-listings export used as the reliable catalog fallback
+- `data/reviews.json` - customer review data
+- `netlify/functions/ebay-listings.js` - optional live eBay Browse API inventory feed
 
-## About
+## Inventory
 
-This clean build provides a simple foundation for JoMagicBackpack's website. Additional features and pages can be added incrementally. Start with this structure, and add new components as needed (e.g., product listings, contact forms, API integrations).
+The Backpack page first tries the live Netlify eBay feed. If the live feed fails or returns too few items, it loads `data/inventory.json`; if that is unavailable, it falls back to `data/inventory.csv`. The JSON file keeps all active listings available and includes eBay image URLs where they could be matched.

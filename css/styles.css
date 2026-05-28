@@ -466,12 +466,30 @@ section {
   text-align: center;
 }
 
-.product-card img {
-  width: 100%;
+.product-image {
+  display: grid;
   aspect-ratio: 1 / 1;
-  object-fit: contain;
+  place-items: center;
   background: #eef3f7;
   border-radius: 13px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.product-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-image-fallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  padding: 1rem;
+  color: #28465c;
+  font-weight: 800;
 }
 
 .product-card h3 {

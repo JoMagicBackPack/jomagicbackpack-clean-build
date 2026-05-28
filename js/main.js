@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const categories = [
     {
-      key: 'latest',
-      label: 'Newly Listed',
+      key: 'all',
+      label: 'All Items',
       emblem: '✦',
-      heading: 'Newly Listed',
-      description: `Fresh finds from the last ${recentListingDays} days, with newer items prioritized first.`,
-      mood: 'Fresh finds recently added to the backpack.',
+      heading: 'All Items',
+      description: 'Every active listing currently loaded from the backpack.',
+      mood: 'Everything currently in the backpack.',
       viewQuery: ''
     },
     {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Clothing',
       description: 'Stylish threads from outside the algorithm.',
       mood: 'Stylish threads from outside the algorithm.',
-      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress', 'flannel', 'pullover', 'shorts'],
+      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress', 'flannel', 'pullover', 'shorts', 'top', 'vest', 't-shirt', 'suit', 'activewear'],
       exclude: ['doll', 'toy', 'plate', 'mug', 'bowl', 'figurine'],
       viewQuery: 'shirt jacket sweater pants'
     },
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'Kitchen & Dining',
       description: 'Kitchenware, tableware, and culinary curiosities.',
       mood: 'Kitchenware, tableware, and culinary curiosities.',
-      include: ['plate', 'plates', 'bowl', 'bowls', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware', 'cup', 'saucer', 'canister', 'pitcher', 'limoges', 'sasaki'],
+      include: ['plate', 'plates', 'bowl', 'bowls', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware', 'cup', 'saucer', 'canister', 'pitcher', 'limoges', 'sasaki', 'vase', 'drinkware', 'pottery', 'porcelain', 'ceramic'],
       exclude: ['shirt', 'shoe', 'wallet'],
       viewQuery: 'plate bowl mug kitchen cookware'
     },
@@ -108,6 +108,80 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.toString();
   }
 
+  function parseCsv(text) {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let quoted = false;
+
+    for (let i = 0; i < text.length; i += 1) {
+      const char = text[i];
+      const next = text[i + 1];
+
+      if (char === '"' && quoted && next === '"') {
+        cell += '"';
+        i += 1;
+      } else if (char === '"') {
+        quoted = !quoted;
+      } else if (char === ',' && !quoted) {
+        row.push(cell);
+        cell = '';
+      } else if ((char === '\n' || char === '\r') && !quoted) {
+        if (cell || row.length) rows.push([...row, cell]);
+        row = [];
+        cell = '';
+        if (char === '\r' && next === '\n') i += 1;
+      } else {
+        cell += char;
+      }
+    }
+
+    if (cell || row.length) rows.push([...row, cell]);
+    if (rows.length < 2) return [];
+
+    const headers = rows[0].map(header => header.trim().toLowerCase());
+
+    return rows.slice(1).map(values => {
+      const record = {};
+      headers.forEach((header, index) => {
+        record[header] = values[index] || '';
+      });
+
+      return normalizeCsvItem(record);
+    }).filter(item => item.title);
+  }
+
+  function pick(record, names) {
+    for (const name of names) {
+      const value = record[name];
+      if (value) return value.trim();
+    }
+
+    return '';
+  }
+
+  function normalizeCsvItem(record) {
+    const itemNumber = pick(record, ['item number', 'item id', 'id']);
+    const title = pick(record, ['title', 'item title', 'name']);
+    const rawPrice = pick(record, ['current price', 'start price', 'price', 'buy it now price']);
+    const price = Number(String(rawPrice).replace(/[^0-9.]/g, ''));
+    const categoryName = pick(record, ['ebay category 1 name', 'category', 'store category', 'category name']);
+    const startTime = pick(record, ['start date', 'start time', 'item creation date']);
+
+    return {
+      id: itemNumber || pick(record, ['custom label (sku)', 'custom label']),
+      title,
+      price: Number.isFinite(price) && price > 0 ? `USD ${price.toFixed(2)}` : null,
+      condition: pick(record, ['condition']) || null,
+      image: pick(record, ['image', 'image url', 'picture url', 'photo url']) || null,
+      url: pick(record, ['url', 'item url', 'link']) || (itemNumber ? `https://www.ebay.com/itm/${itemNumber}` : storeUrl),
+      seller,
+      startTime,
+      categories: categoryName ? [{ categoryName }] : [],
+      raw: record,
+    };
+  }
+
   function textForItem(item) {
     const categoryText = Array.isArray(item.categories)
       ? item.categories.map(category => `${category.categoryName || ''} ${category.categoryId || ''}`).join(' ')
@@ -133,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function belongsInCategory(item, category) {
     if (!category) return false;
 
-    if (category.key === 'latest') return true;
+    if (category.key === 'all') return true;
 
     const text = textForItem(item);
 
@@ -184,8 +258,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         storeInventory = sortNewestFirst(uniqueItems(data.result.items));
+        if (storeInventory.length < 100) {
+          throw new Error('Live inventory feed returned too few items.');
+        }
         return storeInventory;
       })
+      .catch(() => fetch('data/inventory.json')
+        .then(response => {
+          if (!response.ok) throw new Error('JSON inventory did not load.');
+          return response.json();
+        })
+        .then(data => {
+          storeInventory = sortNewestFirst(uniqueItems(data.items || []));
+          return storeInventory;
+        })
+        .catch(() => fetch('data/inventory.csv')
+          .then(response => {
+            if (!response.ok) throw new Error('CSV inventory did not load.');
+            return response.text();
+          })
+          .then(text => {
+            storeInventory = sortNewestFirst(uniqueItems(parseCsv(text)));
+            return storeInventory;
+          })))
       .finally(() => {
         inventoryFetchPromise = null;
       });
@@ -196,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function getItemsForCategory(category, inventory) {
     const filtered = inventory.filter(item => belongsInCategory(item, category));
 
-    if (category.key === 'latest') {
+    if (category.key === 'all') {
       return prioritizeRecent(filtered);
     }
 
@@ -227,11 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (description) description.textContent = category.description;
 
     if (viewAllLink) {
-      viewAllLink.href = category.key === 'latest'
+      viewAllLink.href = category.key === 'all'
         ? storeUrl
         : ebaySearchUrl(category.viewQuery || '');
 
-      viewAllLink.textContent = category.key === 'latest'
+      viewAllLink.textContent = category.key === 'all'
         ? 'View all items on eBay'
         : `View all ${category.label} on eBay`;
     }
@@ -256,10 +351,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function productCardMarkup(item) {
+    const imageMarkup = item.image
+      ? `<img loading="lazy" src="${item.image}" alt="${item.title || 'JoMagicBackpack item'}">`
+      : `<span class="product-image-fallback">No image yet</span>`;
+
     return `
       <article class="product-card">
         <a class="product-image" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">
-          <img loading="lazy" src="${item.image || 'https://via.placeholder.com/300x220?text=JoMagicBackpack'}" alt="${item.title || 'JoMagicBackpack item'}">
+          ${imageMarkup}
         </a>
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
