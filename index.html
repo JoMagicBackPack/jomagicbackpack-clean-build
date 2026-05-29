@@ -6,7 +6,7 @@
   <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
   <meta name="description" content="JoMagicBackpack - vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260529f">
+  <link rel="stylesheet" href="css/styles.css?v=20260529g">
   <style>
     .backpack-instruction {
       font-size: clamp(1.18rem, 3.8vw, 1.62rem);
@@ -393,6 +393,7 @@
         <ul class="nav-list">
           <li><a href="index.html">Home</a></li>
           <li><a href="categories.html">Backpack</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -440,18 +441,20 @@
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const enterSign = document.querySelector('.enter-sign[data-backpack-enter]');
+      const enterTargets = document.querySelectorAll('[data-backpack-enter]');
       const backpackGate = document.getElementById('backpackGate');
 
-      if (!enterSign || !backpackGate) return;
+      if (!enterTargets.length || !backpackGate) return;
 
-      enterSign.addEventListener('click', event => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-        event.preventDefault();
-        backpackGate.classList.add('is-opening');
-        window.setTimeout(() => {
-          window.location.href = enterSign.href;
-        }, 720);
+      enterTargets.forEach(target => {
+        target.addEventListener('click', event => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+          event.preventDefault();
+          backpackGate.classList.add('is-opening');
+          window.setTimeout(() => {
+            window.location.href = target.href;
+          }, 720);
+        });
       });
     });
   </script>
