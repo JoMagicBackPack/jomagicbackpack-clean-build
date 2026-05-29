@@ -6,7 +6,110 @@
   <title>Take a Peek Inside | JoMagicBackpack</title>
   <meta name="description" content="Browse JoMagicBackpack inventory by category and check out securely through eBay.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260528d">
+  <link rel="stylesheet" href="css/styles.css?v=20260529e">
+  <style>
+    @media (max-width: 768px) {
+      .category-showcase {
+        --wheel-size: min(92vw, 520px);
+        --wheel-radius: calc(var(--wheel-size) * 0.36);
+        display: block;
+        width: var(--wheel-size);
+        height: var(--wheel-size);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 50%, rgba(159,228,255,0.12), rgba(159,228,255,0.04) 35%, transparent 66%),
+          radial-gradient(circle at 50% 50%, transparent 49%, rgba(124,204,255,0.26) 50%, transparent 51%),
+          radial-gradient(circle at 50% 50%, rgba(155,117,255,0.08), transparent 64%);
+      }
+
+      .category-showcase::before {
+        display: none;
+      }
+
+      .category-wheel-center {
+        --card-transform: translate(-50%, -50%);
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: clamp(108px, 31vw, 148px);
+        aspect-ratio: 1;
+        min-height: 0;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 0.62rem 0.6rem;
+        transform: var(--card-transform);
+        border-radius: 50%;
+        text-align: center;
+      }
+
+      .category-wheel-center:hover,
+      .category-wheel-center:focus-visible {
+        transform: var(--card-transform) scale(1.045);
+      }
+
+      .category-wheel-center::after {
+        display: block;
+      }
+
+      .category-center-backpack {
+        grid-row: auto;
+        width: 38px;
+        margin: 0 0 0.08rem;
+      }
+
+      .category-wheel-title {
+        margin: 0;
+        padding: 0;
+        font-size: clamp(1.24rem, 6.6vw, 1.72rem);
+        line-height: 0.9;
+      }
+
+      .category-wheel-center small {
+        justify-self: center;
+        font-size: clamp(0.52rem, 2.15vw, 0.68rem);
+        line-height: 1.05;
+      }
+
+      .category-card {
+        --card-transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--wheel-radius)) rotate(var(--reverse-angle));
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: clamp(76px, 23vw, 108px);
+        min-height: clamp(72px, 20vw, 96px);
+        padding: 0.5rem 0.35rem;
+        text-align: center;
+        border-radius: 13px;
+        transform: var(--card-transform);
+      }
+
+      .category-card:hover,
+      .category-card:focus-visible {
+        transform: var(--card-transform) scale(1.055);
+      }
+
+      .category-emblem {
+        width: 28px;
+        height: 28px;
+        margin: 0 auto 0.22rem;
+        transform: scale(0.82);
+      }
+
+      .category-title {
+        font-size: clamp(0.66rem, 2.7vw, 0.82rem);
+        line-height: 1.12;
+      }
+
+      .category-count {
+        font-size: 0.62rem;
+        padding: 0.05rem 0.34rem;
+        margin-left: 0.12rem;
+      }
+
+      .category-description {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -68,6 +171,6 @@
   </main>
 
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-  <script src="js/main.js?v=20260528d"></script>
+  <script src="js/main.js?v=20260529e"></script>
 </body>
 </html>
