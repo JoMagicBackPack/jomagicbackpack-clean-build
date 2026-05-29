@@ -6,54 +6,67 @@
   <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
   <meta name="description" content="JoMagicBackpack - vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260529b">
+  <link rel="stylesheet" href="css/styles.css?v=20260529c">
   <style>
     .backpack-instruction {
       font-size: clamp(1.18rem, 3.8vw, 1.62rem);
-      margin-bottom: 0.65rem;
+      margin-bottom: 0;
     }
 
     .home-backpack-section {
-      min-height: min(86vh, 820px);
-      padding-top: 0.9rem;
+      min-height: min(88vh, 860px);
+      padding-top: 0.8rem;
+      overflow: hidden;
     }
 
-    .backpack-button img {
-      width: min(98vw, 718px);
-      max-height: 745px;
-      animation: backpackBreathe 4.6s ease-in-out infinite;
-      filter:
-        drop-shadow(0 26px 46px rgba(0,0,0,.34))
-        drop-shadow(0 0 58px rgba(110,210,255,.5))
-        drop-shadow(0 0 18px rgba(190,245,255,.38));
+    .backpack-gate {
+      display: grid;
+      justify-items: center;
+      position: relative;
     }
 
-    .backpack-button::before {
-      width: 126%;
-      height: 126%;
+    .backpack-entrance {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      width: min(94vw, 560px);
+      margin: clamp(0.15rem, 1vh, 0.65rem) auto 0;
+      padding-top: clamp(0.55rem, 1.3vw, 1rem);
+      isolation: isolate;
+    }
+
+    .backpack-entrance::before {
+      content: "";
+      position: absolute;
+      inset: -7% -16% -3%;
+      border-radius: 50%;
       background:
-        radial-gradient(circle, rgba(190,245,255,.46), rgba(110,210,255,.2) 34%, rgba(162,118,255,.12) 52%, rgba(120,220,255,0) 74%);
-      filter: blur(30px);
-      animation: backpackAura 3.8s ease-in-out infinite;
+        radial-gradient(ellipse at 50% 36%, rgba(180,236,255,.2), rgba(118,214,255,.08) 36%, rgba(255,255,255,0) 68%);
+      pointer-events: none;
+      z-index: -4;
     }
 
-    .backpack-button::after {
-      inset: -14%;
-      background:
-        radial-gradient(circle at 28% 20%, rgba(220,250,255,.22), transparent 12%),
-        radial-gradient(circle at 70% 20%, rgba(160,230,255,.18), transparent 11%),
-        radial-gradient(circle at 60% 74%, rgba(205,165,255,.16), transparent 16%),
-        radial-gradient(circle at 38% 78%, rgba(145,225,255,.12), transparent 13%);
-      filter: blur(14px);
-      animation: magicalDrift 6.5s ease-in-out infinite;
+    .backpack-entrance::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0.25rem;
+      width: min(74vw, 430px);
+      height: 34px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0,0,0,.36), rgba(0,0,0,0) 68%);
+      filter: blur(9px);
+      pointer-events: none;
+      z-index: -2;
     }
 
     .enter-sign {
       position: relative;
       display: grid;
       justify-items: center;
-      width: min(82vw, 340px);
-      margin: -0.15rem auto -2.7rem;
+      width: min(82vw, 320px);
+      margin: 0 auto -0.72rem;
       transform: rotate(-3.5deg);
       color: inherit;
       text-decoration: none;
@@ -67,18 +80,18 @@
       position: absolute;
       top: -18px;
       width: 2px;
-      height: 30px;
+      height: 34px;
       background: linear-gradient(to bottom, rgba(190,230,255,0.2), rgba(190,230,255,0.82));
       box-shadow: 0 0 10px rgba(120,220,255,.18);
     }
 
     .enter-sign::before {
-      left: 29%;
+      left: 27%;
       transform: rotate(8deg);
     }
 
     .enter-sign::after {
-      right: 29%;
+      right: 27%;
       transform: rotate(-8deg);
     }
 
@@ -97,6 +110,7 @@
         inset 0 1px 0 rgba(255,255,255,0.18),
         0 14px 32px rgba(0,0,0,.28),
         0 0 24px rgba(120,220,255,.14);
+      animation: enterFlash 1s steps(1, end) infinite;
     }
 
     .sign-board::before {
@@ -118,14 +132,14 @@
       letter-spacing: 0.18em;
       text-indent: 0.18em;
       text-shadow: 0 0 16px rgba(143,232,255,0.55);
-      animation: enterFlash 1s steps(2, end) infinite;
     }
 
     .sign-arrows {
       position: relative;
-      width: 210px;
-      height: 54px;
-      margin-top: -2px;
+      width: 204px;
+      height: 46px;
+      margin-top: -4px;
+      pointer-events: none;
     }
 
     .sign-arrow {
@@ -133,7 +147,7 @@
       top: 0;
       left: 50%;
       width: 3px;
-      height: 40px;
+      height: 34px;
       border-radius: 999px;
       background: linear-gradient(to bottom, rgba(191,242,255,0.2), rgba(191,242,255,0.9));
       box-shadow: 0 0 14px rgba(120,220,255,.24);
@@ -158,35 +172,145 @@
 
     .sign-arrow-center {
       transform: translateX(-1px);
-      height: 48px;
+      height: 42px;
     }
 
     .sign-arrow-right {
       transform: translateX(66px) rotate(22deg);
     }
 
+    .backpack-button {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(72vw, 410px);
+      aspect-ratio: 446 / 496;
+      margin-top: -6.2rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      isolation: isolate;
+    }
+
+    .backpack-button::before,
+    .backpack-button::after {
+      pointer-events: none;
+    }
+
+    .backpack-button::before {
+      content: "";
+      position: absolute;
+      inset: 8% 2% 4%;
+      border-radius: 46% 46% 42% 42%;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(224,250,255,.72), rgba(116,222,255,.34) 32%, rgba(155,115,255,.18) 52%, rgba(120,220,255,0) 74%);
+      filter: blur(30px);
+      transform-origin: center;
+      animation: backpackAura 4.1s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .backpack-button::after {
+      content: "";
+      position: absolute;
+      inset: -6% -8% 3%;
+      border-radius: 44%;
+      background:
+        radial-gradient(circle at 26% 20%, rgba(236,253,255,.42), transparent 9%),
+        radial-gradient(circle at 68% 18%, rgba(153,226,255,.34), transparent 10%),
+        radial-gradient(circle at 76% 60%, rgba(205,165,255,.26), transparent 13%),
+        radial-gradient(circle at 32% 78%, rgba(150,230,255,.22), transparent 12%);
+      filter: blur(13px);
+      animation: magicalDrift 6.4s ease-in-out infinite;
+      z-index: -2;
+    }
+
+    .backpack-image-crop {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transform-origin: 50% 58%;
+      animation: backpackBreathe 5.2s ease-in-out infinite;
+      filter:
+        drop-shadow(0 24px 38px rgba(0,0,0,.36))
+        drop-shadow(0 0 66px rgba(120,220,255,.62))
+        drop-shadow(0 0 20px rgba(226,250,255,.7));
+      pointer-events: none;
+    }
+
+    .backpack-image-crop img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 229.6%;
+      height: auto;
+      max-width: none;
+      max-height: none;
+      object-fit: initial;
+      image-orientation: none;
+      animation: none;
+      filter: none;
+      transform: translate(-31.25%, -24.94%);
+      pointer-events: none;
+    }
+
+    .backpack-gate.is-opening .backpack-image-crop {
+      animation: backpackOpen 0.72s ease forwards;
+    }
+
+    .backpack-gate:not(.is-opening) .open-spark {
+      opacity: 0.78;
+      animation: idleSpark 3.4s ease-in-out infinite;
+    }
+
+    .backpack-gate:not(.is-opening) .spark-two {
+      animation-delay: 0.8s;
+    }
+
+    .backpack-gate:not(.is-opening) .spark-three {
+      animation-delay: 1.45s;
+    }
+
     @keyframes enterFlash {
-      0%, 49% { opacity: 1; filter: brightness(1.15); }
-      50%, 100% { opacity: 0.24; filter: brightness(0.8); }
+      0%, 49% {
+        filter: brightness(1.45);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.22),
+          0 16px 34px rgba(0,0,0,.3),
+          0 0 32px rgba(120,220,255,.48),
+          0 0 10px rgba(232,251,255,.55);
+      }
+      50%, 100% {
+        filter: brightness(0.68);
+        box-shadow:
+          inset 0 1px 0 rgba(255,255,255,0.1),
+          0 12px 28px rgba(0,0,0,.26),
+          0 0 12px rgba(120,220,255,.16);
+      }
     }
 
     @keyframes backpackBreathe {
       0%, 100% {
-        transform: translateY(0) rotate(-0.35deg) scale(1);
+        transform: translateY(0) rotate(-0.25deg) scale(1);
       }
       50% {
-        transform: translateY(-10px) rotate(0.25deg) scale(1.055);
+        transform: translateY(-9px) rotate(0.2deg) scale(1.052);
       }
     }
 
     @keyframes backpackAura {
       0%, 100% {
-        opacity: 0.62;
-        transform: translate(-50%, -50%) scale(0.95);
+        opacity: 0.54;
+        transform: scale(0.9) rotate(-1deg);
       }
       50% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: scale(1.18) rotate(1deg);
       }
     }
 
@@ -197,35 +321,47 @@
       }
       50% {
         opacity: 1;
-        transform: translate3d(0,-14px,0) scale(1.08);
+        transform: translate3d(0,-16px,0) scale(1.08);
+      }
+    }
+
+    @keyframes idleSpark {
+      0%, 100% {
+        opacity: 0.18;
+        transform: translate3d(0, 10px, 0) scale(0.72);
+      }
+      45% {
+        opacity: 0.94;
+        transform: translate3d(var(--spark-x), var(--spark-y), 0) scale(1.08);
       }
     }
 
     @media (max-width: 768px) {
       .home-backpack-section {
-        min-height: 72vh;
+        min-height: 76vh;
       }
 
-      .backpack-button img {
-        width: min(104vw, 650px);
+      .backpack-entrance {
+        width: min(96vw, 500px);
+        margin-top: 0.35rem;
       }
 
       .enter-sign {
-        width: min(88vw, 300px);
-        margin-bottom: -1.9rem;
+        width: min(86vw, 292px);
+        margin-bottom: -0.62rem;
       }
 
       .sign-arrows {
-        width: 178px;
-        height: 54px;
-      }
-
-      .sign-arrow {
+        width: 176px;
         height: 42px;
       }
 
+      .sign-arrow {
+        height: 32px;
+      }
+
       .sign-arrow-center {
-        height: 48px;
+        height: 40px;
       }
 
       .sign-arrow-left {
@@ -235,13 +371,18 @@
       .sign-arrow-right {
         transform: translateX(52px) rotate(22deg);
       }
+
+      .backpack-button {
+        width: min(76vw, 370px);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .backpack-button img,
+      .backpack-image-crop,
       .backpack-button::before,
       .backpack-button::after,
-      .sign-word {
+      .backpack-gate:not(.is-opening) .open-spark,
+      .sign-board {
         animation: none;
       }
     }
@@ -276,26 +417,47 @@
       <div class="container">
         <div id="backpackGate" class="backpack-gate">
           <p class="backpack-instruction">Tap the Pack to Reveal Its Contents!</p>
-          <a class="enter-sign" href="categories.html" aria-label="Enter the backpack">
-            <span class="sign-board"><span class="sign-word">ENTER</span></span>
-            <span class="sign-arrows">
-              <span class="sign-arrow sign-arrow-left"></span>
-              <span class="sign-arrow sign-arrow-center"></span>
-              <span class="sign-arrow sign-arrow-right"></span>
-            </span>
-          </a>
-          <a id="openBackpack" class="backpack-button" href="categories.html" aria-label="Take a peek inside the backpack">
-            <span class="open-spark spark-one" aria-hidden="true"></span>
-            <span class="open-spark spark-two" aria-hidden="true"></span>
-            <span class="open-spark spark-three" aria-hidden="true"></span>
-            <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="Open the JoMagicBackpack">
-          </a>
+          <div class="backpack-entrance">
+            <a class="enter-sign" href="categories.html" data-backpack-enter aria-label="Enter the backpack">
+              <span class="sign-board"><span class="sign-word">ENTER</span></span>
+              <span class="sign-arrows">
+                <span class="sign-arrow sign-arrow-left"></span>
+                <span class="sign-arrow sign-arrow-center"></span>
+                <span class="sign-arrow sign-arrow-right"></span>
+              </span>
+            </a>
+            <a id="openBackpack" class="backpack-button" href="categories.html" data-backpack-enter aria-label="Take a peek inside the backpack">
+              <span class="open-spark spark-one" aria-hidden="true"></span>
+              <span class="open-spark spark-two" aria-hidden="true"></span>
+              <span class="open-spark spark-three" aria-hidden="true"></span>
+              <span class="backpack-image-crop" aria-hidden="true">
+                <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="">
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-  <script src="js/main.js?v=20260529b"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const enterSign = document.querySelector('.enter-sign[data-backpack-enter]');
+      const backpackGate = document.getElementById('backpackGate');
+
+      if (!enterSign || !backpackGate) return;
+
+      enterSign.addEventListener('click', event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+        event.preventDefault();
+        backpackGate.classList.add('is-opening');
+        window.setTimeout(() => {
+          window.location.href = enterSign.href;
+        }, 720);
+      });
+    });
+  </script>
+  <script src="js/main.js?v=20260529c"></script>
 </body>
 </html>
