@@ -387,6 +387,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resultSummary) resultSummary.textContent = '';
   }
 
+  function categoryFromKey(key) {
+    return categories.find(category => category.key === key);
+  }
+
+  function categoryFromHash() {
+    const key = decodeURIComponent((window.location.hash || '').replace(/^#/, ''));
+    return key ? categoryFromKey(key) : null;
+  }
+
+  function baseCategoryUrl() {
+    return `${window.location.pathname}${window.location.search}`;
+  }
+
+  function setCategoryHistory(category, mode = 'push') {
+    if (!categoryShowcase || !window.history?.pushState) return;
+    const url = category ? `#${encodeURIComponent(category.key)}` : baseCategoryUrl();
+    const state = { categoryKey: category ? category.key : null };
+    const method = mode === 'replace' ? 'replaceState' : 'pushState';
+
+    if (category && window.location.hash === url && window.history.state?.categoryKey === category.key) return;
+    if (!category && !window.location.hash && window.history.state?.categoryKey === null) return;
+    window.history[method](state, '', url);
+  }
+
+  function showCategoryPanelFromButton() {
+    setCategoryHistory(null, 'replace');
+    showCategoryPanel();
+  }
+
   function setStatus(message) {
     if (!productsGrid) return;
     productsGrid.innerHTML = `<div class="product-status">${message}</div>`;
@@ -450,7 +479,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  async function loadCategory(category) {
+  async function loadCategory(category, options = {}) {
+    if (options.updateHistory) setCategoryHistory(category);
     showProductPanel(category);
     setStatus('Pulling full store inventory...');
 
@@ -516,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryShowcase.classList.remove('is-opening');
         card.classList.remove('is-selected');
         categoryOpening = false;
-        loadCategory(category);
+        loadCategory(category, { updateHistory: true });
       }, 740);
     });
   }
@@ -545,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (backToCategories) {
-    backToCategories.addEventListener('click', showCategoryPanel);
+    backToCategories.addEventListener('click', showCategoryPanelFromButton);
   }
 
   const openBackpack = document.getElementById('openBackpack');
@@ -564,6 +594,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (categoryShowcase) {
     renderCategories();
+    const initialCategory = categoryFromHash();
+    setCategoryHistory(initialCategory, 'replace');
+    if (initialCategory) loadCategory(initialCategory);
+    window.addEventListener('popstate', event => {
+      const category = categoryFromKey(event.state?.categoryKey) || categoryFromHash();
+      if (category) {
+        loadCategory(category);
+      } else {
+        showCategoryPanel();
+      }
+    });
     fetchStoreInventory().then(renderCategories).catch(() => {});
   }
 });
