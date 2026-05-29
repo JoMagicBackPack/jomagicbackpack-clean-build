@@ -6,7 +6,7 @@
   <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
   <meta name="description" content="JoMagicBackpack - vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260529d">
+  <link rel="stylesheet" href="css/styles.css?v=20260529f">
   <style>
     .backpack-instruction {
       font-size: clamp(1.18rem, 3.8vw, 1.62rem);
@@ -41,7 +41,8 @@
       inset: -7% -16% -3%;
       border-radius: 50%;
       background:
-        radial-gradient(ellipse at 50% 36%, rgba(180,236,255,.2), rgba(118,214,255,.08) 36%, rgba(255,255,255,0) 68%);
+        radial-gradient(ellipse at 50% 36%, rgba(246,200,95,.16), rgba(118,214,255,.13) 36%, rgba(255,255,255,0) 68%),
+        radial-gradient(circle at 36% 18%, rgba(255,111,174,.07), transparent 30%);
       pointer-events: none;
       z-index: -4;
     }
@@ -81,8 +82,8 @@
       top: -18px;
       width: 2px;
       height: 34px;
-      background: linear-gradient(to bottom, rgba(190,230,255,0.2), rgba(190,230,255,0.82));
-      box-shadow: 0 0 10px rgba(120,220,255,.18);
+      background: linear-gradient(to bottom, rgba(246,200,95,0.18), rgba(190,230,255,0.82));
+      box-shadow: 0 0 10px rgba(246,200,95,.16);
     }
 
     .enter-sign::before {
@@ -101,15 +102,16 @@
       place-items: center;
       min-width: 190px;
       padding: 0.48rem 1.45rem 0.54rem;
-      border: 2px solid rgba(191, 242, 255, 0.58);
+      border: 2px solid rgba(246, 200, 95, 0.5);
       border-radius: 7px;
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 42%, rgba(120,220,255,0.12)),
+        linear-gradient(135deg, rgba(246,200,95,0.15), rgba(255,255,255,0.03) 42%, rgba(120,220,255,0.13)),
         linear-gradient(160deg, rgba(31,48,67,0.96), rgba(9,16,27,0.98));
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.18),
         0 14px 32px rgba(0,0,0,.28),
-        0 0 24px rgba(120,220,255,.14);
+        0 0 24px rgba(120,220,255,.14),
+        0 0 18px rgba(246,200,95,.16);
       animation: enterFlash 1s steps(1, end) infinite;
     }
 
@@ -121,17 +123,19 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: radial-gradient(circle at 36% 32%, #effbff 0 2px, #8fdcff 3px 5px, #152333 6px);
-      box-shadow: 0 0 14px rgba(120,220,255,.22);
+      background: radial-gradient(circle at 36% 32%, #fff7c4 0 2px, #f6c85f 3px 5px, #152333 6px);
+      box-shadow: 0 0 14px rgba(246,200,95,.24);
     }
 
     .sign-word {
-      color: #e9fbff;
+      color: #fff1a8;
       font-weight: 900;
       font-size: clamp(1.05rem, 4vw, 1.5rem);
       letter-spacing: 0.18em;
       text-indent: 0.18em;
-      text-shadow: 0 0 16px rgba(143,232,255,0.55);
+      text-shadow:
+        0 0 16px rgba(143,232,255,0.42),
+        0 0 18px rgba(246,200,95,0.36);
     }
 
     .sign-arrows {
@@ -149,8 +153,8 @@
       width: 3px;
       height: 34px;
       border-radius: 999px;
-      background: linear-gradient(to bottom, rgba(191,242,255,0.2), rgba(191,242,255,0.9));
-      box-shadow: 0 0 14px rgba(120,220,255,.24);
+      background: linear-gradient(to bottom, rgba(246,200,95,0.18), rgba(191,242,255,0.9));
+      box-shadow: 0 0 14px rgba(246,200,95,.2);
       transform-origin: top center;
     }
 
@@ -161,7 +165,7 @@
       bottom: -3px;
       width: 13px;
       height: 13px;
-      border-right: 3px solid rgba(191,242,255,0.9);
+      border-right: 3px solid rgba(246,224,151,0.92);
       border-bottom: 3px solid rgba(191,242,255,0.9);
       transform: translateX(-50%) rotate(45deg);
     }
@@ -205,7 +209,7 @@
       inset: 8% 2% 4%;
       border-radius: 46% 46% 42% 42%;
       background:
-        radial-gradient(circle at 50% 45%, rgba(224,250,255,.72), rgba(116,222,255,.34) 32%, rgba(155,115,255,.18) 52%, rgba(120,220,255,0) 74%);
+        radial-gradient(circle at 50% 45%, rgba(255,247,196,.62), rgba(116,222,255,.34) 32%, rgba(246,200,95,.2) 52%, rgba(120,220,255,0) 74%);
       filter: blur(30px);
       transform-origin: center;
       animation: backpackAura 4.1s ease-in-out infinite;
@@ -218,9 +222,10 @@
       inset: -6% -8% 3%;
       border-radius: 44%;
       background:
+        radial-gradient(circle at 42% 16%, rgba(246,200,95,.24), transparent 12%),
         radial-gradient(circle at 26% 20%, rgba(236,253,255,.42), transparent 9%),
         radial-gradient(circle at 68% 18%, rgba(153,226,255,.34), transparent 10%),
-        radial-gradient(circle at 76% 60%, rgba(205,165,255,.26), transparent 13%),
+        radial-gradient(circle at 76% 60%, rgba(255,111,174,.18), transparent 13%),
         radial-gradient(circle at 32% 78%, rgba(150,230,255,.22), transparent 12%);
       filter: blur(13px);
       animation: magicalDrift 6.4s ease-in-out infinite;
@@ -238,7 +243,8 @@
       filter:
         drop-shadow(0 24px 38px rgba(0,0,0,.36))
         drop-shadow(0 0 66px rgba(120,220,255,.62))
-        drop-shadow(0 0 20px rgba(226,250,255,.7));
+        drop-shadow(0 0 20px rgba(226,250,255,.7))
+        drop-shadow(0 0 18px rgba(246,200,95,.22));
       pointer-events: none;
     }
 
@@ -283,14 +289,14 @@
           inset 0 1px 0 rgba(255,255,255,0.22),
           0 16px 34px rgba(0,0,0,.3),
           0 0 32px rgba(120,220,255,.48),
-          0 0 10px rgba(232,251,255,.55);
+          0 0 18px rgba(246,200,95,.5);
       }
       50%, 100% {
         filter: brightness(0.68);
         box-shadow:
           inset 0 1px 0 rgba(255,255,255,0.1),
           0 12px 28px rgba(0,0,0,.26),
-          0 0 12px rgba(120,220,255,.16);
+          0 0 12px rgba(246,200,95,.16);
       }
     }
 
@@ -390,7 +396,7 @@
           <li><a href="about.html">About</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer" aria-label="Visit eBay store"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay"></a></li>
+          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer" aria-label="Visit eBay store">eBay</a></li>
         </ul>
       </nav>
     </div>
