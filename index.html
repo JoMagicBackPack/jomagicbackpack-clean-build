@@ -6,16 +6,46 @@
   <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
   <meta name="description" content="JoMagicBackpack - vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260529a">
+  <link rel="stylesheet" href="css/styles.css?v=20260529b">
   <style>
     .backpack-instruction {
       font-size: clamp(1.18rem, 3.8vw, 1.62rem);
       margin-bottom: 0.65rem;
     }
 
+    .home-backpack-section {
+      min-height: min(86vh, 820px);
+      padding-top: 0.9rem;
+    }
+
     .backpack-button img {
-      width: min(96vw, 598px);
-      max-height: 621px;
+      width: min(98vw, 718px);
+      max-height: 745px;
+      animation: backpackBreathe 4.6s ease-in-out infinite;
+      filter:
+        drop-shadow(0 26px 46px rgba(0,0,0,.34))
+        drop-shadow(0 0 58px rgba(110,210,255,.5))
+        drop-shadow(0 0 18px rgba(190,245,255,.38));
+    }
+
+    .backpack-button::before {
+      width: 126%;
+      height: 126%;
+      background:
+        radial-gradient(circle, rgba(190,245,255,.46), rgba(110,210,255,.2) 34%, rgba(162,118,255,.12) 52%, rgba(120,220,255,0) 74%);
+      filter: blur(30px);
+      animation: backpackAura 3.8s ease-in-out infinite;
+    }
+
+    .backpack-button::after {
+      inset: -14%;
+      background:
+        radial-gradient(circle at 28% 20%, rgba(220,250,255,.22), transparent 12%),
+        radial-gradient(circle at 70% 20%, rgba(160,230,255,.18), transparent 11%),
+        radial-gradient(circle at 60% 74%, rgba(205,165,255,.16), transparent 16%),
+        radial-gradient(circle at 38% 78%, rgba(145,225,255,.12), transparent 13%);
+      filter: blur(14px);
+      animation: magicalDrift 6.5s ease-in-out infinite;
     }
 
     .enter-sign {
@@ -23,9 +53,11 @@
       display: grid;
       justify-items: center;
       width: min(82vw, 340px);
-      margin: 0.1rem auto -1.25rem;
+      margin: -0.15rem auto -2.7rem;
       transform: rotate(-3.5deg);
-      pointer-events: none;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
       z-index: 5;
     }
 
@@ -92,7 +124,7 @@
     .sign-arrows {
       position: relative;
       width: 210px;
-      height: 66px;
+      height: 54px;
       margin-top: -2px;
     }
 
@@ -101,7 +133,7 @@
       top: 0;
       left: 50%;
       width: 3px;
-      height: 50px;
+      height: 40px;
       border-radius: 999px;
       background: linear-gradient(to bottom, rgba(191,242,255,0.2), rgba(191,242,255,0.9));
       box-shadow: 0 0 14px rgba(120,220,255,.24);
@@ -126,7 +158,7 @@
 
     .sign-arrow-center {
       transform: translateX(-1px);
-      height: 58px;
+      height: 48px;
     }
 
     .sign-arrow-right {
@@ -138,14 +170,49 @@
       50%, 100% { opacity: 0.24; filter: brightness(0.8); }
     }
 
+    @keyframes backpackBreathe {
+      0%, 100% {
+        transform: translateY(0) rotate(-0.35deg) scale(1);
+      }
+      50% {
+        transform: translateY(-10px) rotate(0.25deg) scale(1.055);
+      }
+    }
+
+    @keyframes backpackAura {
+      0%, 100% {
+        opacity: 0.62;
+        transform: translate(-50%, -50%) scale(0.95);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    @keyframes magicalDrift {
+      0%, 100% {
+        opacity: 0.7;
+        transform: translate3d(0,0,0) scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translate3d(0,-14px,0) scale(1.08);
+      }
+    }
+
     @media (max-width: 768px) {
+      .home-backpack-section {
+        min-height: 72vh;
+      }
+
       .backpack-button img {
-        width: min(98vw, 575px);
+        width: min(104vw, 650px);
       }
 
       .enter-sign {
         width: min(88vw, 300px);
-        margin-bottom: -0.65rem;
+        margin-bottom: -1.9rem;
       }
 
       .sign-arrows {
@@ -167,6 +234,15 @@
 
       .sign-arrow-right {
         transform: translateX(52px) rotate(22deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .backpack-button img,
+      .backpack-button::before,
+      .backpack-button::after,
+      .sign-word {
+        animation: none;
       }
     }
   </style>
@@ -200,14 +276,14 @@
       <div class="container">
         <div id="backpackGate" class="backpack-gate">
           <p class="backpack-instruction">Tap the Pack to Reveal Its Contents!</p>
-          <div class="enter-sign" aria-hidden="true">
+          <a class="enter-sign" href="categories.html" aria-label="Enter the backpack">
             <span class="sign-board"><span class="sign-word">ENTER</span></span>
             <span class="sign-arrows">
               <span class="sign-arrow sign-arrow-left"></span>
               <span class="sign-arrow sign-arrow-center"></span>
               <span class="sign-arrow sign-arrow-right"></span>
             </span>
-          </div>
+          </a>
           <a id="openBackpack" class="backpack-button" href="categories.html" aria-label="Take a peek inside the backpack">
             <span class="open-spark spark-one" aria-hidden="true"></span>
             <span class="open-spark spark-two" aria-hidden="true"></span>
@@ -220,6 +296,6 @@
   </main>
 
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-  <script src="js/main.js?v=20260529a"></script>
+  <script src="js/main.js?v=20260529b"></script>
 </body>
 </html>
