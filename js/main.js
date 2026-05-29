@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const backpackGate = document.getElementById('backpackGate');
-  const openBackpack = document.getElementById('openBackpack');
-  const shopInterface = document.getElementById('shopInterface');
   const categoryIntro = document.getElementById('categoryIntro');
   const categoryShowcase = document.getElementById('categoryShowcase');
   const productPanel = document.getElementById('productPanel');
@@ -10,17 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const heading = document.getElementById('products-heading');
   const description = document.getElementById('products-description');
   const viewAllLink = document.getElementById('viewAllCategory');
+  const inventorySearch = document.getElementById('inventorySearch');
+  const inventorySort = document.getElementById('inventorySort');
+  const resultSummary = document.getElementById('resultSummary');
 
   const seller = 'jomagicbackpack';
   const storeUrl = `https://www.ebay.com/str/${seller}`;
   const initialVisibleCount = 24;
   const loadMoreStep = 24;
-  const inventoryPageLimit = 50;
-  const inventoryPages = 6;
-  const recentListingDays = 30;
 
   let storeInventory = null;
   let inventoryFetchPromise = null;
+  let activeCategory = null;
   let activeItems = [];
   let visibleItemCount = initialVisibleCount;
 
@@ -28,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'all',
       label: 'All Items',
-      emblem: '✦',
       heading: 'All Items',
       description: 'Every active listing currently loaded from the backpack.',
       mood: 'Everything currently in the backpack.',
@@ -37,73 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'clothing',
       label: 'Clothing',
-      emblem: '◫',
-      heading: 'Clothing',
-      description: 'Stylish threads from outside the algorithm.',
-      mood: 'Stylish threads from outside the algorithm.',
-      include: ['shirt', 'jacket', 'sweater', 'pants', 'jeans', 'coat', 'hoodie', 'dress', 'flannel', 'pullover', 'shorts', 'top', 'vest', 't-shirt', 'suit', 'activewear'],
-      exclude: ['doll', 'toy', 'plate', 'mug', 'bowl', 'figurine'],
-      viewQuery: 'shirt jacket sweater pants'
-    },
-    {
-      key: 'footwear',
-      label: 'Footwear',
-      emblem: '⌁',
-      heading: 'Footwear',
-      description: 'Footwear for every kind of wandering.',
-      mood: 'Footwear for every kind of wandering.',
-      include: ['shoe', 'shoes', 'boot', 'boots', 'sneaker', 'sneakers', 'sandals', 'loafer', 'loafers', 'heels'],
-      exclude: ['figurine', 'toy', 'plate'],
-      viewQuery: 'shoes boots sneakers sandals'
-    },
-    {
-      key: 'kitchen',
-      label: 'Kitchen & Dining',
-      emblem: '◌',
-      heading: 'Kitchen & Dining',
-      description: 'Kitchenware, tableware, and culinary curiosities.',
-      mood: 'Kitchenware, tableware, and culinary curiosities.',
-      include: ['plate', 'plates', 'bowl', 'bowls', 'mug', 'glass', 'dish', 'tray', 'kitchen', 'cookware', 'cup', 'saucer', 'canister', 'pitcher', 'limoges', 'sasaki', 'vase', 'drinkware', 'pottery', 'porcelain', 'ceramic'],
-      exclude: ['shirt', 'shoe', 'wallet'],
-      viewQuery: 'plate bowl mug kitchen cookware'
-    },
-    {
-      key: 'accessories',
-      label: 'Accessories',
-      emblem: '◎',
-      heading: 'Accessories',
-      description: 'The smaller details that complete the picture.',
-      mood: 'The smaller details that complete the picture.',
-      include: ['bag', 'wallet', 'hat', 'belt', 'jewelry', 'necklace', 'bracelet', 'earrings', 'purse', 'clutch', 'watch', 'scarf'],
-      exclude: ['plate', 'bowl', 'mug'],
-      viewQuery: 'bag wallet hat jewelry accessories'
-    },
-    {
-      key: 'curiosities',
-      label: 'Curiosities',
-      emblem: '✺',
-      heading: 'Curiosities',
-      description: 'Relics, oddities, atmosphere, and things that resist categories.',
-      mood: 'Relics, oddities, atmosphere, and things that resist categories.',
-      exclude: ['shirt', 'pants', 'jeans', 'shoe', 'boot', 'sneaker', 'plate', 'bowl', 'mug', 'wallet', 'hat', 'belt'],
-      viewQuery: 'vintage collectible art decor oddities'
-    }
-  ];
-
-  categories.splice(0, categories.length,
-    {
-      key: 'all',
-      label: 'All Items',
-      emblem: '✦',
-      heading: 'All Items',
-      description: 'Every active listing currently loaded from the backpack.',
-      mood: 'Everything currently in the backpack.',
-      viewQuery: ''
-    },
-    {
-      key: 'clothing',
-      label: 'Clothing',
-      emblem: '◩',
       heading: 'Clothing',
       description: 'Shirts, sweaters, jackets, pants, jeans, suits, and apparel.',
       mood: 'Wearable finds from the backpack.',
@@ -112,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'footwear',
       label: 'Shoes',
-      emblem: '⌁',
       heading: 'Shoes',
       description: 'Shoes, boots, flats, sneakers, and sandals.',
       mood: 'Footwear for every kind of wandering.',
@@ -121,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'accessories',
       label: 'Bags & Accessories',
-      emblem: '◇',
       heading: 'Bags & Accessories',
       description: 'Bags, hats, jewelry, pins, watches, belts, and smaller wearable details.',
       mood: 'The smaller details that complete the picture.',
@@ -130,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'kitchen',
       label: 'Kitchen & Dining',
-      emblem: '◌',
       heading: 'Kitchen & Dining',
       description: 'Plates, bowls, mugs, glassware, serving pieces, and kitchen tools.',
       mood: 'Kitchenware, tableware, and culinary curiosities.',
@@ -139,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'home',
       label: 'Home Decor',
-      emblem: '⌂',
       heading: 'Home Decor',
       description: 'Blankets, wall decor, vases, lights, tapestries, boxes, and display pieces.',
       mood: 'Pieces that make a room feel found, not furnished.',
@@ -148,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'toys',
       label: 'Toys & Character',
-      emblem: '☻',
       heading: 'Toys & Character',
       description: 'Bears, action figures, dolls, Disney, Harry Potter, animation, and playful finds.',
       mood: 'Nostalgia, characters, and playful shelf treasures.',
@@ -157,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'crafts',
       label: 'Crafts',
-      emblem: '✄',
       heading: 'Crafts',
       description: 'Cross stitch, embroidery kits, craft books, and handmade project supplies.',
       mood: 'Kits, stitches, patterns, and hands-on finds.',
@@ -166,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'books',
       label: 'Books & Paper',
-      emblem: '▤',
       heading: 'Books & Paper',
       description: 'Books, collectible paper, ephemera, and printed pieces.',
       mood: 'Printed finds with a little history in them.',
@@ -175,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'collectibles',
       label: 'Collectibles',
-      emblem: '◈',
       heading: 'Collectibles',
       description: 'Figurines, sculptures, sports, vintage display pieces, and category-resistant treasures.',
       mood: 'Relics, oddities, atmosphere, and display-worthy finds.',
@@ -184,13 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       key: 'other',
       label: 'Other Finds',
-      emblem: '✧',
       heading: 'Other Finds',
       description: 'Items that do not neatly belong in the other backpack pockets.',
       mood: 'The pleasantly hard-to-file discoveries.',
       viewQuery: ''
     }
-  );
+  ];
 
   function ebaySearchUrl(query) {
     const url = new URL('https://www.ebay.com/sch/i.html');
@@ -204,8 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
     url.searchParams.set('seller', seller);
     url.searchParams.set('q', 'a');
-    url.searchParams.set('limit', String(inventoryPageLimit));
-    url.searchParams.set('pages', String(inventoryPages));
+    url.searchParams.set('limit', '50');
+    url.searchParams.set('pages', '6');
     url.searchParams.set('sort', 'new');
     return url.toString();
   }
@@ -258,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const value = record[name];
       if (value) return value.trim();
     }
-
     return '';
   }
 
@@ -280,26 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
       seller,
       startTime,
       categories: categoryName ? [{ categoryName }] : [],
-      raw: record,
+      raw: record
     };
   }
 
-  function textForItem(item) {
-    const categoryText = Array.isArray(item.categories)
-      ? item.categories.map(category => `${category.categoryName || ''} ${category.categoryId || ''}`).join(' ')
-      : '';
-
-    return [item.title, item.condition, item.seller, categoryText].filter(Boolean).join(' ').toLowerCase();
-  }
-
-  function ebayCategoryText(item) {
+  function categoryText(item) {
     return Array.isArray(item.categories)
       ? item.categories.map(category => category.categoryName || '').join(' ').toLowerCase()
       : '';
-  }
-
-  function itemTitleText(item) {
-    return (item.title || '').toLowerCase();
   }
 
   function hasAny(text, words = []) {
@@ -309,77 +217,26 @@ document.addEventListener('DOMContentLoaded', () => {
   function assignedCategoryKey(item) {
     if (item.categoryOverride) return item.categoryOverride;
 
-    const categoryText = ebayCategoryText(item);
-    const titleText = itemTitleText(item);
-    const text = `${categoryText} ${titleText}`;
+    const category = categoryText(item);
+    const title = (item.title || '').toLowerCase();
+    const allText = `${category} ${title}`;
 
-    if (hasAny(categoryText, ['athletic shoes', 'dress shoes', 'comfort shoes', 'boots', 'flats', "kids' shoes", 'sandals'])) {
-      return 'footwear';
-    }
-
-    if (hasAny(categoryText, ['bags', 'handbags', 'cases', 'hats', 'necklaces', 'pendants', 'cufflinks', 'badges', 'pins', 'buttons', 'jewelry', 'watches'])) {
-      return 'accessories';
-    }
-
-    if (hasAny(categoryText, ['activewear tops', 'casual shirts', 'button-down shirts', 't-shirts', 'sweaters', 'pants', 'jeans', 'coats', 'jackets', 'vests', 'suits', 'hoodies', 'sweatshirts', 'apparel', 'tops'])) {
-      return 'clothing';
-    }
-
-    if (hasAny(categoryText, ['cross stitch', 'embroidery', 'needlepoint', 'craft books', 'crafts']) ||
-        /\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books)\b/.test(titleText)) {
-      return 'crafts';
-    }
-
-    if (hasAny(categoryText, ['books', 'antiquarian', 'collectible']) && hasAny(text, ['book', 'books', 'isbn', 'paper'])) {
-      return 'books';
-    }
-
-    if (hasAny(categoryText, ['plates', 'bowls', 'mugs', 'drinkware', 'glassware', 'cup & saucers', 'canisters', 'jars', 'cutting boards', 'trays', 'colanders', 'strainers', 'pitchers', 'cream & sugar', 'creamers', 'napkin rings', 'kitchen tools', 'pottery & glass', 'trivets', 'coasters', 'salt & pepper shakers'])) {
-      return 'kitchen';
-    }
-
-    if (hasAny(categoryText, ['afghans', 'throw blankets', 'plaques', 'signs', 'suncatchers', 'mobiles', 'boxes', 'tins', 'ashtrays', 'tapestries', 'wood items', 'lights', 'decor', 'décor', 'vases', 'wall', 'pillows', 'villages', 'houses', 'bells'])) {
-      return 'home';
-    }
-
-    if (hasAny(categoryText, ['bears', 'action figures', 'model horses', 'dumbo', 'animation', 'harry potter', 'party decorations', 'toys', 'ccg mixed card lots']) ||
-        /\b(pokemon|disney|harry potter|gi joe|breyer|doll|plush)\b/.test(titleText)) {
-      return 'toys';
-    }
-
-    if (hasAny(categoryText, ['sculptures', 'figurines', 'paperweights', 'football-nfl', 'baseball-mlb', 'memorabilia', 'vintage', 'decorative collectibles', 'indian', 'wedding supplies', 'binoculars', '1970s', 'canada'])) {
-      return 'collectibles';
-    }
-
-    const allowTitleFallback = !categoryText || categoryText.startsWith('other ') || categoryText === 'other' || categoryText === 'vintage';
-    if (allowTitleFallback) {
-      if (/\b(shoes?|boots?|sneakers?|sandals?|loafers?|heels?)\b/.test(titleText)) return 'footwear';
-      if (/\b(bag|handbag|purse|clutch|hat|belt|wallet|necklace|pendant|cufflinks?|pin|watch|scarf)\b/.test(titleText)) return 'accessories';
-      if (/\b(shirt|sweater|jacket|coat|vest|pants|jeans|hoodie|sweatshirt|dress|shorts|skirt|blouse|tee|t-shirt|suit|flannel|pullover)\b/.test(titleText)) return 'clothing';
-      if (/\b(plate|bowl|mug|cup|saucer|glass|goblet|dish|tray|pitcher|canister|jar|creamer|drinkware|cookware|kitchen)\b/.test(titleText)) return 'kitchen';
-      if (/\b(blanket|afghan|pillow|vase|lamp|light|wall|plaque|sign|tapestry|decor|planter|basket|box|tin|ashtray|mobile|suncatcher)\b/.test(titleText)) return 'home';
-      if (/\b(collectible|figurine|sculpture|statue|paperweight|memorabilia|vintage|vtg|nfl|mlb|tiki|jester)\b/.test(titleText)) return 'collectibles';
-    }
+    if (hasAny(category, ['athletic shoes', 'dress shoes', 'comfort shoes', 'boots', 'flats', "kids' shoes", 'sandals', 'casual shoes', 'heels', 'slippers'])) return 'footwear';
+    if (hasAny(category, ['bags', 'handbags', 'cases', 'hats', 'necklaces', 'pendants', 'cufflinks', 'badges', 'pins', 'buttons', 'jewelry', 'watches', 'belts', 'gloves', 'scarves', 'wraps', 'hair extensions'])) return 'accessories';
+    if (hasAny(category, ['activewear tops', 'casual shirts', 'button-down shirts', 't-shirts', 'sweaters', 'pants', 'jeans', 'coats', 'jackets', 'vests', 'suits', 'hoodies', 'sweatshirts', 'apparel', 'tops', 'polos', 'socks', 'shorts', 'jerseys', 'show shirts'])) return 'clothing';
+    if (hasAny(category, ['cross stitch', 'embroidery', 'needlepoint', 'craft books', 'crafts']) || /\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books)\b/.test(title)) return 'crafts';
+    if (hasAny(category, ['books', 'antiquarian', 'manuals', 'postcards']) && hasAny(allText, ['book', 'books', 'manual', 'postcard', 'paper'])) return 'books';
+    if (hasAny(category, ['plates', 'bowls', 'mugs', 'drinkware', 'glassware', 'shot glasses', 'dishes', 'teapots', 'gravy boats', 'casseroles', 'cup & saucers', 'canisters', 'jars', 'cutting boards', 'trays', 'colanders', 'strainers', 'pitchers', 'cream & sugar', 'creamers', 'napkin rings', 'kitchen tools', 'pottery & glass', 'trivets', 'coasters', 'salt & pepper shakers', 'ice buckets', 'cookie cutters', 'ice cream'])) return 'kitchen';
+    if (hasAny(category, ['afghans', 'throw blankets', 'plaques', 'signs', 'suncatchers', 'mobiles', 'boxes', 'tins', 'ashtrays', 'tapestries', 'wood items', 'lights', 'decor', 'decorative', 'vases', 'wall', 'pillows', 'villages', 'houses', 'bells', 'lamp shades', 'quilts', 'mirrors', 'copper'])) return 'home';
+    if (hasAny(category, ['bears', 'action figures', 'model horses', 'dumbo', 'animation', 'harry potter', 'party decorations', 'toys', 'ccg mixed card lots', 'vehicles']) || /\b(pokemon|disney|harry potter|gi joe|breyer|doll|plush|star wars)\b/.test(title)) return 'toys';
+    if (hasAny(category, ['sculptures', 'figurines', 'paperweights', 'football-nfl', 'baseball-mlb', 'memorabilia', 'vintage', 'collectibles', 'decorative collectibles', 'indian', 'wedding supplies', 'binoculars', '1970s', 'canada', 'latin am', 'holiday collectibles', 'animals & nature', 'statues', 'figures', 'movie cameras', 'elves', 'gnomes', 'pixies'])) return 'collectibles';
 
     return 'other';
   }
 
-  function isRecentListing(item, days = recentListingDays) {
-    const start = Date.parse(item.startTime || item.itemCreationDate || '');
-    if (!start) return false;
-
-    const ageMs = Date.now() - start;
-    const ageDays = ageMs / (1000 * 60 * 60 * 24);
-
-    return ageDays <= days;
-  }
-
   function belongsInCategory(item, category) {
     if (!category) return false;
-
-    if (category.key === 'all') return true;
-
-    return assignedCategoryKey(item) === category.key;
+    return category.key === 'all' || assignedCategoryKey(item) === category.key;
   }
 
   function uniqueItems(items) {
@@ -392,22 +249,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function itemTime(item) {
+    return Date.parse(item.startTime || item.itemCreationDate || item.raw?.itemCreationDate || item.raw?.itemOriginDate || '') || 0;
+  }
+
+  function priceValue(item) {
+    if (typeof item.priceNumber === 'number') return item.priceNumber;
+    const match = String(item.price || '').match(/[0-9]+(?:\.[0-9]+)?/);
+    return match ? Number(match[0]) : 0;
+  }
+
   function sortNewestFirst(items) {
-    return [...items].sort((a, b) => {
-      const aTime = Date.parse(a.startTime || itemCreationFallback(a)) || 0;
-      const bTime = Date.parse(b.startTime || itemCreationFallback(b)) || 0;
-      return bTime - aTime;
-    });
+    return [...items].sort((a, b) => itemTime(b) - itemTime(a));
   }
 
-  function itemCreationFallback(item) {
-    return item.itemCreationDate || item.raw?.itemCreationDate || item.raw?.itemOriginDate || '';
-  }
-
-  function prioritizeRecent(items) {
-    const recent = items.filter(item => isRecentListing(item));
-    const older = items.filter(item => !isRecentListing(item));
-    return [...recent, ...older];
+  function sortItems(items) {
+    const mode = inventorySort?.value || 'featured';
+    const sorted = [...items];
+    if (mode === 'price-low') sorted.sort((a, b) => priceValue(a) - priceValue(b));
+    if (mode === 'price-high') sorted.sort((a, b) => priceValue(b) - priceValue(a));
+    if (mode === 'title') sorted.sort((a, b) => String(a.title || '').localeCompare(String(b.title || '')));
+    if (mode === 'featured') sorted.sort((a, b) => itemTime(b) - itemTime(a));
+    return sorted;
   }
 
   async function fetchStoreInventory() {
@@ -417,14 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
     inventoryFetchPromise = fetch(inventoryUrl())
       .then(response => response.json())
       .then(data => {
-        if (!data.ok || !data.result || !Array.isArray(data.result.items)) {
-          throw new Error(data.error || 'Inventory feed did not return items.');
-        }
-
-        storeInventory = sortNewestFirst(uniqueItems(data.result.items));
-        if (storeInventory.length < 100) {
-          throw new Error('Live inventory feed returned too few items.');
-        }
+        if (!data.ok || !data.result || !Array.isArray(data.result.items)) throw new Error('Live feed failed.');
+        const liveItems = uniqueItems(data.result.items);
+        if (liveItems.length < 100) throw new Error('Live feed returned too few items.');
+        storeInventory = sortNewestFirst(liveItems);
         return storeInventory;
       })
       .catch(() => fetch('data/inventory.json')
@@ -452,23 +311,18 @@ document.addEventListener('DOMContentLoaded', () => {
     return inventoryFetchPromise;
   }
 
-  function getItemsForCategory(category, inventory) {
-    const filtered = inventory.filter(item => belongsInCategory(item, category));
-
-    if (category.key === 'all') {
-      return prioritizeRecent(filtered);
-    }
-
-    return sortNewestFirst(filtered);
+  function categoryCount(category) {
+    if (!storeInventory) return '';
+    const count = storeInventory.filter(item => belongsInCategory(item, category)).length;
+    return `<span class="category-count">${count}</span>`;
   }
 
   function renderCategories() {
     if (!categoryShowcase) return;
-
     categoryShowcase.innerHTML = categories.map(category => `
       <button class="category-card" type="button" data-category="${category.key}">
-        <span class="category-emblem" aria-hidden="true">${category.emblem}</span>
-        <span class="category-title">${category.label}</span>
+        <span class="category-emblem category-icon-${category.key}" aria-hidden="true"></span>
+        <span class="category-title">${category.label} ${categoryCount(category)}</span>
         <span class="category-description">${category.mood}</span>
       </button>
     `).join('');
@@ -476,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showProductPanel(category) {
     if (!categoryIntro || !categoryShowcase || !productPanel) return;
-
+    activeCategory = category;
     categoryIntro.hidden = true;
     categoryShowcase.hidden = true;
     productPanel.hidden = false;
@@ -484,29 +338,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (heading) heading.textContent = category.heading;
     if (description) description.textContent = category.description;
+    if (inventorySearch) inventorySearch.value = '';
+    if (inventorySort) inventorySort.value = 'featured';
 
     if (viewAllLink) {
-      viewAllLink.href = category.key === 'all'
-        ? storeUrl
-        : ebaySearchUrl(category.viewQuery || '');
-
-      viewAllLink.textContent = category.key === 'all'
-        ? 'View all items on eBay'
-        : `View all ${category.label} on eBay`;
+      viewAllLink.href = category.key === 'all' ? storeUrl : ebaySearchUrl(category.viewQuery || '');
+      viewAllLink.textContent = category.key === 'all' ? 'View all items on eBay' : `View all ${category.label} on eBay`;
     }
   }
 
   function showCategoryPanel() {
     if (!categoryIntro || !categoryShowcase || !productPanel) return;
-
     productPanel.hidden = true;
     productPanel.classList.remove('is-visible');
     categoryIntro.hidden = false;
     categoryShowcase.hidden = false;
-
+    activeCategory = null;
     activeItems = [];
     visibleItemCount = initialVisibleCount;
     if (productsGrid) productsGrid.innerHTML = '';
+    if (resultSummary) resultSummary.textContent = '';
   }
 
   function setStatus(message) {
@@ -514,34 +365,58 @@ document.addEventListener('DOMContentLoaded', () => {
     productsGrid.innerHTML = `<div class="product-status">${message}</div>`;
   }
 
+  function itemSearchText(item) {
+    return [
+      item.title,
+      item.condition,
+      item.seller,
+      assignedCategoryKey(item),
+      categoryText(item)
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function visibleItems() {
+    const term = (inventorySearch?.value || '').trim().toLowerCase();
+    const filtered = activeItems.filter(item => !term || itemSearchText(item).includes(term));
+    return sortItems(filtered);
+  }
+
   function productCardMarkup(item) {
     const imageMarkup = item.image
       ? `<img loading="lazy" src="${item.image}" alt="${item.title || 'JoMagicBackpack item'}">`
       : `<span class="product-image-fallback">No image yet</span>`;
+    const category = categories.find(entry => entry.key === assignedCategoryKey(item));
 
     return `
       <article class="product-card">
         <a class="product-image" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">
           ${imageMarkup}
         </a>
+        <div class="product-meta">${category ? category.label : 'Other Finds'}</div>
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
+        <a class="product-cta" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">View on eBay</a>
       </article>
     `;
   }
 
-  function renderItems(items = activeItems) {
+  function renderItems() {
     if (!productsGrid) return;
+    const items = visibleItems();
+    const visible = items.slice(0, visibleItemCount);
+    const remainingCount = Math.max(items.length - visible.length, 0);
+
+    if (resultSummary) {
+      const label = activeCategory ? activeCategory.label : 'items';
+      resultSummary.textContent = `${items.length} ${items.length === 1 ? 'item' : 'items'} showing in ${label}.`;
+    }
 
     if (!items.length) {
-      setStatus('No matching items loaded here. Use the view-all link to open the full eBay results.');
+      setStatus('No matching items found here. Try a different search or open the full eBay store.');
       return;
     }
 
-    const visibleItems = items.slice(0, visibleItemCount);
-    const remainingCount = Math.max(items.length - visibleItems.length, 0);
-
-    productsGrid.innerHTML = visibleItems.map(productCardMarkup).join('') + (
+    productsGrid.innerHTML = visible.map(productCardMarkup).join('') + (
       remainingCount > 0
         ? `<div class="load-more-wrap"><button id="loadMoreItems" class="load-more-button" type="button">Load more items (${remainingCount} left)</button></div>`
         : ''
@@ -550,35 +425,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadCategory(category) {
     showProductPanel(category);
-    setStatus('Pulling full store inventory…');
+    setStatus('Pulling full store inventory...');
 
     try {
       const inventory = await fetchStoreInventory();
-      activeItems = getItemsForCategory(category, inventory);
+      activeItems = inventory.filter(item => belongsInCategory(item, category));
       visibleItemCount = initialVisibleCount;
-      renderItems(activeItems);
+      renderItems();
     } catch (error) {
       console.error(error);
-      setStatus('The live eBay inventory feed did not load. Use the view-all link to open the store directly.');
+      setStatus('The inventory did not load. Use the eBay link to open the store directly.');
     }
-  }
-
-  if (openBackpack && backpackGate && shopInterface) {
-    openBackpack.addEventListener('click', () => {
-      backpackGate.classList.add('opened');
-      shopInterface.classList.add('is-visible');
-      shopInterface.setAttribute('aria-hidden', 'false');
-      shopInterface.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
   }
 
   if (categoryShowcase) {
     categoryShowcase.addEventListener('click', event => {
       const card = event.target.closest('.category-card');
       if (!card) return;
-
       const category = categories.find(item => item.key === card.dataset.category);
-
       if (category) loadCategory(category);
     });
   }
@@ -587,9 +451,22 @@ document.addEventListener('DOMContentLoaded', () => {
     productsGrid.addEventListener('click', event => {
       const loadMoreButton = event.target.closest('#loadMoreItems');
       if (!loadMoreButton) return;
-
       visibleItemCount += loadMoreStep;
-      renderItems(activeItems);
+      renderItems();
+    });
+  }
+
+  if (inventorySearch) {
+    inventorySearch.addEventListener('input', () => {
+      visibleItemCount = initialVisibleCount;
+      renderItems();
+    });
+  }
+
+  if (inventorySort) {
+    inventorySort.addEventListener('change', () => {
+      visibleItemCount = initialVisibleCount;
+      renderItems();
     });
   }
 
@@ -598,4 +475,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   renderCategories();
+  fetchStoreInventory().then(renderCategories).catch(() => {});
 });
