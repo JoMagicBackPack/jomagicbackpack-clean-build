@@ -5,20 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - JoMagicBackpack</title>
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20260529f">
 
   <style>
     .contact-card {
       margin-top: 2rem;
       background: rgba(19, 29, 42, 0.82);
-      border: 1px solid rgba(126, 208, 255, 0.12);
+      border: 1px solid rgba(246, 200, 95, 0.16);
       border-radius: 18px;
-      padding: 1.5rem;
+      padding: clamp(1.35rem, 4vw, 2rem);
       backdrop-filter: blur(8px);
+      box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.22),
+        0 0 24px rgba(246, 200, 95, 0.06);
+      text-align: left;
     }
 
     .contact-card p {
-      margin-bottom: 1rem;
+      margin: 0;
       color: #dbe7f2;
       line-height: 1.7;
     }
@@ -34,7 +38,44 @@
     }
 
     .contact-card a:hover {
-      color: #9fe4ff;
+      color: #f6c85f;
+    }
+
+    .contact-lead {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(126, 208, 255, 0.14);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.85rem;
+      margin: 0;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: minmax(110px, 0.42fr) 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .contact-row:last-child {
+      border-bottom: 0;
+    }
+
+    .contact-label {
+      color: #f6c85f;
+      font-weight: 800;
+    }
+
+    @media (max-width: 560px) {
+      .contact-row {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
     }
   </style>
 </head>
@@ -49,7 +90,7 @@
 <li><a href="about.html">About</a></li>
 <li><a href="reviews.html">Reviews</a></li>
 <li><a href="contact.html">Contact</a></li>
-<li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay"></a></li>
+<li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">eBay</a></li>
 </ul>
 </nav>
 </div>
@@ -59,13 +100,16 @@
 <section class="hero page-section">
 <div class="container hero-inner">
 <div class="hero-title"><span class="hero-title-main">Contact</span></div>
-<p>Questions about items, shipping, bundles, or active listings are always welcome. For the fastest response regarding offers or listing-specific questions, eBay messaging is recommended.</p>
+<p>Questions about an item, shipping, bundles, or something strange you found in the backpack? Reach out directly, or use eBay messaging for active listing questions.</p>
 
 <div class="contact-card">
-  <p><strong>Contact Jordan at:</strong></p>
-  <p><strong>Email:</strong> <a href="mailto:jomagicbackpack@gmail.com">jomagicbackpack@gmail.com</a></p>
-  <p><strong>Phone:</strong> <a href="tel:+12693590788">(269) 359-0788</a></p>
-  <p><strong>eBay Messages:</strong> <a href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">JoMagicBackpack on eBay</a></p>
+  <p class="contact-lead"><strong>Jordan</strong> runs JoMagicBackpack and keeps an eye on messages for item questions, bundle requests, shipping details, and curious finds.</p>
+  <div class="contact-list" aria-label="Business contact information">
+    <p class="contact-row"><span class="contact-label">Email</span> <a href="mailto:jomagicbackpack@gmail.com">jomagicbackpack@gmail.com</a></p>
+    <p class="contact-row"><span class="contact-label">Phone</span> <a href="tel:+12693592953">1 (269) 359-2953</a></p>
+    <p class="contact-row"><span class="contact-label">eBay Store</span> <a href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">JoMagicBackpack on eBay</a></p>
+    <p class="contact-row"><span class="contact-label">eBay Messages</span> <span>Best for item questions, offers, shipping, and bundles tied to active listings.</span></p>
+  </div>
 </div>
 </div>
 </section>
