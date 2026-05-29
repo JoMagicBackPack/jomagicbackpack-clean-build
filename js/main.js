@@ -319,13 +319,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCategories() {
     if (!categoryShowcase) return;
-    categoryShowcase.innerHTML = categories.map(category => `
-      <button class="category-card" type="button" data-category="${category.key}">
+    const centerCount = storeInventory ? `${storeInventory.length} active finds` : 'loading finds';
+    const totalCategories = categories.length;
+    const cards = categories.map((category, index) => {
+      const angle = (360 / totalCategories) * index;
+      return `
+      <button class="category-card" type="button" data-category="${category.key}" style="--angle: ${angle}deg; --reverse-angle: ${-angle}deg;">
         <span class="category-emblem category-icon-${category.key}" aria-hidden="true"></span>
         <span class="category-title">${category.label} ${categoryCount(category)}</span>
         <span class="category-description">${category.mood}</span>
       </button>
-    `).join('');
+    `;
+    }).join('');
+    categoryShowcase.innerHTML = `
+      <div class="category-wheel-center" aria-hidden="true">
+        <span>Take a peek inside</span>
+        <small>${centerCount}</small>
+      </div>
+      ${cards}
+    `;
   }
 
   function showProductPanel(category) {
@@ -474,6 +486,22 @@ document.addEventListener('DOMContentLoaded', () => {
     backToCategories.addEventListener('click', showCategoryPanel);
   }
 
-  renderCategories();
-  fetchStoreInventory().then(renderCategories).catch(() => {});
+  const openBackpack = document.getElementById('openBackpack');
+  const backpackGate = document.getElementById('backpackGate');
+
+  if (openBackpack && backpackGate) {
+    openBackpack.addEventListener('click', event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+      event.preventDefault();
+      backpackGate.classList.add('is-opening');
+      window.setTimeout(() => {
+        window.location.href = openBackpack.href;
+      }, 720);
+    });
+  }
+
+  if (categoryShowcase) {
+    renderCategories();
+    fetchStoreInventory().then(renderCategories).catch(() => {});
+  }
 });
