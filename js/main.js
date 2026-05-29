@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = outerCategories.map((category, index) => {
       const angle = (360 / totalCategories) * index;
       return `
-      <button class="category-card" type="button" data-category="${category.key}" style="--angle: ${angle}deg; --reverse-angle: ${-angle}deg;">
+      <button class="category-card" type="button" data-category="${category.key}" data-angle="${angle}" style="--angle: ${angle}deg; --reverse-angle: ${-angle}deg;">
         <span class="category-emblem category-icon-${category.key}" aria-hidden="true"></span>
         <span class="category-title">${category.label} ${categoryCount(category)}</span>
         <span class="category-description">${category.mood}</span>
@@ -338,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
     categoryShowcase.innerHTML = `
       <button class="category-wheel-center" type="button" data-category="all" aria-label="Show all items">
+        <img class="category-center-backpack" src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="">
         <span class="category-wheel-title">All Items</span>
         <small>${centerLabel}</small>
         <span class="category-spark category-spark-one" aria-hidden="true"></span>
@@ -465,6 +466,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (categoryShowcase) {
+    const pointToCard = card => {
+      const angle = Number(card?.dataset.angle);
+      if (!Number.isFinite(angle)) {
+        categoryShowcase.classList.remove('has-active-category');
+        return;
+      }
+      categoryShowcase.style.setProperty('--beam-angle', `${angle}deg`);
+      categoryShowcase.classList.add('has-active-category');
+    };
+
+    const clearPointer = event => {
+      if (event?.relatedTarget && categoryShowcase.contains(event.relatedTarget)) return;
+      categoryShowcase.classList.remove('has-active-category');
+    };
+
+    categoryShowcase.addEventListener('pointerover', event => {
+      const card = event.target.closest('.category-card');
+      if (card) {
+        pointToCard(card);
+      } else {
+        categoryShowcase.classList.remove('has-active-category');
+      }
+    });
+
+    categoryShowcase.addEventListener('pointerout', clearPointer);
+
+    categoryShowcase.addEventListener('focusin', event => {
+      const card = event.target.closest('.category-card');
+      if (card) {
+        pointToCard(card);
+      } else {
+        categoryShowcase.classList.remove('has-active-category');
+      }
+    });
+
+    categoryShowcase.addEventListener('focusout', clearPointer);
+
     categoryShowcase.addEventListener('click', event => {
       const card = event.target.closest('[data-category]');
       if (!card || categoryOpening) return;
