@@ -6,7 +6,7 @@
   <title>About - JoMagicBackpack</title>
   <meta name="description" content="About JoMagicBackpack and the kind of finds that go into the pack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20260529f">
 
   <style>
     .about-hero {
@@ -16,6 +16,7 @@
       display: flex;
       align-items: center;
       background:
+        radial-gradient(circle at 72% 16%, rgba(246,200,95,.12), transparent 34%),
         radial-gradient(circle at top right, rgba(88,180,255,.16), transparent 40%),
         linear-gradient(to bottom, #0f1722, #0a1017);
     }
@@ -32,9 +33,11 @@
       right: -3%;
       bottom: -4%;
       width: min(82vw, 760px);
-      color: rgba(145, 226, 255, .23);
+      color: rgba(164, 231, 255, .24);
       z-index: 0;
-      filter: drop-shadow(0 0 24px rgba(84,190,255,.16));
+      filter:
+        drop-shadow(0 0 24px rgba(84,190,255,.16))
+        drop-shadow(0 0 18px rgba(246,200,95,.1));
       pointer-events: none;
     }
 
@@ -85,7 +88,7 @@
           <li><a href="about.html">About</a></li>
           <li><a href="reviews.html">Reviews</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg" alt="eBay"></a></li>
+          <li><a class="ebay-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">eBay</a></li>
         </ul>
       </nav>
     </div>
