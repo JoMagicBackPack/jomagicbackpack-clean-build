@@ -6,7 +6,7 @@
   <title>JoMagicBackpack - Unique Finds & Reseller Treasures</title>
   <meta name="description" content="JoMagicBackpack - vintage, new, and unpredictable finds from the backpack.">
   <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260528e">
+  <link rel="stylesheet" href="css/styles.css?v=20260529a">
   <style>
     .backpack-instruction {
       font-size: clamp(1.18rem, 3.8vw, 1.62rem);
@@ -18,77 +18,124 @@
       max-height: 621px;
     }
 
-    .tap-pointer {
-      position: absolute;
-      top: 22%;
-      right: -7%;
-      width: 150px;
-      height: 150px;
-      transform: rotate(-18deg);
-      transform-origin: 70% 70%;
-      animation: tapNudge 2.4s ease-in-out infinite;
+    .enter-sign {
+      position: relative;
+      display: grid;
+      justify-items: center;
+      width: min(82vw, 340px);
+      margin: 0.1rem auto -1.25rem;
+      transform: rotate(-3.5deg);
       pointer-events: none;
-      z-index: 4;
+      z-index: 5;
     }
 
-    .tap-finger {
-      position: absolute;
-      right: 45px;
-      top: 8px;
-      width: 28px;
-      height: 96px;
-      border: 2px solid rgba(218, 247, 255, 0.92);
-      border-radius: 999px 999px 15px 15px;
-      background: linear-gradient(160deg, rgba(235,248,255,0.95), rgba(142,220,255,0.18));
-      box-shadow: 0 12px 28px rgba(0,0,0,.24), 0 0 20px rgba(120,220,255,.18);
-      transform: rotate(34deg);
-    }
-
-    .tap-finger::before {
+    .enter-sign::before,
+    .enter-sign::after {
       content: "";
       position: absolute;
-      top: 12px;
-      left: 7px;
-      width: 12px;
-      height: 10px;
-      border-top: 2px solid rgba(8,18,27,0.34);
+      top: -18px;
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(to bottom, rgba(190,230,255,0.2), rgba(190,230,255,0.82));
+      box-shadow: 0 0 10px rgba(120,220,255,.18);
+    }
+
+    .enter-sign::before {
+      left: 29%;
+      transform: rotate(8deg);
+    }
+
+    .enter-sign::after {
+      right: 29%;
+      transform: rotate(-8deg);
+    }
+
+    .sign-board {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      min-width: 190px;
+      padding: 0.48rem 1.45rem 0.54rem;
+      border: 2px solid rgba(191, 242, 255, 0.58);
+      border-radius: 7px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 42%, rgba(120,220,255,0.12)),
+        linear-gradient(160deg, rgba(31,48,67,0.96), rgba(9,16,27,0.98));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        0 14px 32px rgba(0,0,0,.28),
+        0 0 24px rgba(120,220,255,.14);
+    }
+
+    .sign-board::before {
+      content: "";
+      position: absolute;
+      top: -25px;
+      left: calc(50% - 7px);
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
+      background: radial-gradient(circle at 36% 32%, #effbff 0 2px, #8fdcff 3px 5px, #152333 6px);
+      box-shadow: 0 0 14px rgba(120,220,255,.22);
     }
 
-    .tap-finger::after {
-      content: "";
+    .sign-word {
+      color: #e9fbff;
+      font-weight: 900;
+      font-size: clamp(1.05rem, 4vw, 1.5rem);
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+      text-shadow: 0 0 16px rgba(143,232,255,0.55);
+      animation: enterFlash 1s steps(2, end) infinite;
+    }
+
+    .sign-arrows {
+      position: relative;
+      width: 210px;
+      height: 66px;
+      margin-top: -2px;
+    }
+
+    .sign-arrow {
       position: absolute;
-      left: 5px;
-      bottom: 17px;
-      width: 16px;
-      height: 2px;
+      top: 0;
+      left: 50%;
+      width: 3px;
+      height: 50px;
       border-radius: 999px;
-      background: rgba(8,18,27,0.24);
-      box-shadow: 0 9px 0 rgba(8,18,27,0.18);
+      background: linear-gradient(to bottom, rgba(191,242,255,0.2), rgba(191,242,255,0.9));
+      box-shadow: 0 0 14px rgba(120,220,255,.24);
+      transform-origin: top center;
     }
 
-    .tap-ring {
+    .sign-arrow::after {
+      content: "";
       position: absolute;
-      right: 74px;
-      top: 93px;
-      width: 38px;
-      height: 38px;
-      border: 2px solid rgba(191, 242, 255, 0.78);
-      border-radius: 50%;
-      box-shadow: 0 0 18px rgba(120,220,255,.26);
-      animation: tapRipple 2.4s ease-out infinite;
+      left: 50%;
+      bottom: -3px;
+      width: 13px;
+      height: 13px;
+      border-right: 3px solid rgba(191,242,255,0.9);
+      border-bottom: 3px solid rgba(191,242,255,0.9);
+      transform: translateX(-50%) rotate(45deg);
     }
 
-    @keyframes tapNudge {
-      0%, 100% { transform: rotate(-18deg) translate3d(0, 0, 0); }
-      48% { transform: rotate(-18deg) translate3d(-8px, 10px, 0); }
-      62% { transform: rotate(-18deg) translate3d(-3px, 4px, 0); }
+    .sign-arrow-left {
+      transform: translateX(-68px) rotate(-22deg);
     }
 
-    @keyframes tapRipple {
-      0%, 38% { opacity: 0; transform: scale(0.55); }
-      48% { opacity: 0.95; transform: scale(0.72); }
-      100% { opacity: 0; transform: scale(1.7); }
+    .sign-arrow-center {
+      transform: translateX(-1px);
+      height: 58px;
+    }
+
+    .sign-arrow-right {
+      transform: translateX(66px) rotate(22deg);
+    }
+
+    @keyframes enterFlash {
+      0%, 49% { opacity: 1; filter: brightness(1.15); }
+      50%, 100% { opacity: 0.24; filter: brightness(0.8); }
     }
 
     @media (max-width: 768px) {
@@ -96,25 +143,30 @@
         width: min(98vw, 575px);
       }
 
-      .tap-pointer {
-        top: 20%;
-        right: 2%;
-        width: 112px;
-        height: 112px;
+      .enter-sign {
+        width: min(88vw, 300px);
+        margin-bottom: -0.65rem;
       }
 
-      .tap-finger {
-        right: 32px;
-        top: 5px;
-        width: 22px;
-        height: 76px;
+      .sign-arrows {
+        width: 178px;
+        height: 54px;
       }
 
-      .tap-ring {
-        right: 52px;
-        top: 72px;
-        width: 30px;
-        height: 30px;
+      .sign-arrow {
+        height: 42px;
+      }
+
+      .sign-arrow-center {
+        height: 48px;
+      }
+
+      .sign-arrow-left {
+        transform: translateX(-54px) rotate(-22deg);
+      }
+
+      .sign-arrow-right {
+        transform: translateX(52px) rotate(22deg);
       }
     }
   </style>
@@ -148,11 +200,15 @@
       <div class="container">
         <div id="backpackGate" class="backpack-gate">
           <p class="backpack-instruction">Tap the Pack to Reveal Its Contents!</p>
-          <a id="openBackpack" class="backpack-button" href="categories.html" aria-label="Take a peek inside the backpack">
-            <span class="tap-pointer" aria-hidden="true">
-              <span class="tap-finger"></span>
-              <span class="tap-ring"></span>
+          <div class="enter-sign" aria-hidden="true">
+            <span class="sign-board"><span class="sign-word">ENTER</span></span>
+            <span class="sign-arrows">
+              <span class="sign-arrow sign-arrow-left"></span>
+              <span class="sign-arrow sign-arrow-center"></span>
+              <span class="sign-arrow sign-arrow-right"></span>
             </span>
+          </div>
+          <a id="openBackpack" class="backpack-button" href="categories.html" aria-label="Take a peek inside the backpack">
             <span class="open-spark spark-one" aria-hidden="true"></span>
             <span class="open-spark spark-two" aria-hidden="true"></span>
             <span class="open-spark spark-three" aria-hidden="true"></span>
@@ -164,6 +220,6 @@
   </main>
 
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-  <script src="js/main.js?v=20260528e"></script>
+  <script src="js/main.js?v=20260529a"></script>
 </body>
 </html>
