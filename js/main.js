@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeCategory = null;
   let activeItems = [];
   let visibleItemCount = initialVisibleCount;
+  let categoryOpening = false;
 
   const categories = [
     {
@@ -319,22 +320,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderCategories() {
     if (!categoryShowcase) return;
-    const centerCount = storeInventory ? `${storeInventory.length} active finds` : 'loading finds';
-    const totalCategories = categories.length;
-    const cards = categories.map((category, index) => {
+    const outerCategories = categories.filter(category => category.key !== 'all');
+    const centerLabel = storeInventory ? `${storeInventory.length} active finds` : 'loading finds';
+    const totalCategories = outerCategories.length;
+    const cards = outerCategories.map((category, index) => {
       const angle = (360 / totalCategories) * index;
       return `
       <button class="category-card" type="button" data-category="${category.key}" style="--angle: ${angle}deg; --reverse-angle: ${-angle}deg;">
         <span class="category-emblem category-icon-${category.key}" aria-hidden="true"></span>
         <span class="category-title">${category.label} ${categoryCount(category)}</span>
         <span class="category-description">${category.mood}</span>
+        <span class="category-spark category-spark-one" aria-hidden="true"></span>
+        <span class="category-spark category-spark-two" aria-hidden="true"></span>
+        <span class="category-spark category-spark-three" aria-hidden="true"></span>
       </button>
     `;
     }).join('');
     categoryShowcase.innerHTML = `
-      <div class="category-wheel-center" aria-hidden="true">
-        <span>Take a peek inside</span>
-        <small>${centerCount}</small>
+      <button class="category-wheel-center" type="button" data-category="all" aria-label="Show all items">
+        <span class="category-wheel-title">All Items</span>
+        <small>${centerLabel}</small>
+        <span class="category-spark category-spark-one" aria-hidden="true"></span>
+        <span class="category-spark category-spark-two" aria-hidden="true"></span>
+        <span class="category-spark category-spark-three" aria-hidden="true"></span>
+      </button>
+      <div class="category-open-effect" aria-hidden="true">
+        <span class="open-spark spark-one"></span>
+        <span class="open-spark spark-two"></span>
+        <span class="open-spark spark-three"></span>
+        <img src="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png" alt="">
       </div>
       ${cards}
     `;
@@ -452,10 +466,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (categoryShowcase) {
     categoryShowcase.addEventListener('click', event => {
-      const card = event.target.closest('.category-card');
-      if (!card) return;
+      const card = event.target.closest('[data-category]');
+      if (!card || categoryOpening) return;
       const category = categories.find(item => item.key === card.dataset.category);
-      if (category) loadCategory(category);
+      if (!category) return;
+
+      categoryOpening = true;
+      card.classList.add('is-selected');
+      categoryShowcase.classList.add('is-opening');
+      window.setTimeout(() => {
+        categoryShowcase.classList.remove('is-opening');
+        card.classList.remove('is-selected');
+        categoryOpening = false;
+        loadCategory(category);
+      }, 740);
     });
   }
 
