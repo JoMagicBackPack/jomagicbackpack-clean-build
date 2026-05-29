@@ -91,6 +91,18 @@
   margin-bottom: 2rem;
 }
 
+.boutique-policy-note {
+  max-width: 760px;
+  margin: 0.95rem auto 0;
+  border: 1px solid rgba(246, 200, 95, 0.22);
+  border-radius: 14px;
+  padding: 0.8rem 0.95rem;
+  background: rgba(246, 200, 95, 0.08);
+  color: #f7d989 !important;
+  font-size: 0.95rem !important;
+  font-weight: 800;
+}
+
 .boutique-card-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -225,8 +237,36 @@
 }
 
 .offer-message,
+.offer-confirm,
 .offer-submit {
   grid-column: 1 / -1;
+}
+
+.offer-form .offer-confirm {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.62rem;
+  border: 1px solid rgba(246, 200, 95, 0.18);
+  border-radius: 12px;
+  padding: 0.78rem 0.85rem;
+  background: rgba(246, 200, 95, 0.07);
+  color: #f7d989;
+  line-height: 1.45;
+}
+
+.offer-confirm input {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  margin-top: 0.1rem;
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: none;
+  accent-color: var(--treasure-gold);
+}
+
+.offer-confirm span {
+  display: block;
 }
 
 .offer-submit {
