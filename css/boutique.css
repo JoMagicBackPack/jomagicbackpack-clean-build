@@ -1,0 +1,276 @@
+.boutique-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 78px);
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.boutique-hero::before {
+  content: "";
+  position: absolute;
+  inset: 12% -12% -8% 44%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 40% 36%, rgba(246,200,95,.18), transparent 24%),
+    radial-gradient(circle at 62% 58%, rgba(255,111,174,.11), transparent 28%),
+    radial-gradient(circle at 50% 50%, rgba(126,208,255,.16), transparent 52%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.boutique-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 380px);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 4rem);
+}
+
+.boutique-hero-copy {
+  max-width: 660px;
+}
+
+.boutique-hero .hero-title-main {
+  text-align: left;
+}
+
+.coming-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  margin: 0 0 1rem;
+  border: 1px solid rgba(246, 200, 95, 0.26);
+  border-radius: 999px;
+  padding: 0.28rem 0.72rem;
+  background: rgba(19, 30, 42, 0.72);
+  color: var(--treasure-gold);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px rgba(246, 200, 95, 0.18);
+}
+
+.boutique-pack-glow {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  isolation: isolate;
+}
+
+.boutique-pack-glow::before {
+  content: "";
+  position: absolute;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255,247,196,.3), rgba(126,208,255,.24) 38%, transparent 72%);
+  filter: blur(28px);
+  animation: backpackPulse 5.4s ease-in-out infinite;
+  z-index: -1;
+}
+
+.boutique-pack-glow img {
+  width: min(72vw, 340px);
+  filter:
+    drop-shadow(0 24px 42px rgba(0,0,0,.34))
+    drop-shadow(0 0 44px rgba(126,208,255,.34))
+    drop-shadow(0 0 18px rgba(246,200,95,.2));
+  animation: backpackFloat 6.2s ease-in-out infinite;
+}
+
+.boutique-section {
+  padding-top: 3.5rem;
+}
+
+.boutique-intro {
+  margin-bottom: 2rem;
+}
+
+.boutique-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.boutique-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(246, 200, 95, 0.14);
+  border-radius: 18px;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(246, 200, 95, 0.08), transparent 32%),
+    linear-gradient(145deg, rgba(25,39,58,0.9), rgba(12,20,32,0.96));
+  box-shadow: 0 16px 38px rgba(0,0,0,0.22);
+}
+
+.boutique-card h3 {
+  margin: 0.75rem 0 0.55rem;
+  color: #eef8ff;
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.boutique-card p {
+  color: #b7ccdc;
+  line-height: 1.65;
+}
+
+.boutique-badge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.18rem 0.55rem;
+  background: rgba(246,200,95,0.11);
+  color: #f8d98a;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.boutique-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.boutique-flow div {
+  border: 1px solid rgba(126, 208, 255, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  background: rgba(10, 16, 24, 0.5);
+}
+
+.boutique-flow strong,
+.boutique-flow span {
+  display: block;
+}
+
+.boutique-flow strong {
+  color: var(--treasure-gold);
+  margin-bottom: 0.35rem;
+}
+
+.boutique-flow span {
+  color: #b7ccdc;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.boutique-offer-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1fr);
+  gap: clamp(1.2rem, 4vw, 2rem);
+  align-items: start;
+  margin-top: 1.2rem;
+  border: 1px solid rgba(246, 200, 95, 0.16);
+  border-radius: 18px;
+  padding: clamp(1.2rem, 4vw, 1.6rem);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(246, 200, 95, 0.08), transparent 30%),
+    rgba(19, 30, 42, 0.78);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.22),
+    0 0 26px rgba(246, 200, 95, 0.06);
+}
+
+.boutique-offer-copy h2 {
+  margin: 0.75rem 0 0.65rem;
+  color: #eef8ff;
+  font-size: clamp(1.65rem, 4vw, 2.35rem);
+  line-height: 1;
+}
+
+.boutique-offer-copy p {
+  color: #b7ccdc;
+  line-height: 1.7;
+}
+
+.offer-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.offer-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: #abc6da;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.offer-form input,
+.offer-form textarea {
+  width: 100%;
+  border: 1px solid rgba(246,200,95,0.18);
+  border-radius: 12px;
+  padding: 0.72rem 0.8rem;
+  background: rgba(10, 16, 24, 0.84);
+  color: #eef8ff;
+  font: inherit;
+}
+
+.offer-form input:focus,
+.offer-form textarea:focus {
+  outline: none;
+  border-color: rgba(246, 200, 95, 0.45);
+  box-shadow: 0 0 0 3px rgba(246, 200, 95, 0.12);
+}
+
+.offer-message,
+.offer-submit {
+  grid-column: 1 / -1;
+}
+
+.offer-submit {
+  width: fit-content;
+  border: 0;
+  cursor: pointer;
+}
+
+.hidden-field {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .boutique-hero {
+    text-align: center;
+    min-height: auto;
+  }
+
+  .boutique-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .boutique-hero .hero-title-main {
+    text-align: center;
+  }
+
+  .boutique-pack-glow {
+    min-height: 260px;
+    order: -1;
+  }
+
+  .boutique-pack-glow img {
+    width: min(74vw, 285px);
+  }
+
+  .boutique-card-grid,
+  .boutique-flow,
+  .boutique-offer-panel,
+  .offer-form {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-submit {
+    width: 100%;
+  }
+}
