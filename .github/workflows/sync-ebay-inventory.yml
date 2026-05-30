@@ -1,0 +1,43 @@
+name: Sync eBay inventory
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Merge eBay listings into site inventory
+        env:
+          EBAY_SELLER: jomagicbackpack
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
+          EBAY_AUTH_TOKEN: ${{ secrets.EBAY_AUTH_TOKEN }}
+          EBAY_SYNC_REMOVE_MISSING: ${{ vars.EBAY_SYNC_REMOVE_MISSING }}
+        run: node scripts/sync-ebay-inventory.js
+
+      - name: Commit inventory update
+        run: |
+          if git diff --quiet -- data/inventory.json; then
+            echo "No inventory changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/inventory.json
+          git commit -m "Sync eBay inventory"
+          git push
