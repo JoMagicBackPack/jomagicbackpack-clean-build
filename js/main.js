@@ -222,10 +222,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = (item.title || '').toLowerCase();
     const allText = `${category} ${title}`;
 
+    if (!category && /\b(shoes?|boots?|flats?|sandals?|loafers?|sneakers?|slippers?|heels?)\b/.test(title)) return 'footwear';
+    if (!category && /\b(hats?|caps?|scarves?|wraps?|gloves?|belts?|purses?|handbags?|bags?|necklaces?|pendants?|cufflinks?|jewelry|pins?)\b/.test(title)) return 'accessories';
+    if (!category && /\b(shirts?|t-?shirts?|tees?|sweaters?|hoodies?|jackets?|coats?|vests?|jeans|pants|shorts|jerseys?|dresses?)\b/.test(title)) return 'clothing';
+    if (!category && /\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books?|fabric|yarn|sewing|patterns?)\b/.test(title)) return 'crafts';
+    if (!category && /\b(books?|manuals?|postcards?|paper|magazines?)\b/.test(title)) return 'books';
+    if (!category && /\b(plates?|bowls?|mugs?|cups?|saucers?|goblets?|glasses?|drinkware|canisters?|jars?|pitchers?|creamers?|sugar bowl|salt and pepper|shakers?|casseroles?|cutting boards?|trivets?|coasters?|colanders?|ice cream maker)\b/.test(title)) return 'kitchen';
+    if (!category && /\b(blankets?|quilts?|tapestr(?:y|ies)|vases?|mirrors?|lamps?|plaques?|wall|pillows?|suncatchers?|mobiles?|decor|decorative|boxes?|tins?)\b/.test(title)) return 'home';
+    if (!category && /\b(toys?|plush|dolls?|disney|pokemon|harry potter|star wars|breyer|action figures?)\b/.test(title)) return 'toys';
+    if (!category && /\b(figurines?|sculptures?|paperweights?|memorabilia|movie cameras?|statues?|figures?)\b/.test(title)) return 'collectibles';
+
     if (hasAny(category, ['athletic shoes', 'dress shoes', 'comfort shoes', 'boots', 'flats', "kids' shoes", 'sandals', 'casual shoes', 'heels', 'slippers'])) return 'footwear';
     if (hasAny(category, ['bags', 'handbags', 'cases', 'hats', 'necklaces', 'pendants', 'cufflinks', 'badges', 'pins', 'buttons', 'jewelry', 'watches', 'belts', 'gloves', 'scarves', 'wraps', 'hair extensions'])) return 'accessories';
     if (hasAny(category, ['activewear tops', 'casual shirts', 'button-down shirts', 't-shirts', 'sweaters', 'pants', 'jeans', 'coats', 'jackets', 'vests', 'suits', 'hoodies', 'sweatshirts', 'apparel', 'tops', 'polos', 'socks', 'shorts', 'jerseys', 'show shirts'])) return 'clothing';
-    if (hasAny(category, ['cross stitch', 'embroidery', 'needlepoint', 'craft books', 'crafts']) || /\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books)\b/.test(title)) return 'crafts';
+    if (hasAny(category, ['cross stitch', 'embroidery', 'needlepoint', 'craft books', 'crafts', 'fabric', 'yarn', 'sewing', 'patterns']) || /\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books)\b/.test(title)) return 'crafts';
     if (hasAny(category, ['books', 'antiquarian', 'manuals', 'postcards']) && hasAny(allText, ['book', 'books', 'manual', 'postcard', 'paper'])) return 'books';
     if (hasAny(category, ['plates', 'bowls', 'mugs', 'drinkware', 'glassware', 'shot glasses', 'dishes', 'teapots', 'gravy boats', 'casseroles', 'cup & saucers', 'canisters', 'jars', 'cutting boards', 'trays', 'colanders', 'strainers', 'pitchers', 'cream & sugar', 'creamers', 'napkin rings', 'kitchen tools', 'pottery & glass', 'trivets', 'coasters', 'salt & pepper shakers', 'ice buckets', 'cookie cutters', 'ice cream'])) return 'kitchen';
     if (hasAny(category, ['afghans', 'throw blankets', 'plaques', 'signs', 'suncatchers', 'mobiles', 'boxes', 'tins', 'ashtrays', 'tapestries', 'wood items', 'lights', 'decor', 'decorative', 'vases', 'wall', 'pillows', 'villages', 'houses', 'bells', 'lamp shades', 'quilts', 'mirrors', 'copper'])) return 'home';
