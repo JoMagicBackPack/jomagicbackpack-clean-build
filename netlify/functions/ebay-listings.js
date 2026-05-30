@@ -5,7 +5,7 @@
  * Query params:
  *  - q: search keywords
  *  - seller: seller username (optional, can be defaulted via env)
- *  - limit: 1..50 per page (default 12)
+ *  - limit: 1..200 per page (default 12)
  *  - pages: 1..6 pages to fetch server-side when eBay returns a next link
  *  - sort: "new" | "price" | "end" (default "new")
  *  - order: "asc" | "desc" (default "desc"; used with sort=price or sort=end)
@@ -26,7 +26,11 @@ const RESP_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
+  'Cache-Control': 'no-store, max-age=0',
 };
+
+const DEFAULT_STORE_QUERY = '(a,e,i,o,u,y,0,1,2,3,4,5,6,7,8,9)';
+const LEGACY_STORE_QUERY = 'a';
 
 const now = () => Math.floor(Date.now() / 1000);
 const env = (k, d) => (process.env[k] ?? d);
@@ -130,8 +134,9 @@ function buildSearchURL(query) {
   const limit = Number(query.limit || env('EBAY_DEFAULT_LIMIT') || 12);
   const sort = (query.sort || 'new').toString().toLowerCase();
   const order = (query.order || 'desc').toString().toLowerCase();
+  const useWideStoreSearch = seller && (!q || q === LEGACY_STORE_QUERY);
 
-  const searchQ = q || (seller ? 'a' : '');
+  const searchQ = useWideStoreSearch ? DEFAULT_STORE_QUERY : q;
   if (searchQ) params.set('q', searchQ);
 
   const filterParts = ['buyingOptions:{FIXED_PRICE|BEST_OFFER|AUCTION}'];
@@ -140,7 +145,8 @@ function buildSearchURL(query) {
   }
   params.set('filter', filterParts.join(','));
 
-  params.set('limit', String(Math.max(1, Math.min(limit, 50))));
+  const pageLimit = useWideStoreSearch ? Math.max(limit, 200) : limit;
+  params.set('limit', String(Math.max(1, Math.min(pageLimit, 200))));
 
   if (sort === 'price') {
     params.set('sort', `price ${order === 'asc' ? 'asc' : 'desc'}`);
