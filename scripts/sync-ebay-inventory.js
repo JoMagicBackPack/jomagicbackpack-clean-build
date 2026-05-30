@@ -89,10 +89,43 @@ function nonEmpty(value) {
   return value !== undefined && value !== null && String(value).trim() !== '';
 }
 
+function categoryNameFromBlock(block) {
+  const categoryBlock = tagBlock(block, 'PrimaryCategory');
+  return tagValue(categoryBlock, 'CategoryName');
+}
+
+function inferredCategoryNameFromTitle(title = '') {
+  const text = String(title).toLowerCase();
+  const matches = (pattern) => pattern.test(text);
+
+  if (matches(/\b(shoes?|boots?|flats?|sandals?|loafers?|sneakers?|slippers?|heels?)\b/)) return 'Shoes';
+  if (matches(/\b(hats?|caps?|scarves?|wraps?|gloves?|belts?|purses?|handbags?|bags?|necklaces?|pendants?|cufflinks?|jewelry|pins?)\b/)) return 'Accessories';
+  if (matches(/\b(shirts?|t-?shirts?|tees?|sweaters?|hoodies?|jackets?|coats?|vests?|jeans|pants|shorts|jerseys?|dresses?)\b/)) return 'Clothing';
+  if (matches(/\b(cross stitch|embroidery|needlepoint|craft kit|ornament kit|activity books?|fabric|yarn|sewing|patterns?)\b/)) return 'Crafts';
+  if (matches(/\b(books?|manuals?|postcards?|paper|magazines?)\b/)) return 'Books';
+  if (matches(/\b(plates?|bowls?|mugs?|cups?|saucers?|goblets?|glasses?|drinkware|canisters?|jars?|pitchers?|creamers?|sugar bowl|salt and pepper|shakers?|casseroles?|cutting boards?|trivets?|coasters?|colanders?|ice cream maker)\b/)) return 'Kitchen & Dining';
+  if (matches(/\b(blankets?|quilts?|tapestr(?:y|ies)|vases?|mirrors?|lamps?|plaques?|wall|pillows?|suncatchers?|mobiles?|decor|decorative|boxes?|tins?)\b/)) return 'Home Decor';
+  if (matches(/\b(toys?|plush|dolls?|disney|pokemon|harry potter|star wars|breyer|action figures?)\b/)) return 'Toys & Character';
+  if (matches(/\b(figurines?|sculptures?|paperweights?|memorabilia|movie cameras?|statues?|figures?)\b/)) return 'Collectibles';
+
+  return '';
+}
+
+function applyInferredCategories(items) {
+  let inferred = 0;
+  for (const item of items) {
+    if (Array.isArray(item.categories) && item.categories.length) continue;
+    const categoryName = inferredCategoryNameFromTitle(item.title);
+    if (!categoryName) continue;
+    item.categories = [{ categoryName }];
+    inferred += 1;
+  }
+  return inferred;
+}
+
 function normalizeTradingItem(block) {
   const id = normalizeId(tagValue(block, 'ItemID'));
-  const categoryBlock = tagBlock(block, 'PrimaryCategory');
-  const categoryName = tagValue(categoryBlock, 'CategoryName');
+  const categoryName = categoryNameFromBlock(block);
   const image = tagValue(tagBlock(block, 'PictureDetails'), 'GalleryURL')
     || tagValue(tagBlock(block, 'PictureDetails'), 'PictureURL');
   const url = tagValue(tagBlock(block, 'ListingDetails'), 'ViewItemURL');
@@ -188,6 +221,57 @@ async function getClientCredentialsToken() {
   return data.access_token || '';
 }
 
+async function fetchTradingItemCategory(itemId, oauthToken, authToken) {
+  const requesterCredentials = authToken
+    ? `<RequesterCredentials><eBayAuthToken>${escapeXml(authToken)}</eBayAuthToken></RequesterCredentials>`
+    : '';
+  const xml = `<?xml version="1.0" encoding="utf-8"?>
+<GetItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+  ${requesterCredentials}
+  <ErrorLanguage>en_US</ErrorLanguage>
+  <WarningLevel>High</WarningLevel>
+  <ItemID>${escapeXml(itemId)}</ItemID>
+  <DetailLevel>ReturnAll</DetailLevel>
+  <Version>${compatibilityLevel}</Version>
+</GetItemRequest>`;
+
+  const headers = {
+    'Content-Type': 'text/xml',
+    'X-EBAY-API-CALL-NAME': 'GetItem',
+    'X-EBAY-API-SITEID': siteId,
+    'X-EBAY-API-COMPATIBILITY-LEVEL': compatibilityLevel,
+  };
+  if (oauthToken) headers['X-EBAY-API-IAF-TOKEN'] = oauthToken;
+
+  const response = await fetch(tradingEndpoint, { method: 'POST', headers, body: xml });
+  const text = await response.text();
+  if (!response.ok) throw new Error(`GetItem failed for ${itemId}: ${text}`);
+
+  const ack = tagValue(text, 'Ack');
+  if (!/^(Success|Warning)$/i.test(ack)) throw new Error(`GetItem returned ${ack || 'no Ack'} for ${itemId}: ${text}`);
+
+  return categoryNameFromBlock(tagBlock(text, 'Item'));
+}
+
+async function enrichMissingTradingCategories(items, oauthToken, authToken) {
+  const missing = items.filter(item => !Array.isArray(item.categories) || !item.categories.length);
+  const limit = Math.max(0, Number(process.env.EBAY_SYNC_CATEGORY_ENRICH_LIMIT || 50));
+  let enriched = 0;
+
+  for (const item of missing.slice(0, limit)) {
+    try {
+      const categoryName = await fetchTradingItemCategory(item.id, oauthToken, authToken);
+      if (!categoryName) continue;
+      item.categories = [{ categoryName }];
+      enriched += 1;
+    } catch (error) {
+      console.warn(`Could not enrich category for ${item.id}: ${error.message}`);
+    }
+  }
+
+  return enriched;
+}
+
 async function fetchTradingListings() {
   const oauthToken = await getOAuthAccessToken();
   const authToken = process.env.EBAY_AUTH_TOKEN || '';
@@ -236,7 +320,10 @@ async function fetchTradingListings() {
     totalPages = Number(tagValue(tagBlock(activeList, 'PaginationResult'), 'TotalNumberOfPages')) || totalPages;
   }
 
-  return { items, complete: true, provider: 'trading' };
+  const enrichedCategories = await enrichMissingTradingCategories(items, oauthToken, authToken);
+  const inferredCategories = applyInferredCategories(items);
+
+  return { items, complete: true, provider: 'trading', enrichedCategories, inferredCategories };
 }
 
 async function fetchBrowseListings() {
@@ -274,7 +361,9 @@ async function fetchBrowseListings() {
     }
   }
 
-  return { items, complete: false, provider: 'browse' };
+  const inferredCategories = applyInferredCategories(items);
+
+  return { items, complete: false, provider: 'browse', enrichedCategories: 0, inferredCategories };
 }
 
 function mergeListing(existing, listing) {
@@ -345,6 +434,8 @@ async function main() {
   }
 
   console.log(`eBay sync provider: ${live.provider}${live.complete ? ' (complete)' : ' (search based)'}`);
+  console.log(`Categories filled from item details: ${live.enrichedCategories || 0}`);
+  console.log(`Categories inferred from titles: ${live.inferredCategories || 0}`);
   console.log(`Live listings found: ${liveById.size}`);
   console.log(`Inventory before: ${currentItems.length - added + removed}`);
   console.log(`Added: ${added}`);
