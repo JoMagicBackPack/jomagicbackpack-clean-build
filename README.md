@@ -8,6 +8,8 @@ This repository contains the JoMagicBackpack website published through Netlify.
 - `categories.html` - Backpack inventory page
 - `css/styles.css` - site styling
 - `js/main.js` - category and inventory display logic
+- `inventory-review.html` - private noindex inventory review page
+- `js/inventory-review.js` - flags listings that may need category, image, or price attention
 - `data/inventory.json` - full inventory with available eBay image URLs
 - `data/inventory.csv` - eBay active-listings export used as the reliable catalog fallback
 - `data/reviews.json` - customer review data
@@ -19,7 +21,11 @@ This repository contains the JoMagicBackpack website published through Netlify.
 
 The Backpack page first tries the live Netlify eBay feed. If the live feed fails or returns too few items, it loads `data/inventory.json`; if that is unavailable, it falls back to `data/inventory.csv`. Items are assigned to one shopper-friendly category first, mostly from the eBay category name, so loose title keywords do not make non-clothing items appear in Clothing or decorative objects appear in Shoes.
 
+The Backpack wheel includes a New Arrivals pocket for listings added in roughly the last 30 days.
+
 To manually move a specific item, add `categoryOverride` to that item in `data/inventory.json`. Valid values are `clothing`, `footwear`, `accessories`, `kitchen`, `home`, `toys`, `crafts`, `books`, `collectibles`, and `other`.
+
+The unlinked `inventory-review.html` page is for owner cleanup. It is marked `noindex` and highlights items that arrived without category data, images, prices, or that still fall into Other Finds.
 
 ## Automatic eBay Sync
 
