@@ -41,10 +41,24 @@ header {
 }
 
 .ebay-link {
+  min-width: 58px;
   border-color: rgba(232, 240, 255, 0.24) !important;
-  color: var(--moonlight) !important;
   background: rgba(17, 24, 36, 0.78) !important;
-  text-shadow: 0 0 12px rgba(189, 239, 255, 0.2) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+}
+
+.ebay-link::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 28'%3E%3Ctext x='0' y='22' font-family='Arial,Helvetica,sans-serif' font-size='24' font-weight='700'%3E%3Ctspan fill='%23e53238'%3Ee%3C/tspan%3E%3Ctspan fill='%230064d2'%3Eb%3C/tspan%3E%3Ctspan fill='%23f5af02'%3Ea%3C/tspan%3E%3Ctspan fill='%2386b817'%3Ey%3C/tspan%3E%3C/text%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .ebay-link:hover,
