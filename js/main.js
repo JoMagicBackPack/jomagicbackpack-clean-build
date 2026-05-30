@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const storeUrl = `https://www.ebay.com/str/${seller}`;
   const initialVisibleCount = 24;
   const loadMoreStep = 24;
+  const newArrivalDays = 30;
 
   let storeInventory = null;
   let inventoryFetchPromise = null;
@@ -30,6 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'All Items',
       description: 'Every active listing currently loaded from the backpack.',
       mood: 'Everything currently in the backpack.',
+      viewQuery: ''
+    },
+    {
+      key: 'new',
+      label: 'New Arrivals',
+      heading: 'New Arrivals',
+      description: 'Freshly added pieces from the last month.',
+      mood: 'The newest things to tumble out of the backpack.',
       viewQuery: ''
     },
     {
@@ -247,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function belongsInCategory(item, category) {
     if (!category) return false;
+    if (category.key === 'new') return isNewArrival(item);
     return category.key === 'all' || assignedCategoryKey(item) === category.key;
   }
 
@@ -261,7 +271,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function itemTime(item) {
-    return Date.parse(item.startTime || item.itemCreationDate || item.raw?.itemCreationDate || item.raw?.itemOriginDate || '') || 0;
+    const rawTime = item.startTime || item.itemCreationDate || item.raw?.itemCreationDate || item.raw?.itemOriginDate || '';
+    const parsed = Date.parse(rawTime);
+    if (parsed) return parsed;
+
+    const ebayDate = String(rawTime).match(/^([A-Za-z]{3})-(\d{1,2})-(\d{2})\s+(\d{1,2}):(\d{2}):(\d{2})\s+([A-Z]{3})$/);
+    if (!ebayDate) return 0;
+
+    const [, monthName, day, year, hour, minute, second, zone] = ebayDate;
+    const monthIndex = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'].indexOf(monthName.toLowerCase());
+    if (monthIndex < 0) return 0;
+    const zoneOffset = { PST: '-08:00', PDT: '-07:00', MST: '-07:00', MDT: '-06:00', CST: '-06:00', CDT: '-05:00', EST: '-05:00', EDT: '-04:00' }[zone] || 'Z';
+    return Date.parse(`20${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}T${String(hour).padStart(2, '0')}:${minute}:${second}${zoneOffset}`) || 0;
+  }
+
+  function isNewArrival(item) {
+    const time = itemTime(item);
+    if (!time) return false;
+    return Date.now() - time <= newArrivalDays * 24 * 60 * 60 * 1000;
   }
 
   function priceValue(item) {
@@ -379,8 +406,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (inventorySort) inventorySort.value = 'featured';
 
     if (viewAllLink) {
-      viewAllLink.href = category.key === 'all' ? storeUrl : ebaySearchUrl(category.viewQuery || '');
-      viewAllLink.textContent = category.key === 'all' ? 'View all items on eBay' : `View all ${category.label} on eBay`;
+      viewAllLink.href = category.key === 'all' || category.key === 'new' ? storeUrl : ebaySearchUrl(category.viewQuery || '');
+      viewAllLink.textContent = category.key === 'all'
+        ? 'View all items on eBay'
+        : category.key === 'new'
+          ? 'View newest items on eBay'
+          : `View all ${category.label} on eBay`;
     }
   }
 
@@ -452,9 +483,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `<img loading="lazy" src="${item.image}" alt="${item.title || 'JoMagicBackpack item'}">`
       : `<span class="product-image-fallback">No image yet</span>`;
     const category = categories.find(entry => entry.key === assignedCategoryKey(item));
+    const newBadge = isNewArrival(item) ? '<span class="product-new-badge">New Arrival</span>' : '';
 
     return `
       <article class="product-card">
+        ${newBadge}
         <a class="product-image" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">
           ${imageMarkup}
         </a>
