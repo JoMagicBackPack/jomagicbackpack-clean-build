@@ -281,5 +281,19 @@
 
   <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
   <script src="js/main.js?v=20260529e"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const boutiqueDoorway = document.querySelector('.boutique-doorway');
+      const productPanel = document.getElementById('productPanel');
+      if (!boutiqueDoorway || !productPanel) return;
+
+      const syncBoutiqueDoorway = () => {
+        boutiqueDoorway.hidden = !productPanel.hidden;
+      };
+
+      new MutationObserver(syncBoutiqueDoorway).observe(productPanel, { attributes: true, attributeFilter: ['hidden'] });
+      syncBoutiqueDoorway();
+    });
+  </script>
 </body>
 </html>
