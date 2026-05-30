@@ -1,0 +1,380 @@
+/* Moonlight theme polish */
+:root {
+  --magic-blue: #bdefff;
+  --deep-blue: #a9d9ff;
+  --treasure-gold: #edf4ff;
+  --rose-spark: #a277ff;
+  --mint-spark: #89f0d0;
+  --moonlight: #f7fbff;
+  --silver: #c8d5e8;
+  --amethyst: #a277ff;
+  --lunar-ink: #080d16;
+  --pack-surface: #0a101a;
+}
+
+body {
+  color: #dce8f6;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(162, 119, 255, 0.12), transparent 28rem),
+    radial-gradient(circle at 82% 18%, rgba(189, 239, 255, 0.1), transparent 24rem),
+    var(--lunar-ink);
+}
+
+header {
+  background: rgba(7, 10, 17, 0.96);
+  border-bottom-color: rgba(232, 240, 255, 0.12) !important;
+}
+
+.brand-mark {
+  color: #f4f8ff;
+  text-shadow:
+    0 0 16px rgba(189, 239, 255, 0.18),
+    0 0 22px rgba(162, 119, 255, 0.16);
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible {
+  color: var(--moonlight);
+  text-shadow:
+    0 0 14px rgba(189, 239, 255, 0.3),
+    0 0 20px rgba(162, 119, 255, 0.24);
+}
+
+.ebay-link {
+  border-color: rgba(232, 240, 255, 0.24) !important;
+  color: var(--moonlight) !important;
+  background: rgba(17, 24, 36, 0.78) !important;
+  text-shadow: 0 0 12px rgba(189, 239, 255, 0.2) !important;
+}
+
+.ebay-link:hover,
+.ebay-link:focus-visible,
+.primary-action,
+.boutique-doorway-link,
+.category-count,
+.product-cta {
+  background: linear-gradient(135deg, #f8fbff 0%, #d7e4ff 24%, #a277ff 62%, #9fe4ff 100%) !important;
+  color: #07101c !important;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.26),
+    0 0 22px rgba(162, 119, 255, 0.18),
+    0 0 26px rgba(189, 239, 255, 0.14) !important;
+}
+
+.secondary-action,
+.back-link {
+  border-color: rgba(232, 240, 255, 0.24) !important;
+  background: rgba(18, 25, 39, 0.76) !important;
+  color: #f0f6ff !important;
+}
+
+.hero,
+.about-hero {
+  background:
+    radial-gradient(circle at 72% 16%, rgba(162, 119, 255, 0.14), transparent 34%),
+    radial-gradient(circle at 18% 76%, rgba(199, 215, 234, 0.1), transparent 32%),
+    radial-gradient(circle at top, rgba(105, 191, 255, 0.12), transparent 46%),
+    linear-gradient(to bottom, #101724, #080d16) !important;
+}
+
+.hero-title-main,
+.category-intro h2 {
+  color: #f7fbff;
+  -webkit-text-stroke: 0.45px rgba(255, 255, 255, 0.44);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.76),
+    0 3px 0 rgba(116, 104, 154, 0.58),
+    0 8px 18px rgba(0, 0, 0, 0.54),
+    0 0 18px rgba(162, 119, 255, 0.38),
+    0 0 44px rgba(189, 239, 255, 0.2);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.18));
+  text-wrap: balance;
+}
+
+.product-panel h1,
+.product-panel h2,
+.boutique-offer-copy h2 {
+  color: #f7fbff;
+  text-shadow:
+    0 2px 0 rgba(116, 104, 154, 0.42),
+    0 8px 18px rgba(0, 0, 0, 0.36),
+    0 0 24px rgba(162, 119, 255, 0.2);
+}
+
+.hero p,
+.category-intro p,
+.section-note {
+  color: #bed0e4;
+}
+
+.products-section {
+  background:
+    radial-gradient(circle at 82% 10%, rgba(162, 119, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 12% 72%, rgba(137, 240, 208, 0.06), transparent 30%),
+    radial-gradient(circle at 50% 18%, rgba(189, 239, 255, 0.14), transparent 34%),
+    var(--pack-surface) !important;
+}
+
+.trust-strip,
+.coming-status {
+  border-color: rgba(232, 240, 255, 0.2) !important;
+  background: rgba(18, 25, 39, 0.76) !important;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.18),
+    0 0 24px rgba(162, 119, 255, 0.08) !important;
+}
+
+.trust-strip span,
+.trust-strip a,
+.coming-status,
+.boutique-badge,
+.boutique-flow strong,
+.view-all-link,
+.contact-label {
+  color: #f2f6ff !important;
+  text-shadow:
+    0 0 12px rgba(189, 239, 255, 0.2),
+    0 0 18px rgba(162, 119, 255, 0.2) !important;
+}
+
+.backpack-instruction {
+  color: #eff8ff !important;
+  text-shadow:
+    0 2px 0 rgba(88, 70, 132, 0.42),
+    0 0 22px rgba(189, 239, 255, 0.34),
+    0 0 20px rgba(162, 119, 255, 0.22) !important;
+}
+
+.enter-sign::before,
+.enter-sign::after,
+.sign-arrow {
+  background: linear-gradient(to bottom, rgba(247, 251, 255, 0.32), rgba(162, 119, 255, 0.76), rgba(189, 239, 255, 0.86)) !important;
+  box-shadow: 0 0 14px rgba(162, 119, 255, 0.24) !important;
+}
+
+.sign-board {
+  border-color: rgba(237, 244, 255, 0.58) !important;
+  background:
+    linear-gradient(135deg, rgba(247, 251, 255, 0.22), rgba(162, 119, 255, 0.16) 46%, rgba(189, 239, 255, 0.13)),
+    linear-gradient(160deg, rgba(31, 42, 62, 0.96), rgba(9, 15, 27, 0.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 14px 34px rgba(0, 0, 0, 0.3),
+    0 0 28px rgba(162, 119, 255, 0.2),
+    0 0 24px rgba(189, 239, 255, 0.16) !important;
+}
+
+.sign-board::before {
+  background: radial-gradient(circle at 36% 32%, #ffffff 0 2px, #cfd8e6 3px 5px, #121a2b 6px) !important;
+  box-shadow: 0 0 16px rgba(237, 244, 255, 0.36) !important;
+}
+
+.sign-word {
+  color: #fbfdff !important;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.72),
+    0 3px 0 rgba(97, 82, 145, 0.42),
+    0 0 16px rgba(189, 239, 255, 0.46),
+    0 0 22px rgba(162, 119, 255, 0.34) !important;
+}
+
+.sign-arrow::after {
+  border-right-color: rgba(247, 251, 255, 0.95) !important;
+  border-bottom-color: rgba(189, 239, 255, 0.9) !important;
+}
+
+.backpack-button::before,
+.boutique-pack-glow::before {
+  background:
+    radial-gradient(circle, rgba(247, 251, 255, 0.54), rgba(162, 119, 255, 0.28) 34%, rgba(189, 239, 255, 0.2) 54%, transparent 74%) !important;
+}
+
+.backpack-button::after {
+  background:
+    radial-gradient(circle at 42% 16%, rgba(247, 251, 255, 0.34), transparent 12%),
+    radial-gradient(circle at 26% 20%, rgba(189, 239, 255, 0.38), transparent 9%),
+    radial-gradient(circle at 68% 18%, rgba(162, 119, 255, 0.34), transparent 10%),
+    radial-gradient(circle at 76% 60%, rgba(137, 240, 208, 0.14), transparent 13%),
+    radial-gradient(circle at 32% 78%, rgba(189, 239, 255, 0.22), transparent 12%) !important;
+}
+
+.backpack-image-crop,
+.boutique-pack-glow img,
+.category-open-effect img {
+  filter:
+    drop-shadow(0 24px 38px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 64px rgba(189, 239, 255, 0.46))
+    drop-shadow(0 0 26px rgba(162, 119, 255, 0.34)) !important;
+}
+
+.category-showcase {
+  background:
+    radial-gradient(circle at 34% 30%, rgba(232, 240, 255, 0.09), transparent 23%),
+    radial-gradient(circle at 72% 70%, rgba(162, 119, 255, 0.08), transparent 26%),
+    radial-gradient(circle at 50% 50%, rgba(189, 239, 255, 0.13), transparent 22%),
+    radial-gradient(circle at 50% 50%, transparent 47%, rgba(189, 239, 255, 0.09) 48%, transparent 50%),
+    radial-gradient(circle at 50% 50%, transparent 65%, rgba(162, 119, 255, 0.12) 66%, transparent 68%) !important;
+}
+
+.category-showcase::before {
+  background: linear-gradient(to right, rgba(237, 244, 255, 0.68), rgba(162, 119, 255, 0.32), transparent) !important;
+  box-shadow:
+    0 0 22px rgba(189, 239, 255, 0.22),
+    0 0 18px rgba(162, 119, 255, 0.18) !important;
+}
+
+.category-wheel-center,
+.category-card,
+.product-card,
+.review-carousel-card,
+.contact-card,
+.boutique-card,
+.boutique-flow div,
+.boutique-offer-panel,
+.boutique-doorway,
+.boutique-policy-note {
+  border-color: rgba(232, 240, 255, 0.16) !important;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(237, 244, 255, 0.08), transparent 34%),
+    radial-gradient(circle at 88% 90%, rgba(162, 119, 255, 0.08), transparent 36%),
+    linear-gradient(145deg, rgba(25, 36, 55, 0.88), rgba(10, 15, 26, 0.96)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 40px rgba(0, 0, 0, 0.26),
+    0 0 24px rgba(162, 119, 255, 0.07) !important;
+}
+
+.category-wheel-center::before {
+  background:
+    radial-gradient(circle at 65% 20%, rgba(247, 251, 255, 0.2), transparent 18%),
+    radial-gradient(circle at 50% 14%, rgba(162, 119, 255, 0.22), transparent 14%),
+    linear-gradient(145deg, rgba(28, 41, 62, 0.94), rgba(9, 16, 27, 0.98)) !important;
+  border-color: rgba(232, 240, 255, 0.22) !important;
+}
+
+.category-wheel-title {
+  color: #f7fbff;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 10px rgba(0, 0, 0, 0.36),
+    0 0 18px rgba(162, 119, 255, 0.28);
+}
+
+.category-card:hover,
+.category-card:focus-visible,
+.product-card:hover {
+  border-color: rgba(189, 239, 255, 0.36) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 22px 52px rgba(0, 0, 0, 0.34),
+    0 0 32px rgba(162, 119, 255, 0.14),
+    0 0 28px rgba(189, 239, 255, 0.1) !important;
+}
+
+.category-card:nth-child(3n + 1) .category-emblem {
+  color: #dfe8f7;
+}
+
+.category-card:nth-child(3n + 2) .category-emblem {
+  color: #bda7ff;
+}
+
+.category-card:nth-child(3n + 3) .category-emblem {
+  color: #89f0d0;
+}
+
+.category-spark,
+.open-spark {
+  background: radial-gradient(circle, #ffffff, #edf4ff 38%, #bdefff 76%) !important;
+  box-shadow:
+    0 0 18px rgba(189, 239, 255, 0.9),
+    0 0 18px rgba(162, 119, 255, 0.42) !important;
+}
+
+.category-showcase.is-opening::after,
+.category-open-effect::before {
+  background: radial-gradient(circle, rgba(247, 251, 255, 0.22), rgba(162, 119, 255, 0.24) 34%, rgba(189, 239, 255, 0.16) 55%, transparent 72%) !important;
+}
+
+.product-meta,
+#reviewSource,
+.boutique-badge {
+  background: rgba(162, 119, 255, 0.14) !important;
+  border: 1px solid rgba(232, 240, 255, 0.16) !important;
+  color: #f2f6ff !important;
+}
+
+.product-card .price,
+.review-arrow {
+  color: #f2f6ff !important;
+  text-shadow:
+    0 0 12px rgba(189, 239, 255, 0.2),
+    0 0 18px rgba(162, 119, 255, 0.2) !important;
+}
+
+.review-arrow {
+  border-color: rgba(232, 240, 255, 0.22) !important;
+  background: rgba(7, 12, 22, 0.86) !important;
+  box-shadow: 0 0 16px rgba(162, 119, 255, 0.1) !important;
+}
+
+.review-arrow:hover,
+.review-arrow:focus-visible {
+  background: linear-gradient(135deg, #f8fbff 0%, #d7e4ff 24%, #a277ff 62%, #9fe4ff 100%) !important;
+  color: #07101c !important;
+}
+
+.boutique-doorway-kicker,
+.boutique-doorway-note,
+.boutique-policy-note,
+.offer-form .offer-confirm {
+  color: #eef4ff !important;
+}
+
+body .boutique-doorway .boutique-doorway-note,
+body .boutique-policy-note,
+body .offer-form .offer-confirm {
+  color: #eef4ff !important;
+  text-shadow: 0 0 14px rgba(189, 239, 255, 0.16) !important;
+}
+
+.boutique-policy-note,
+.offer-form .offer-confirm {
+  border-color: rgba(232, 240, 255, 0.18) !important;
+  background: rgba(162, 119, 255, 0.1) !important;
+}
+
+.offer-form input,
+.offer-form textarea,
+.inventory-search input,
+.inventory-sort select {
+  border-color: rgba(232, 240, 255, 0.18) !important;
+  background: rgba(7, 12, 22, 0.86) !important;
+}
+
+.offer-form input:focus,
+.offer-form textarea:focus,
+.inventory-search input:focus,
+.inventory-sort select:focus {
+  border-color: rgba(162, 119, 255, 0.48) !important;
+  box-shadow: 0 0 0 3px rgba(162, 119, 255, 0.14) !important;
+}
+
+.contact-card a:hover {
+  color: var(--moonlight) !important;
+}
+
+footer {
+  border-top-color: rgba(232, 240, 255, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .category-showcase {
+    background:
+      radial-gradient(circle at 34% 30%, rgba(232, 240, 255, 0.09), transparent 23%),
+      radial-gradient(circle at 72% 70%, rgba(162, 119, 255, 0.08), transparent 26%),
+      radial-gradient(circle at 50% 50%, rgba(189, 239, 255, 0.13), rgba(189, 239, 255, 0.04) 35%, transparent 66%),
+      radial-gradient(circle at 50% 50%, transparent 49%, rgba(189, 239, 255, 0.24) 50%, transparent 51%),
+      radial-gradient(circle at 50% 50%, rgba(162, 119, 255, 0.08), transparent 64%) !important;
+  }
+}
