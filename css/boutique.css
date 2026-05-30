@@ -204,7 +204,7 @@
   line-height: 1.7;
 }
 
-.stripe-test-panel {
+.payment-coming-panel {
   display: grid;
   gap: 0.7rem;
   margin-top: 1.15rem;
@@ -216,15 +216,11 @@
     rgba(10, 16, 24, 0.42);
 }
 
-.stripe-test-panel p {
+.payment-coming-panel p {
   margin: 0;
   color: #c5d8e8;
   font-size: 0.94rem;
   line-height: 1.55;
-}
-
-.stripe-test-link {
-  width: fit-content;
 }
 
 .offer-form {
@@ -334,10 +330,6 @@
   }
 
   .offer-submit {
-    width: 100%;
-  }
-
-  .stripe-test-link {
     width: 100%;
   }
 }
