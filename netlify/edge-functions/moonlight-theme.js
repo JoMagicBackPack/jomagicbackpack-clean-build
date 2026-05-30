@@ -1,4 +1,4 @@
-const themeLink = '<link rel="stylesheet" href="/css/moonlight-theme.css?v=20260529a">';
+const themeLink = '<link rel="stylesheet" href="/css/moonlight-theme.css?v=20260530a">';
 
 export default async (request, context) => {
   const response = await context.next();
