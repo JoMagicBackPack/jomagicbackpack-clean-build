@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!quoteEl) return;
 
-  quoteEl.style.fontSize = 'clamp(1.45rem, 3vw, 2rem)';
-  quoteEl.style.lineHeight = '1.6';
-  quoteEl.style.letterSpacing = '0.015em';
-  quoteEl.style.minHeight = '8rem';
+  quoteEl.style.fontSize = 'clamp(1.35rem, 2.6vw, 1.85rem)';
+  quoteEl.style.lineHeight = '1.62';
+  quoteEl.style.letterSpacing = '0';
+  quoteEl.style.minHeight = '9rem';
+  quoteEl.style.opacity = '1';
+  quoteEl.style.transform = 'translateY(0)';
+  quoteEl.style.transition = 'opacity 360ms ease, transform 360ms ease';
 
   if (dotsEl) {
     dotsEl.style.display = 'none';
@@ -19,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let reviews = [];
   let currentIndex = 0;
   let timer = null;
-  let typingTimer = null;
 
   const fallbackReviews = [
     { quote: 'Great seller. Fast shipping. A+', source: 'eBay buyer feedback', buyer: 'm***7' },
@@ -28,22 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     { quote: 'Smooth transaction. Thank you.', source: 'eBay buyer feedback', buyer: 't***x' }
   ];
 
-  function typeReview(text) {
-    if (typingTimer) clearInterval(typingTimer);
+  function displayReview(text) {
+    quoteEl.style.opacity = '0';
+    quoteEl.style.transform = 'translateY(8px)';
 
-    quoteEl.textContent = '“';
-
-    let characterIndex = 0;
-
-    typingTimer = setInterval(() => {
-      quoteEl.textContent = `“${text.slice(0, characterIndex + 1)}`;
-      characterIndex += 1;
-
-      if (characterIndex >= text.length) {
-        clearInterval(typingTimer);
-        quoteEl.textContent = `“${text}”`;
-      }
-    }, 18);
+    window.setTimeout(() => {
+      quoteEl.textContent = `"${text}"`;
+      quoteEl.style.opacity = '1';
+      quoteEl.style.transform = 'translateY(0)';
+    }, 220);
   }
 
   function showReview(index) {
@@ -52,11 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
     currentIndex = (index + reviews.length) % reviews.length;
     const review = reviews[currentIndex];
 
-    typeReview(review.quote);
+    displayReview(review.quote);
 
     if (sourceEl) {
-      sourceEl.innerHTML = `${review.source || 'eBay buyer feedback'} <span style="opacity:.7;">• buyer ${review.buyer || 'anonymous'}</span>`;
-      sourceEl.style.fontSize = '1.1rem';
+      sourceEl.innerHTML = `${review.source || 'eBay buyer feedback'} <span style="opacity:.7;">- buyer ${review.buyer || 'anonymous'}</span>`;
+      sourceEl.style.fontSize = '1.05rem';
       sourceEl.style.marginTop = '1.25rem';
     }
   }
@@ -71,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function restartTimer() {
     if (timer) clearInterval(timer);
-    timer = setInterval(nextReview, 8000);
+    timer = setInterval(nextReview, 13000);
   }
 
   function initializeReviewCarousel(data) {
