@@ -19,6 +19,10 @@
   overflow: visible;
 }
 
+.category-card {
+  --card-transform: translate(-50%, -50%) rotate(calc(var(--angle) - 90deg)) translate(var(--wheel-radius)) rotate(calc(var(--reverse-angle) + 90deg)) !important;
+}
+
 .category-wheel-center {
   width: min(36vw, 230px);
   padding: 1.15rem;
@@ -443,7 +447,7 @@
 }
 
 .inventory-review-toolbar,
-inventory-review-summary,
+.inventory-review-summary,
 .inventory-issue-card {
   border: 1px solid rgba(232, 240, 255, 0.16);
   background:
