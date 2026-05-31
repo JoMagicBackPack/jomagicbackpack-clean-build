@@ -172,7 +172,7 @@
         <p>Part thrift expedition. Part curiosity cabinet. Part digital backpack carried from one strange find to the next.</p>
 
         <div class="about-video-panel" aria-label="JoMagicBackpack promo video">
-          <video controls preload="metadata" playsinline>
+          <video id="promoVideo" controls preload="metadata" playsinline>
             <source src="media/JomagicPromo.mp4" type="video/mp4">
             Your browser does not support embedded video.
           </video>
@@ -188,5 +188,22 @@
       <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
     </div>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const promoVideo = document.getElementById('promoVideo');
+      if (!promoVideo) return;
+
+      const enablePromoSound = () => {
+        promoVideo.defaultMuted = false;
+        promoVideo.muted = false;
+        promoVideo.volume = 1;
+      };
+
+      promoVideo.addEventListener('play', enablePromoSound);
+      promoVideo.addEventListener('volumechange', () => {
+        if (promoVideo.muted) promoVideo.muted = false;
+      });
+    });
+  </script>
 </body>
 </html>
