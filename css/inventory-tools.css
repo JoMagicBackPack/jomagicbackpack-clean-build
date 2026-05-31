@@ -162,8 +162,6 @@
 }
 
 .category-card[data-category="new"] {
-  --angle: -90deg !important;
-  --reverse-angle: 90deg !important;
   z-index: 5;
   transform: var(--card-transform) scale(1.08);
   border-color: rgba(247, 251, 255, 0.52);
@@ -445,7 +443,7 @@
 }
 
 .inventory-review-toolbar,
-.inventory-review-summary,
+inventory-review-summary,
 .inventory-issue-card {
   border: 1px solid rgba(232, 240, 255, 0.16);
   background:
