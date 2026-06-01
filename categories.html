@@ -1,301 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Take a Peek Inside | JoMagicBackpack</title>
-  <meta name="description" content="Browse JoMagicBackpack inventory by category and check out securely through eBay.">
-  <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
-  <link rel="stylesheet" href="css/styles.css?v=20260529g">
-  <link rel="stylesheet" href="css/inventory-tools.css?v=20260530d">
-  <style>
-    .category-intro-with-doorway {
-      max-width: 940px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browse the Backpack by Category | JoMagicBackpack</title>
+<meta name="description" content="Browse JoMagicBackpack inventory by category and check out securely through eBay.">
+<link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
+<link rel="stylesheet" href="css/styles.css?v=20260529g">
+<link rel="stylesheet" href="css/inventory-tools.css?v=20260530d">
+<style>
+.category-intro-with-doorway {
+  max-width: 940px;
+}
+.category-intro-with-doorway > h2,
+.category-intro-with-doorway > p {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.boutique-doorway {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  margin: 1.35rem auto 0;
+  max-width: 900px;
+  border: 1px solid rgba(246, 200, 95, 0.3);
+  border-radius: 18px;
+  padding: clamp(1rem, 3vw, 1.25rem);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(246, 200, 95, 0.16), transparent 34%),
+    radial-gradient(circle at 88% 72%, rgba(255, 111, 174, 0.08), transparent 28%),
+    linear-gradient(135deg, rgba(31, 48, 67, 0.9), rgba(10, 16, 27, 0.95));
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.24),
+    0 0 28px rgba(246, 200, 95, 0.08);
+  text-align: left;
+}
+.boutique-doorway-copy {
+  display: grid;
+  gap: 0.34rem;
+}
+.boutique-doorway-kicker {
+  color: var(--treasure-gold);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.boutique-doorway h3 {
+  margin: 0;
+  color: #eef8ff;
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
+  line-height: 1;
+}
+.boutique-doorway p {
+  margin: 0;
+  color: #c1d5e4;
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+.boutique-doorway-note {
+  color: #f7d989 !important;
+  font-size: 0.88rem !important;
+  font-weight: 800;
+}
+.boutique-doorway-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  background: linear-gradient(135deg, var(--treasure-gold), var(--magic-blue) 76%);
+  color: #07121b;
+  font-weight: 900;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 0 22px rgba(246, 200, 95, 0.14);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.boutique-doorway-link:hover,
+.boutique-doorway-link:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26), 0 0 24px rgba(126, 208, 255, 0.18);
+  outline: none;
+}
 
-    .category-intro-with-doorway > h2,
-    .category-intro-with-doorway > p {
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+/* ── Back to Categories button (larger, more prominent) ── */
+#backToCategories.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: 2px solid rgba(246, 200, 95, 0.55);
+  background: linear-gradient(135deg, rgba(246,200,95,0.13), rgba(120,220,255,0.09));
+  color: var(--treasure-gold, #f6c85f);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  margin-bottom: 1.1rem;
+}
+#backToCategories.back-link::before {
+  content: "←";
+  font-size: 1.1rem;
+}
+#backToCategories.back-link:hover,
+#backToCategories.back-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(246, 200, 95, 0.9);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.22), 0 0 18px rgba(246,200,95,0.18);
+  outline: none;
+}
 
-    .boutique-doorway {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 1rem;
-      align-items: center;
-      margin: 1.35rem auto 0;
-      max-width: 900px;
-      border: 1px solid rgba(246, 200, 95, 0.3);
-      border-radius: 18px;
-      padding: clamp(1rem, 3vw, 1.25rem);
-      background:
-        radial-gradient(circle at 12% 8%, rgba(246, 200, 95, 0.16), transparent 34%),
-        radial-gradient(circle at 88% 72%, rgba(255, 111, 174, 0.08), transparent 28%),
-        linear-gradient(135deg, rgba(31, 48, 67, 0.9), rgba(10, 16, 27, 0.95));
-      box-shadow:
-        0 18px 42px rgba(0, 0, 0, 0.24),
-        0 0 28px rgba(246, 200, 95, 0.08);
-      text-align: left;
-    }
+/* ── Back to Top button ── */
+#backToTop {
+  display: none;
+  position: fixed;
+  bottom: 2rem;
+  right: 1.5rem;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  border: 2px solid rgba(246, 200, 95, 0.55);
+  background: linear-gradient(135deg, rgba(10,16,27,0.96), rgba(31,48,67,0.97));
+  color: var(--treasure-gold, #f6c85f);
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.38), 0 0 18px rgba(246,200,95,0.12);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  opacity: 0;
+}
+#backToTop.visible {
+  display: inline-flex;
+  opacity: 1;
+}
+#backToTop:hover,
+#backToTop:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.44), 0 0 24px rgba(246,200,95,0.22);
+  outline: none;
+}
 
-    .boutique-doorway-copy {
-      display: grid;
-      gap: 0.34rem;
-    }
-
-    .boutique-doorway-kicker {
-      color: var(--treasure-gold);
-      font-size: 0.76rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .boutique-doorway h3 {
-      margin: 0;
-      color: #eef8ff;
-      font-size: clamp(1.35rem, 3vw, 1.9rem);
-      line-height: 1;
-    }
-
-    .boutique-doorway p {
-      margin: 0;
-      color: #c1d5e4;
-      font-size: 0.96rem;
-      line-height: 1.5;
-    }
-
-    .boutique-doorway-note {
-      color: #f7d989 !important;
-      font-size: 0.88rem !important;
-      font-weight: 800;
-    }
-
-    .boutique-doorway-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      border-radius: 999px;
-      padding: 0.7rem 1rem;
-      background: linear-gradient(135deg, var(--treasure-gold), var(--magic-blue) 76%);
-      color: #07121b;
-      font-weight: 900;
-      text-decoration: none;
-      white-space: nowrap;
-      box-shadow: 0 0 22px rgba(246, 200, 95, 0.14);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .boutique-doorway-link:hover,
-    .boutique-doorway-link:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26), 0 0 24px rgba(126, 208, 255, 0.18);
-      outline: none;
-    }
-
-    @media (max-width: 768px) {
-      .boutique-doorway {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .boutique-doorway-link {
-        width: 100%;
-      }
-
-      .category-showcase {
-        --wheel-size: min(92vw, 520px);
-        --wheel-radius: calc(var(--wheel-size) * 0.36);
-        display: block;
-        width: var(--wheel-size);
-        height: var(--wheel-size);
-        border-radius: 50%;
-        background:
-          radial-gradient(circle at 34% 30%, rgba(246,200,95,0.1), transparent 23%),
-          radial-gradient(circle at 72% 70%, rgba(255,111,174,0.06), transparent 26%),
-          radial-gradient(circle at 50% 50%, rgba(159,228,255,0.12), rgba(159,228,255,0.04) 35%, transparent 66%),
-          radial-gradient(circle at 50% 50%, transparent 49%, rgba(124,204,255,0.26) 50%, transparent 51%),
-          radial-gradient(circle at 50% 50%, rgba(246,200,95,0.08), transparent 64%);
-      }
-
-      .category-showcase::before {
-        display: none;
-      }
-
-      .category-wheel-center {
-        --card-transform: translate(-50%, -50%);
-        position: absolute;
-        inset: 50% auto auto 50%;
-        width: clamp(108px, 31vw, 148px);
-        aspect-ratio: 1;
-        min-height: 0;
-        grid-template-columns: 1fr;
-        justify-items: center;
-        padding: 0.62rem 0.6rem;
-        transform: var(--card-transform);
-        border-radius: 50%;
-        text-align: center;
-      }
-
-      .category-wheel-center:hover,
-      .category-wheel-center:focus-visible {
-        transform: var(--card-transform) scale(1.045);
-      }
-
-      .category-wheel-center::after {
-        display: block;
-      }
-
-      .category-center-backpack {
-        grid-row: auto;
-        width: 38px;
-        margin: 0 0 0.08rem;
-      }
-
-      .category-wheel-title {
-        margin: 0;
-        padding: 0;
-        font-size: clamp(1.24rem, 6.6vw, 1.72rem);
-        line-height: 0.9;
-      }
-
-      .category-wheel-center small {
-        justify-self: center;
-        font-size: clamp(0.52rem, 2.15vw, 0.68rem);
-        line-height: 1.05;
-      }
-
-      .category-card {
-        --card-transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--wheel-radius)) rotate(var(--reverse-angle));
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: clamp(76px, 23vw, 108px);
-        min-height: clamp(72px, 20vw, 96px);
-        padding: 0.5rem 0.35rem;
-        text-align: center;
-        border-radius: 13px;
-        transform: var(--card-transform);
-      }
-
-      .category-card:hover,
-      .category-card:focus-visible {
-        transform: var(--card-transform) scale(1.055);
-      }
-
-      .category-emblem {
-        width: 28px;
-        height: 28px;
-        margin: 0 auto 0.22rem;
-        transform: scale(0.82);
-      }
-
-      .category-title {
-        font-size: clamp(0.66rem, 2.7vw, 0.82rem);
-        line-height: 1.12;
-      }
-
-      .category-count {
-        font-size: 0.62rem;
-        padding: 0.05rem 0.34rem;
-        margin-left: 0.12rem;
-      }
-
-      .category-description {
-        display: none;
-      }
-    }
-  </style>
+@media (max-width: 768px) {
+  .boutique-doorway {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .boutique-doorway-link {
+    width: 100%;
+  }
+  .category-showcase {
+    --wheel-size: min(92vw, 520px);
+    --wheel-radius: calc(var(--wheel-size) * 0.36);
+    display: block;
+    width: var(--wheel-size);
+    height: var(--wheel-size);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 34% 30%, rgba(246,200,95,0.1), transparent 23%),
+      radial-gradient(circle at 72% 70%, rgba(255,111,174,0.06), transparent 26%),
+      radial-gradient(circle at 50% 50%, rgba(159,228,255,0.12), rgba(159,228,255,0.04) 35%, transparent 66%),
+      radial-gradient(circle at 50% 50%, transparent 49%, rgba(124,204,255,0.26) 50%, transparent 51%),
+      radial-gradient(circle at 50% 50%, rgba(246,200,95,0.08), transparent 64%);
+  }
+  .category-showcase::before {
+    display: none;
+  }
+  .category-wheel-center {
+    --card-transform: translate(-50%, -50%);
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: clamp(108px, 31vw, 148px);
+    aspect-ratio: 1;
+    min-height: 0;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 0.62rem 0.6rem;
+    transform: var(--card-transform);
+    border-radius: 50%;
+    text-align: center;
+  }
+  .category-wheel-center:hover,
+  .category-wheel-center:focus-visible {
+    transform: var(--card-transform) scale(1.045);
+  }
+  .category-wheel-center::after {
+    display: block;
+  }
+  .category-center-backpack {
+    grid-row: auto;
+    width: 38px;
+    margin: 0 0 0.08rem;
+  }
+  .category-wheel-title {
+    margin: 0;
+    padding: 0;
+    font-size: clamp(1.24rem, 6.6vw, 1.72rem);
+    line-height: 0.9;
+  }
+  .category-wheel-center small {
+    justify-self: center;
+    font-size: clamp(0.52rem, 2.15vw, 0.68rem);
+    line-height: 1.05;
+  }
+  .category-card {
+    --card-transform: translate(-50%, -50%) rotate(var(--angle)) translate(var(--wheel-radius)) rotate(var(--reverse-angle));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(76px, 23vw, 108px);
+    min-height: clamp(72px, 20vw, 96px);
+    padding: 0.5rem 0.35rem;
+    text-align: center;
+    border-radius: 13px;
+    transform: var(--card-transform);
+  }
+  .category-card:hover,
+  .category-card:focus-visible {
+    transform: var(--card-transform) scale(1.055);
+  }
+  .category-emblem {
+    width: 28px;
+    height: 28px;
+    margin: 0 auto 0.22rem;
+    transform: scale(0.82);
+  }
+  .category-title {
+    font-size: clamp(0.66rem, 2.7vw, 0.82rem);
+    line-height: 1.12;
+  }
+  .category-count {
+    font-size: 0.62rem;
+    padding: 0.05rem 0.34rem;
+    margin-left: 0.12rem;
+  }
+  .category-description {
+    display: none;
+  }
+  #backToTop {
+    bottom: 1.2rem;
+    right: 1rem;
+    font-size: 0.82rem;
+    padding: 0.5rem 0.95rem;
+  }
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container header-inner">
-      <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home"><span>JoMagicBackpack</span></a>
-      <nav aria-label="Main navigation">
-        <ul class="nav-list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="categories.html">Backpack</a></li>
-          <li><a href="boutique.html">Boutique</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="reviews.html">Reviews</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<header>
+  <div class="container header-inner">
+    <a class="brand-mark" href="index.html" aria-label="JoMagicBackpack home"><span>JoMagicBackpack</span></a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="categories.html">Backpack</a></li>
+        <li><a href="boutique.html">Boutique</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <section class="products-section categories-page">
-      <div class="container">
-        <div class="trust-strip">
-          <span>100% Positive Feedback</span>
-          <span aria-hidden="true">-</span>
-          <a href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">Secure checkout on eBay</a>
+<main>
+  <section class="products-section categories-page">
+    <div class="container">
+      <div class="trust-strip">
+        <span>100% Positive Feedback</span>
+        <span aria-hidden="true">-</span>
+        <a href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">Secure checkout on eBay</a>
+      </div>
+
+      <div id="categoryIntro" class="category-intro category-intro-with-doorway">
+        <h2>Take a Peek Inside!</h2>
+        <p>Pick a pocket on the wheel and see what the backpack turns up. Or choose All Items in the center to view the whole bag at once.</p>
+      </div>
+
+      <div id="categoryShowcase" class="category-showcase" aria-label="Shop categories"></div>
+
+      <div class="boutique-doorway" aria-label="Boutique direct-sale section">
+        <div class="boutique-doorway-copy">
+          <span class="boutique-doorway-kicker">Coming Soon: Boutique Shelf</span>
+          <h3>Boutique Finds</h3>
+          <p>For hand-picked pieces, bundle ideas, and special drops that are not current eBay listings.</p>
+          <p class="boutique-doorway-note">If an item is listed on eBay, please use eBay checkout or eBay Best Offer.</p>
         </div>
+        <a class="boutique-doorway-link" href="boutique.html">Enter the Boutique</a>
+      </div>
 
-        <div id="categoryIntro" class="category-intro category-intro-with-doorway">
-          <h2>Take a Peek Inside!</h2>
-          <p>Pick a pocket on the wheel and see what the backpack turns up. Or choose All Items in the center to view the whole bag at once.</p>
+      <div id="productPanel" class="product-panel" hidden>
+        <button id="backToCategories" class="back-link" type="button">Back to Categories</button>
+        <h2 id="products-heading">Latest Finds</h2>
+        <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
+        <div class="products-toolbar">
+          <label class="inventory-search">
+            <span>Search this view</span>
+            <input id="inventorySearch" type="search" placeholder="Search title, category, or keyword">
+          </label>
+          <label class="inventory-sort">
+            <span>Sort</span>
+            <select id="inventorySort">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: low to high</option>
+              <option value="price-high">Price: high to low</option>
+              <option value="title">Title A-Z</option>
+            </select>
+          </label>
+          <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
         </div>
+        <p id="resultSummary" class="result-summary" aria-live="polite"></p>
+        <div id="productsGrid" class="products-grid" aria-live="polite"></div>
 
-        <div id="categoryShowcase" class="category-showcase" aria-label="Shop categories"></div>
-
-        <div class="boutique-doorway" aria-label="Boutique direct-sale section">
-          <div class="boutique-doorway-copy">
-            <span class="boutique-doorway-kicker">Coming Soon: Boutique Shelf</span>
-            <h3>Boutique Finds</h3>
-            <p>For hand-picked pieces, bundle ideas, and special drops that are not current eBay listings.</p>
-            <p class="boutique-doorway-note">If an item is listed on eBay, please use eBay checkout or eBay Best Offer.</p>
-          </div>
-          <a class="boutique-doorway-link" href="boutique.html">Enter the Boutique</a>
-        </div>
-
-        <div id="productPanel" class="product-panel" hidden>
-          <button id="backToCategories" class="back-link" type="button">Back to categories</button>
-          <h2 id="products-heading">Latest Finds</h2>
-          <p id="products-description" class="section-note">Fresh pieces currently showing from the backpack.</p>
-          <div class="products-toolbar">
-            <label class="inventory-search">
-              <span>Search this view</span>
-              <input id="inventorySearch" type="search" placeholder="Search title, category, or keyword">
-            </label>
-            <label class="inventory-sort">
-              <span>Sort</span>
-              <select id="inventorySort">
-                <option value="featured">Featured</option>
-                <option value="price-low">Price: low to high</option>
-                <option value="price-high">Price: high to low</option>
-                <option value="title">Title A-Z</option>
-              </select>
-            </label>
-            <a id="viewAllCategory" class="view-all-link" href="https://www.ebay.com/str/jomagicbackpack" target="_blank" rel="noopener noreferrer">View all items on eBay</a>
-          </div>
-          <p id="resultSummary" class="result-summary" aria-live="polite"></p>
-          <div id="productsGrid" class="products-grid" aria-live="polite"></div>
+        <!-- Back to Top button (bottom of product list) -->
+        <div style="text-align:center; margin-top: 2rem;">
+          <button class="back-to-top-inline back-link" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="font-size:1rem;font-weight:800;padding:0.65rem 1.6rem;border-radius:999px;border:2px solid rgba(246,200,95,0.55);background:linear-gradient(135deg,rgba(246,200,95,0.13),rgba(120,220,255,0.09));color:var(--treasure-gold,#f6c85f);cursor:pointer;">↑ Back to Top</button>
         </div>
       </div>
-    </section>
-  </main>
 
-  <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-  <script src="js/category-normalizer.js?v=20260530a"></script>
-  <script src="js/main.js?v=20260530d"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const boutiqueDoorway = document.querySelector('.boutique-doorway');
-      const productPanel = document.getElementById('productPanel');
-      if (!boutiqueDoorway || !productPanel) return;
+    </div>
+  </section>
+</main>
 
-      const syncBoutiqueDoorway = () => {
-        boutiqueDoorway.hidden = !productPanel.hidden;
-      };
+<!-- Floating Back to Top button (appears when scrolled down) -->
+<a id="backToTop" href="#" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ Top</a>
 
-      new MutationObserver(syncBoutiqueDoorway).observe(productPanel, { attributes: true, attributeFilter: ['hidden'] });
-      syncBoutiqueDoorway();
-    });
-  </script>
+<footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
+
+<script src="js/category-normalizer.js?v=20260530a"></script>
+<script src="js/main.js?v=20260530d"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Boutique doorway visibility sync
+  const boutiqueDoorway = document.querySelector('.boutique-doorway');
+  const productPanel = document.getElementById('productPanel');
+  if (boutiqueDoorway && productPanel) {
+    const syncBoutiqueDoorway = () => {
+      boutiqueDoorway.hidden = !productPanel.hidden;
+    };
+    new MutationObserver(syncBoutiqueDoorway).observe(productPanel, { attributes: true, attributeFilter: ['hidden'] });
+    syncBoutiqueDoorway();
+  }
+
+  // Floating Back to Top button — show after scrolling 400px
+  const backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+  }
+});
+</script>
 </body>
 </html>
