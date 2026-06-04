@@ -20,30 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const center = categoryShowcase.querySelector('.category-wheel-center');
     if (!center || center.dataset.centerPolished === 'true') return;
 
+    center.querySelectorAll('.category-orbit-text').forEach(node => node.remove());
+
+    const title = center.querySelector('.category-wheel-title');
+    if (title) title.textContent = 'All Items';
+
     const small = center.querySelector('small');
     if (small) {
       const text = small.textContent.trim();
       const match = text.match(/^(\d+)\s+(.*)$/);
       if (match) {
         const count = Number(match[1]);
-        small.innerHTML = `<span class="category-count-number">0</span><span class="category-count-label">${match[2]}</span>`;
+        small.innerHTML = `<span class="category-count-number">0</span><span class="category-count-label">${match[2].replace(/finds/i, 'listings')}</span>`;
         const numberNode = small.querySelector('.category-count-number');
         if (numberNode && Number.isFinite(count)) animateCount(numberNode, count);
       }
-    }
-
-    if (!center.querySelector('.category-orbit-text')) {
-      const orbitText = document.createElement('span');
-      orbitText.className = 'category-orbit-text';
-      orbitText.setAttribute('aria-hidden', 'true');
-      [0, 120, 240].forEach(angle => {
-        const word = document.createElement('span');
-        word.className = 'category-orbit-word';
-        word.style.setProperty('--orbit-angle', `${angle}deg`);
-        word.textContent = 'All Items';
-        orbitText.appendChild(word);
-      });
-      center.insertBefore(orbitText, center.firstChild);
     }
 
     center.dataset.centerPolished = 'true';
