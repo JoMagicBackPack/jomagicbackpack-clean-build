@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!categoryShowcase) return;
 
   function animateCount(numberNode, target) {
-    const duration = 850;
+    const duration = 900;
     const startTime = performance.now();
 
     function tick(now) {
@@ -36,7 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const orbitText = document.createElement('span');
       orbitText.className = 'category-orbit-text';
       orbitText.setAttribute('aria-hidden', 'true');
-      orbitText.textContent = 'All Items - All Items - All Items';
+      [0, 120, 240].forEach(angle => {
+        const word = document.createElement('span');
+        word.className = 'category-orbit-word';
+        word.style.setProperty('--orbit-angle', `${angle}deg`);
+        word.textContent = 'All Items';
+        orbitText.appendChild(word);
+      });
       center.insertBefore(orbitText, center.firstChild);
     }
 
