@@ -7,7 +7,7 @@
 <meta name="description" content="Browse JoMagicBackpack inventory by category and check out securely through eBay.">
 <link rel="icon" href="AF33BEB9-4375-48AE-B35A-07DF95F39F98.png">
 <link rel="stylesheet" href="css/styles.css?v=20260529g">
-<link rel="stylesheet" href="css/inventory-tools.css?v=20260530d">
+<link rel="stylesheet" href="css/inventory-tools.css?v=20260604a">
 <style>
 .category-intro-with-doorway {
   max-width: 940px;
@@ -23,7 +23,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1rem;
   align-items: center;
-  margin: 1.35rem auto 0;
+  margin: 1.7rem auto 0;
   max-width: 900px;
   border: 1px solid rgba(246, 200, 95, 0.3);
   border-radius: 18px;
@@ -86,8 +86,6 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26), 0 0 24px rgba(126, 208, 255, 0.18);
   outline: none;
 }
-
-/* ── Back to Categories button (larger, more prominent) ── */
 #backToCategories.back-link {
   display: inline-flex;
   align-items: center;
@@ -102,7 +100,7 @@
   cursor: pointer;
   text-decoration: none;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.35rem;
 }
 #backToCategories.back-link::before {
   content: "←";
@@ -115,41 +113,6 @@
   box-shadow: 0 6px 22px rgba(0,0,0,0.22), 0 0 18px rgba(246,200,95,0.18);
   outline: none;
 }
-
-/* ── Back to Top button ── */
-#backToTop {
-  display: none;
-  position: fixed;
-  bottom: 2rem;
-  right: 1.5rem;
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0.6rem 1.15rem;
-  border-radius: 999px;
-  border: 2px solid rgba(246, 200, 95, 0.55);
-  background: linear-gradient(135deg, rgba(10,16,27,0.96), rgba(31,48,67,0.97));
-  color: var(--treasure-gold, #f6c85f);
-  font-size: 0.92rem;
-  font-weight: 800;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.38), 0 0 18px rgba(246,200,95,0.12);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-  opacity: 0;
-}
-#backToTop.visible {
-  display: inline-flex;
-  opacity: 1;
-}
-#backToTop:hover,
-#backToTop:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.44), 0 0 24px rgba(246,200,95,0.22);
-  outline: none;
-}
-
 @media (max-width: 768px) {
   .boutique-doorway {
     grid-template-columns: 1fr;
@@ -192,14 +155,6 @@
   .category-wheel-center:hover,
   .category-wheel-center:focus-visible {
     transform: var(--card-transform) scale(1.045);
-  }
-  .category-wheel-center::after {
-    display: block;
-  }
-  .category-center-backpack {
-    grid-row: auto;
-    width: 38px;
-    margin: 0 0 0.08rem;
   }
   .category-wheel-title {
     margin: 0;
@@ -246,12 +201,6 @@
   .category-description {
     display: none;
   }
-  #backToTop {
-    bottom: 1.2rem;
-    right: 1rem;
-    font-size: 0.82rem;
-    padding: 0.5rem 0.95rem;
-  }
 }
 </style>
 </head>
@@ -288,16 +237,6 @@
 
       <div id="categoryShowcase" class="category-showcase" aria-label="Shop categories"></div>
 
-      <div class="boutique-doorway" aria-label="Boutique direct-sale section">
-        <div class="boutique-doorway-copy">
-          <span class="boutique-doorway-kicker">Coming Soon: Boutique Shelf</span>
-          <h3>Boutique Finds</h3>
-          <p>For hand-picked pieces, bundle ideas, and special drops that are not current eBay listings.</p>
-          <p class="boutique-doorway-note">If an item is listed on eBay, please use eBay checkout or eBay Best Offer.</p>
-        </div>
-        <a class="boutique-doorway-link" href="boutique.html">Enter the Boutique</a>
-      </div>
-
       <div id="productPanel" class="product-panel" hidden>
         <button id="backToCategories" class="back-link" type="button">Back to Categories</button>
         <h2 id="products-heading">Latest Finds</h2>
@@ -320,49 +259,26 @@
         </div>
         <p id="resultSummary" class="result-summary" aria-live="polite"></p>
         <div id="productsGrid" class="products-grid" aria-live="polite"></div>
-
-        <!-- Back to Top button (bottom of product list) -->
         <div style="text-align:center; margin-top: 2rem;">
           <button class="back-to-top-inline back-link" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="font-size:1rem;font-weight:800;padding:0.65rem 1.6rem;border-radius:999px;border:2px solid rgba(246,200,95,0.55);background:linear-gradient(135deg,rgba(246,200,95,0.13),rgba(120,220,255,0.09));color:var(--treasure-gold,#f6c85f);cursor:pointer;">↑ Back to Top</button>
         </div>
       </div>
 
+      <div class="boutique-doorway" aria-label="Boutique direct-sale section">
+        <div class="boutique-doorway-copy">
+          <span class="boutique-doorway-kicker">Coming Soon: Boutique Shelf</span>
+          <h3>Boutique Finds</h3>
+          <p>For hand-picked pieces, bundle ideas, and special drops that are not current eBay listings.</p>
+          <p class="boutique-doorway-note">If an item is listed on eBay, please use eBay checkout or eBay Best Offer.</p>
+        </div>
+        <a class="boutique-doorway-link" href="boutique.html">Enter the Boutique</a>
+      </div>
     </div>
   </section>
 </main>
 
-<!-- Floating Back to Top button (appears when scrolled down) -->
-<a id="backToTop" href="#" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ Top</a>
-
 <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
-
 <script src="js/category-normalizer.js?v=20260530a"></script>
 <script src="js/main.js?v=20260530d"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Boutique doorway visibility sync
-  const boutiqueDoorway = document.querySelector('.boutique-doorway');
-  const productPanel = document.getElementById('productPanel');
-  if (boutiqueDoorway && productPanel) {
-    const syncBoutiqueDoorway = () => {
-      boutiqueDoorway.hidden = !productPanel.hidden;
-    };
-    new MutationObserver(syncBoutiqueDoorway).observe(productPanel, { attributes: true, attributeFilter: ['hidden'] });
-    syncBoutiqueDoorway();
-  }
-
-  // Floating Back to Top button — show after scrolling 400px
-  const backToTopBtn = document.getElementById('backToTop');
-  if (backToTopBtn) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
-    }, { passive: true });
-  }
-});
-</script>
 </body>
 </html>
