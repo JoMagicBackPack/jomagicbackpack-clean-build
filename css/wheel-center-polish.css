@@ -84,22 +84,29 @@
 
 .category-count-number {
   display: block !important;
-  color: rgba(4, 11, 31, 0.9) !important;
-  font-family: Arial, Helvetica, sans-serif !important;
-  font-size: clamp(2.18rem, 5.05vw, 2.9rem) !important;
+  color: rgba(3, 9, 27, 0.94) !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: clamp(2.24rem, 5.1vw, 2.96rem) !important;
   font-weight: 900 !important;
-  font-variant-numeric: tabular-nums !important;
-  letter-spacing: 0.015em !important;
-  line-height: 0.78 !important;
-  -webkit-text-stroke: 1px rgba(204, 250, 255, 0.74);
+  font-variant-numeric: lining-nums tabular-nums !important;
+  font-stretch: condensed;
+  letter-spacing: -0.03em !important;
+  line-height: 0.74 !important;
+  transform: rotate(-6deg) skewX(-7deg) translateY(1px) !important;
+  -webkit-text-stroke: 1.25px rgba(218, 253, 255, 0.82);
   paint-order: stroke fill;
   text-shadow:
-    0 -1px 0 rgba(255, 255, 255, 0.2),
-    0 1px 0 rgba(0, 0, 0, 0.74),
-    0 0 3px rgba(205, 251, 255, 0.95),
-    0 0 9px rgba(80, 236, 255, 0.76),
-    0 0 18px rgba(80, 236, 255, 0.44),
-    0 0 30px rgba(162, 119, 255, 0.38) !important;
+    -1px -1px 0 rgba(231, 255, 255, 0.34),
+    1px 1px 0 rgba(0, 0, 0, 0.82),
+    2px 3px 2px rgba(0, 0, 0, 0.66),
+    0 0 4px rgba(214, 252, 255, 0.96),
+    0 0 10px rgba(80, 236, 255, 0.74),
+    0 0 20px rgba(80, 236, 255, 0.42),
+    0 0 34px rgba(162, 119, 255, 0.34) !important;
+}
+
+.category-count-number::first-letter {
+  letter-spacing: -0.07em;
 }
 
 .category-count-label {
@@ -127,7 +134,7 @@
   }
 
   .category-count-number {
-    animation: cutLightPulse 2.6s ease-in-out infinite;
+    animation: cutLightPulse 2.8s ease-in-out infinite;
   }
 }
 
@@ -143,12 +150,12 @@
 
 @keyframes cutLightPulse {
   0%, 100% {
-    -webkit-text-stroke-color: rgba(204, 250, 255, 0.68);
-    text-shadow: 0 -1px 0 rgba(255,255,255,.18), 0 1px 0 rgba(0,0,0,.76), 0 0 3px rgba(205,251,255,.9), 0 0 9px rgba(80,236,255,.68), 0 0 18px rgba(80,236,255,.38), 0 0 30px rgba(162,119,255,.34);
+    -webkit-text-stroke-color: rgba(218, 253, 255, 0.74);
+    text-shadow: -1px -1px 0 rgba(231,255,255,.28), 1px 1px 0 rgba(0,0,0,.84), 2px 3px 2px rgba(0,0,0,.68), 0 0 4px rgba(214,252,255,.88), 0 0 10px rgba(80,236,255,.62), 0 0 20px rgba(80,236,255,.34), 0 0 34px rgba(162,119,255,.3);
   }
   50% {
-    -webkit-text-stroke-color: rgba(231, 255, 255, 0.92);
-    text-shadow: 0 -1px 0 rgba(255,255,255,.24), 0 1px 0 rgba(0,0,0,.78), 0 0 5px rgba(231,255,255,.98), 0 0 14px rgba(80,236,255,.86), 0 0 28px rgba(80,236,255,.54), 0 0 42px rgba(162,119,255,.42);
+    -webkit-text-stroke-color: rgba(245, 255, 255, 0.96);
+    text-shadow: -1px -1px 0 rgba(255,255,255,.42), 1px 1px 0 rgba(0,0,0,.86), 2px 3px 2px rgba(0,0,0,.7), 0 0 6px rgba(245,255,255,.98), 0 0 16px rgba(80,236,255,.84), 0 0 30px rgba(80,236,255,.52), 0 0 46px rgba(162,119,255,.42);
   }
 }
 
@@ -160,6 +167,7 @@
   }
 
   .category-count-number {
-    font-size: clamp(1.66rem, 7.6vw, 2.08rem) !important;
+    font-size: clamp(1.7rem, 7.9vw, 2.12rem) !important;
+    transform: rotate(-6deg) skewX(-7deg) translateY(1px) !important;
   }
 }
