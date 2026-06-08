@@ -63,8 +63,8 @@
   border: 1px solid rgba(246, 253, 255, 0.74) !important;
   border-radius: 50% !important;
   background:
-    radial-gradient(circle at 27% 18%, rgba(255, 255, 255, 0.96) 0 7%, rgba(255, 255, 255, 0.52) 8% 13%, transparent 14%),
-    radial-gradient(ellipse at 35% 25%, rgba(255, 255, 255, 0.72) 0 13%, transparent 32%),
+    radial-gradient(circle at 20% 11%, rgba(255, 255, 255, 0.84) 0 5%, rgba(255, 255, 255, 0.34) 6% 10%, transparent 11%),
+    radial-gradient(ellipse at 30% 16%, rgba(255, 255, 255, 0.54) 0 10%, transparent 26%),
     radial-gradient(circle at 72% 78%, rgba(5, 7, 24, 0.86) 0 24%, transparent 43%),
     radial-gradient(circle at 63% 67%, rgba(78, 40, 172, 0.82), transparent 42%),
     radial-gradient(circle at 43% 42%, #f8fdff 0 5%, #caf6ff 16%, #70dcff 34%, #9d73ff 58%, #0b1121 90%) !important;
@@ -73,7 +73,7 @@
   text-transform: uppercase !important;
   box-shadow:
     inset -18px -20px 28px rgba(2, 6, 16, 0.68),
-    inset 11px 10px 19px rgba(255, 255, 255, 0.34),
+    inset 11px 10px 19px rgba(255, 255, 255, 0.28),
     inset -5px 6px 18px rgba(118, 220, 255, 0.18),
     0 0 26px rgba(238, 250, 255, 0.92),
     0 0 58px rgba(126, 220, 255, 0.72),
@@ -84,18 +84,19 @@
 
 .category-count-number {
   display: block !important;
-  color: #dffaff !important;
+  color: #e8fcff !important;
   font-size: clamp(2.22rem, 5.2vw, 3.02rem) !important;
   font-weight: 900 !important;
   letter-spacing: 0 !important;
   line-height: 0.78 !important;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  -webkit-text-stroke: 1.35px rgba(4, 9, 28, 0.72);
   text-shadow:
-    0 0 4px rgba(255, 255, 255, 0.92),
-    0 0 14px rgba(86, 238, 255, 0.88),
-    0 0 28px rgba(86, 238, 255, 0.58),
-    0 0 42px rgba(162, 119, 255, 0.48),
-    0 2px 4px rgba(2, 6, 16, 0.62) !important;
+    0 1px 0 rgba(3, 8, 26, 0.88),
+    0 0 4px rgba(255, 255, 255, 0.82),
+    0 0 13px rgba(86, 238, 255, 0.84),
+    0 0 25px rgba(86, 238, 255, 0.56),
+    0 0 40px rgba(162, 119, 255, 0.48),
+    0 3px 7px rgba(2, 6, 16, 0.72) !important;
 }
 
 .category-count-label {
@@ -106,7 +107,7 @@
 .category-wheel-center:focus-visible small {
   box-shadow:
     inset -18px -20px 28px rgba(2, 6, 16, 0.66),
-    inset 11px 10px 19px rgba(255, 255, 255, 0.38),
+    inset 11px 10px 19px rgba(255, 255, 255, 0.32),
     inset -5px 6px 18px rgba(118, 220, 255, 0.22),
     0 0 34px rgba(255, 255, 255, 0.96),
     0 0 76px rgba(126, 220, 255, 0.84),
@@ -129,7 +130,7 @@
 
 @keyframes etchedOrbPulse {
   0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.17); }
+  50% { filter: brightness(1.13); }
 }
 
 @keyframes orbAuraBreathe {
@@ -138,11 +139,11 @@
 }
 
 @keyframes neonCountFlicker {
-  0%, 100% { opacity: 0.96; text-shadow: 0 0 4px rgba(255,255,255,.92), 0 0 14px rgba(86,238,255,.88), 0 0 28px rgba(86,238,255,.58), 0 0 42px rgba(162,119,255,.48); }
+  0%, 100% { opacity: 0.98; text-shadow: 0 1px 0 rgba(3,8,26,.88), 0 0 4px rgba(255,255,255,.82), 0 0 13px rgba(86,238,255,.84), 0 0 25px rgba(86,238,255,.56), 0 0 40px rgba(162,119,255,.48); }
   42% { opacity: 1; }
-  48% { opacity: 0.72; text-shadow: 0 0 3px rgba(255,255,255,.7), 0 0 9px rgba(86,238,255,.62), 0 0 18px rgba(86,238,255,.38); }
+  48% { opacity: 0.78; text-shadow: 0 1px 0 rgba(3,8,26,.9), 0 0 3px rgba(255,255,255,.68), 0 0 9px rgba(86,238,255,.58), 0 0 18px rgba(86,238,255,.34); }
   52% { opacity: 1; }
-  57% { opacity: 0.86; }
+  57% { opacity: 0.9; }
   62% { opacity: 1; }
 }
 
