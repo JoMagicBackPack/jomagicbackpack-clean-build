@@ -40,7 +40,8 @@
 .category-wheel-center::after,
 .category-orbit-text,
 .category-orbit-word,
-.category-center-backpack {
+.category-center-backpack,
+.category-wheel-title {
   display: none !important;
   content: none !important;
 }
@@ -77,31 +78,6 @@
     0 0 26px rgba(238, 250, 255, 0.92),
     0 0 58px rgba(126, 220, 255, 0.72),
     0 0 96px rgba(162, 119, 255, 0.48) !important;
-  transform: translate(-50%, -50%) !important;
-  pointer-events: none !important;
-}
-
-.category-wheel-title {
-  position: absolute !important;
-  z-index: 4 !important;
-  left: 50% !important;
-  top: calc(50% - 2.15rem) !important;
-  width: min(74%, 170px) !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: block !important;
-  color: #effcff !important;
-  font-family: 'Caveat', cursive !important;
-  font-size: clamp(1.82rem, 3.8vw, 2.42rem) !important;
-  font-weight: 700 !important;
-  line-height: 0.86 !important;
-  letter-spacing: 0 !important;
-  text-align: center !important;
-  text-shadow:
-    0 1px 0 rgba(63, 51, 130, 0.72),
-    0 0 10px rgba(255, 255, 255, 0.46),
-    0 0 22px rgba(126, 220, 255, 0.72),
-    0 0 34px rgba(162, 119, 255, 0.48) !important;
   transform: translate(-50%, -50%) !important;
   pointer-events: none !important;
 }
@@ -175,12 +151,6 @@
     --orb-size: clamp(104px, 29vw, 128px);
     width: clamp(168px, 49vw, 214px) !important;
     min-height: clamp(168px, 49vw, 214px) !important;
-  }
-
-  .category-wheel-title {
-    top: calc(50% - 1.62rem) !important;
-    width: 112px !important;
-    font-size: clamp(1.28rem, 5.8vw, 1.68rem) !important;
   }
 
   .category-count-number {
