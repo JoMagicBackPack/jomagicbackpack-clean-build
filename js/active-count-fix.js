@@ -13,10 +13,14 @@
     ['Collectibles', ['figurine','sculpture','paperweight','memorabilia','vintage','collectible','statue','camera']]
   ]);
 
+  let activeItems = [];
+  let countTimer = null;
+
   const normalizeId = value => (String(value || '').match(/\b\d{9,15}\b/) || [''])[0];
   const textOf = item => `${item.title || ''} ${(item.categories || []).map(c => c.categoryName || '').join(' ')}`.toLowerCase();
   const isSold = item => soldIds.has(normalizeId(item.id || item.url || '')) || String(item.status || '').toLowerCase() === 'sold' || item.soldAt;
   const isNew = item => Date.now() - Date.parse(item.startTime || item.itemCreationDate || item.raw?.itemCreationDate || '') <= 30 * 24 * 60 * 60 * 1000;
+
   const matches = (item, label) => {
     if (label === 'New Arrivals') return isNew(item);
     const words = categoryLabels.get(label) || [];
@@ -31,7 +35,11 @@
     return response.json();
   }
 
-  async function adjustCounts() {
+  function setText(node, value) {
+    if (node && node.textContent !== value) node.textContent = value;
+  }
+
+  async function loadCounts() {
     const [inventoryData, soldData] = await Promise.all([
       readJson('data/inventory.json'),
       readJson('data/sold-items.json').catch(() => ({ items: [] }))
@@ -40,24 +48,26 @@
       const id = normalizeId(item.id || item.url || '');
       if (id) soldIds.add(id);
     });
+    activeItems = (Array.isArray(inventoryData.items) ? inventoryData.items : []).filter(item => !isSold(item));
+  }
 
-    const items = Array.isArray(inventoryData.items) ? inventoryData.items : [];
-    const activeItems = items.filter(item => !isSold(item));
-
-    document.querySelectorAll('.category-wheel-center small').forEach(node => {
-      node.textContent = `${activeItems.length} active finds`;
-    });
-
+  function applyCounts() {
+    document.querySelectorAll('.category-wheel-center small').forEach(node => setText(node, `${activeItems.length} active finds`));
     document.querySelectorAll('.category-card .category-title').forEach(title => {
       const count = title.querySelector('.category-count');
       if (!count) return;
       const label = title.textContent.replace(count.textContent, '').trim();
-      count.textContent = activeItems.filter(item => matches(item, label)).length;
+      setText(count, String(activeItems.filter(item => matches(item, label)).length));
     });
   }
 
+  function scheduleApply() {
+    window.clearTimeout(countTimer);
+    countTimer = window.setTimeout(applyCounts, 80);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    adjustCounts().catch(() => {});
-    new MutationObserver(() => adjustCounts().catch(() => {})).observe(document.body, { childList: true, subtree: true });
+    loadCounts().then(applyCounts).catch(() => {});
+    new MutationObserver(scheduleApply).observe(document.body, { childList: true, subtree: true });
   });
 })();
