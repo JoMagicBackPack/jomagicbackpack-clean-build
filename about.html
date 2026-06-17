@@ -172,8 +172,8 @@
         <p>Part thrift expedition. Part curiosity cabinet. Part digital backpack carried from one strange find to the next.</p>
 
         <div class="about-video-panel" aria-label="JoMagicBackpack promo video">
-          <video id="promoVideo" controls preload="metadata" playsinline>
-            <source src="media/JomagicPromo.mp4" type="video/mp4">
+          <video id="promoVideo" controls preload="auto" playsinline>
+            <source src="media/JomagicPromo.mp4?v=20260617a#t=0.001" type="video/mp4">
             Your browser does not support embedded video.
           </video>
           <div class="about-video-caption">A quick look inside JoMagicBackpack</div>
@@ -192,11 +192,37 @@
       const promoVideo = document.getElementById('promoVideo');
       if (!promoVideo) return;
 
-      promoVideo.addEventListener('play', () => {
+      let userSeeked = false;
+      let forcedStart = false;
+
+      const forceStartFromBeginning = () => {
+        if (forcedStart || userSeeked) return;
+        forcedStart = true;
+
+        try {
+          if (promoVideo.currentTime > 0.05) promoVideo.currentTime = 0;
+        } catch (error) {
+          console.warn('Could not reset promo video start time.', error);
+        }
+      };
+
+      const enableAudio = () => {
         promoVideo.defaultMuted = false;
         promoVideo.muted = false;
         promoVideo.volume = 1;
-      }, { once: true });
+      };
+
+      promoVideo.addEventListener('loadedmetadata', forceStartFromBeginning, { once: true });
+      promoVideo.addEventListener('canplay', forceStartFromBeginning, { once: true });
+
+      promoVideo.addEventListener('seeking', () => {
+        if (promoVideo.currentTime > 0.5) userSeeked = true;
+      });
+
+      promoVideo.addEventListener('play', () => {
+        enableAudio();
+        forceStartFromBeginning();
+      });
     });
   </script>
 </body>
