@@ -30,6 +30,15 @@ jobs:
           EBAY_SYNC_REMOVE_MISSING: ${{ vars.EBAY_SYNC_REMOVE_MISSING }}
         run: node scripts/sync-ebay-inventory.js
 
+      - name: Mark sold listings for short retention
+        env:
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EBAY_REFRESH_TOKEN: ${{ secrets.EBAY_REFRESH_TOKEN }}
+          EBAY_AUTH_TOKEN: ${{ secrets.EBAY_AUTH_TOKEN }}
+          EBAY_SYNC_SOLD_RETENTION_DAYS: ${{ vars.EBAY_SYNC_SOLD_RETENTION_DAYS }}
+        run: node scripts/mark-sold-after-sync.js
+
       - name: Commit inventory update
         run: |
           if git diff --quiet -- data/inventory.json; then
