@@ -173,7 +173,7 @@
 
         <div class="about-video-panel" aria-label="JoMagicBackpack promo video">
           <video id="promoVideo" controls preload="auto" playsinline>
-            <source src="media/JomagicPromo.mp4?v=20260617c#t=0.001" type="video/mp4">
+            <source src="media/JomagicPromo.mp4?v=20260617d" type="video/mp4">
             Your browser does not support embedded video.
           </video>
           <div class="about-video-caption">A quick look inside JoMagicBackpack</div>
@@ -187,44 +187,6 @@
       <p>&copy; 2026 JoMagicBackpack. All rights reserved.</p>
     </div>
   </footer>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const promoVideo = document.getElementById('promoVideo');
-      if (!promoVideo) return;
-
-      let userSeeked = false;
-      let forcedStart = false;
-
-      const forceStartFromBeginning = () => {
-        if (forcedStart || userSeeked) return;
-        forcedStart = true;
-
-        try {
-          if (promoVideo.currentTime > 0.05) promoVideo.currentTime = 0;
-        } catch (error) {
-          console.warn('Could not reset promo video start time.', error);
-        }
-      };
-
-      const enableAudio = () => {
-        promoVideo.defaultMuted = false;
-        promoVideo.muted = false;
-        promoVideo.volume = 1;
-      };
-
-      promoVideo.addEventListener('loadedmetadata', forceStartFromBeginning, { once: true });
-      promoVideo.addEventListener('canplay', forceStartFromBeginning, { once: true });
-
-      promoVideo.addEventListener('seeking', () => {
-        if (promoVideo.currentTime > 0.5) userSeeked = true;
-      });
-
-      promoVideo.addEventListener('play', () => {
-        enableAudio();
-        forceStartFromBeginning();
-      });
-    });
-  </script>
-  <script src="js/promo-video-start.js?v=20260617a"></script>
+  <script src="js/promo-video-start.js?v=20260617b"></script>
 </body>
 </html>
