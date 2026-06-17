@@ -60,3 +60,104 @@
   background: linear-gradient(135deg, #dbe5ef, #8797aa);
   color: #07101c;
 }
+
+.load-more-wrap {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: clamp(1.4rem, 4vw, 2.35rem) auto 0;
+  padding: 0.3rem 0 0.15rem;
+}
+
+.load-more-button {
+  position: relative;
+  isolation: isolate;
+  min-width: min(100%, 340px);
+  min-height: 56px;
+  border: 1px solid rgba(247, 251, 255, 0.7);
+  border-radius: 999px;
+  padding: 0.86rem 1.45rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.88), transparent 20%),
+    radial-gradient(circle at 84% 88%, rgba(162, 119, 255, 0.38), transparent 34%),
+    linear-gradient(135deg, #f7fbff 0%, #cde9ff 24%, #a277ff 62%, #8de8ff 100%);
+  color: #07101c;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(0.98rem, 2.4vw, 1.12rem);
+  font-weight: 1000;
+  letter-spacing: 0.015em;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 0 1px rgba(159, 228, 255, 0.22),
+    0 0 26px rgba(159, 228, 255, 0.34),
+    0 0 44px rgba(162, 119, 255, 0.26),
+    0 18px 38px rgba(0, 0, 0, 0.3);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.load-more-button::before,
+.load-more-button::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.load-more-button::before {
+  inset: -42% -18%;
+  z-index: -1;
+  background: conic-gradient(from 90deg, transparent, rgba(255, 255, 255, 0.72), transparent, rgba(162, 119, 255, 0.36), transparent);
+  opacity: 0.42;
+}
+
+.load-more-button::after {
+  inset: 7px 15px auto auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    -34px 18px 0 -2px rgba(255, 255, 255, 0.82),
+    -76px 2px 0 -3px rgba(159, 228, 255, 0.9),
+    -115px 24px 0 -3px rgba(162, 119, 255, 0.75);
+  opacity: 0.92;
+}
+
+.load-more-button:hover,
+.load-more-button:focus-visible {
+  transform: translateY(-3px) scale(1.025);
+  filter: brightness(1.06);
+  box-shadow:
+    0 0 0 1px rgba(247, 251, 255, 0.34),
+    0 0 34px rgba(159, 228, 255, 0.5),
+    0 0 68px rgba(162, 119, 255, 0.38),
+    0 22px 44px rgba(0, 0, 0, 0.34);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .load-more-button::before {
+    animation: loadMoreShimmer 5s linear infinite;
+  }
+}
+
+@keyframes loadMoreShimmer {
+  to { transform: rotate(1turn); }
+}
+
+@media (max-width: 768px) {
+  .load-more-wrap {
+    margin-top: 1.25rem;
+  }
+
+  .load-more-button {
+    width: min(100%, 310px);
+    min-height: 54px;
+    padding: 0.78rem 1rem;
+    font-size: 0.92rem;
+  }
+}
