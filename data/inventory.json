@@ -1220,7 +1220,10 @@
         {
           "categoryName": "Art Sculptures"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-06-17T11:19:27.685Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204993748689",
@@ -2030,7 +2033,10 @@
         {
           "categoryName": "Trays"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-06-17T11:19:27.685Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205167832577",
@@ -3081,7 +3087,10 @@
           "categoryName": "Jerseys"
         }
       ],
-      "categoryOverride": "clothing"
+      "categoryOverride": "clothing",
+      "status": "sold",
+      "soldAt": "2026-06-17T11:19:27.685Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205653048369",
@@ -4229,7 +4238,10 @@
           "categoryName": "Statues & Figures"
         }
       ],
-      "categoryOverride": "collectibles"
+      "categoryOverride": "collectibles",
+      "status": "sold",
+      "soldAt": "2026-06-17T11:19:27.685Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206163162921",
@@ -4820,7 +4832,10 @@
         {
           "categoryName": "Home Decor"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-06-17T11:19:27.685Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     }
   ]
 }
