@@ -2373,7 +2373,10 @@
         {
           "categoryName": "Sleepwear & Robes"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-06-19T18:12:48.930Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205367658256",
