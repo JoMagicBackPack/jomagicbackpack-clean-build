@@ -223,7 +223,10 @@
         {
           "categoryName": "Jugs & Pitchers"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-06-19T07:33:12.966Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204547369870",
@@ -4836,6 +4839,47 @@
       "status": "sold",
       "soldAt": "2026-06-17T11:19:27.685Z",
       "soldReason": "No longer returned by eBay active-listings sync."
+    },
+    {
+      "id": "206357854867",
+      "title": "The Big Book for Peace 1990 First Edition Hardcover Maurice Sendak Dust Jacket",
+      "price": "USD 22.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/-NsAAeSwPuhqM47D/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/The-Big-Book-for-Peace-1990-First-Edition-Hardcover-Maurice-Sendak-Dust-Jacket-/206357854867",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-19T06:01:03.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206357860386",
+      "title": "Vintage Minute Maid Anchor Hocking Orange Juice Glass Carafes Lot of 2",
+      "price": "USD 29.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/xLoAAeSwI4tqM~S8/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Vintage-Minute-Maid-Anchor-Hocking-Orange-Juice-Glass-Carafes-Lot-of-2-/206357860386",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-19T06:05:49.000Z",
+      "categories": []
+    },
+    {
+      "id": "206357861323",
+      "title": "VTG Sears Fieldmaster Shirt Mens XL NOS Red White Check NWT Hong Kong",
+      "price": "USD 34.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/eqgAAeSwBhJqM~Tw/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Sears-Fieldmaster-Shirt-Mens-XL-NOS-Red-White-Check-NWT-Hong-Kong-/206357861323",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-19T06:07:05.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
     }
   ]
 }
