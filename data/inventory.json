@@ -4136,7 +4136,10 @@
         {
           "categoryName": "Bags"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-06-20T14:35:00.106Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206045443535",
