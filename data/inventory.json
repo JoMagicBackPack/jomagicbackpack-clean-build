@@ -4796,7 +4796,11 @@
       "url": "https://www.ebay.com/itm/VTG-Country-Peddlers-Great-American-Wood-Splint-Handled-Basket-9x7x8-/206311242937",
       "seller": "jomagicbackpack",
       "startTime": "2026-05-31T08:00:33.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Collectibles:Decorative Collectibles:Baskets"
+        }
+      ]
     },
     {
       "id": "206328143157",
