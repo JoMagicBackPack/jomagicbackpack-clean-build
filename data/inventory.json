@@ -4927,6 +4927,36 @@
           "categoryName": "Home Decor"
         }
       ]
+    },
+    {
+      "id": "206376072448",
+      "title": "Curlee Sportswear Plaid Sport Coat Mens 40L Brown Gray Blazer Vintage",
+      "price": "USD 39.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/yDsAAeSwQ61qP1zS/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Curlee-Sportswear-Plaid-Sport-Coat-Mens-40L-Brown-Gray-Blazer-Vintage-/206376072448",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-27T05:21:39.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206376072652",
+      "title": "Jason Maxwell Mens Large Vintage 80s 90s Turtleneck Sweater Abstract Knit",
+      "price": "USD 39.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/pRkAAeSwunVqP1z-/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Jason-Maxwell-Mens-Large-Vintage-80s-90s-Turtleneck-Sweater-Abstract-Knit-/206376072652",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-27T05:22:10.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
     }
   ]
 }
