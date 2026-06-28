@@ -4204,7 +4204,10 @@
           "categoryName": "Casual Shoes"
         }
       ],
-      "categoryOverride": "footwear"
+      "categoryOverride": "footwear",
+      "status": "sold",
+      "soldAt": "2026-06-28T05:46:24.308Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206086076755",
@@ -4952,6 +4955,36 @@
       "url": "https://www.ebay.com/itm/Jason-Maxwell-Womens-Large-Vintage-80s-Turtleneck-Sweater-Abstract-Knit-/206376072652",
       "seller": "jomagicbackpack",
       "startTime": "2026-06-27T05:22:10.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206378258626",
+      "title": "Oakley Skull Mens Board Shorts Sz 31 Red Nylon Swim Trunks Lined",
+      "price": "USD 34.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/Iq8AAeSwp-1qQK9D/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Oakley-Skull-Mens-Board-Shorts-Sz-31-Red-Nylon-Swim-Trunks-Lined-/206378258626",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-28T05:23:05.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206378270159",
+      "title": "The Irresistible Shirt Ultimate Flannel Michigan Bleached Unisex M Plaid",
+      "price": "USD 34.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/vFcAAeSwbtlqQLEa/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/The-Irresistible-Shirt-Ultimate-Flannel-Michigan-Bleached-Unisex-M-Plaid-/206378270159",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-06-28T05:30:01.000Z",
       "categories": [
         {
           "categoryName": "Clothing"
