@@ -48,6 +48,10 @@
     return response.json();
   }
 
+  function setText(node, value) {
+    if (node && node.textContent !== value) node.textContent = value;
+  }
+
   function itemText(item) {
     return `${item.title || ''} ${(item.categories || []).map(c => c.categoryName || '').join(' ')} ${item.categoryOverride || ''}`.toLowerCase();
   }
@@ -71,29 +75,39 @@
     return words.some(word => text.includes(word));
   }
 
+  function updateAllItemsSummary(activeCount, soldCount) {
+    const activeWord = activeCount === 1 ? 'find' : 'finds';
+    const soldWord = soldCount === 1 ? 'piece is' : 'pieces are';
+    const message = soldCount > 0
+      ? `${activeCount} active ${activeWord} for sale. ${soldCount} recently sold ${soldWord} also shown in All Items.`
+      : `${activeCount} active ${activeWord} for sale in All Items.`;
+
+    document.querySelectorAll('.result-summary').forEach(summary => {
+      if (/All Items/i.test(summary.textContent || '')) setText(summary, message);
+    });
+  }
+
   async function applyActiveCounts() {
     const inventory = await readJson('data/inventory.json').catch(() => ({ items: [] }));
     const items = Array.isArray(inventory.items) ? inventory.items : [];
     const activeItems = items.filter(item => !itemIsSold(item));
+    const soldItems = items.filter(item => itemIsSold(item));
 
     document.querySelectorAll('.category-wheel-center small').forEach(node => {
-      node.textContent = `${activeItems.length} active finds`;
+      setText(node, `${activeItems.length} active finds`);
     });
 
     document.querySelectorAll('.category-card .category-title').forEach(title => {
       const count = title.querySelector('.category-count');
       if (!count) return;
       const label = title.textContent.replace(count.textContent, '').trim();
-      count.textContent = String(activeItems.filter(item => itemMatchesLabel(item, label)).length);
+      setText(count, String(activeItems.filter(item => itemMatchesLabel(item, label)).length));
     });
+
+    updateAllItemsSummary(activeItems.length, soldItems.length);
   }
 
   function clarifyAllItemsCopy() {
-    document.querySelectorAll('.result-summary').forEach(summary => {
-      summary.textContent = summary.textContent
-        .replace(/items showing in All Items\./i, 'items shown in All Items, including recently sold pieces.')
-        .replace(/item showing in All Items\./i, 'item shown in All Items.');
-    });
     const desc = document.getElementById('products-description');
     if (desc && /Every active listing currently loaded/i.test(desc.textContent || '')) {
       desc.textContent = 'Available finds plus a small recently sold archive from the backpack.';
