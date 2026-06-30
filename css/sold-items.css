@@ -139,6 +139,18 @@
   outline: none;
 }
 
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .load-more-button::before {
     animation: loadMoreShimmer 5s linear infinite;
@@ -150,6 +162,43 @@
 }
 
 @media (max-width: 768px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .categories-page .container {
+    width: min(92%, 100vw - 24px);
+  }
+
+  .category-showcase {
+    --wheel-size: min(86vw, 500px) !important;
+    --wheel-radius: calc(var(--wheel-size) * 0.34) !important;
+    max-width: calc(100vw - 24px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow: visible !important;
+  }
+
+  .category-card {
+    width: clamp(72px, 21vw, 96px) !important;
+    min-height: clamp(68px, 19vw, 88px) !important;
+    padding: 0.42rem 0.28rem !important;
+  }
+
+  .category-title {
+    font-size: clamp(0.6rem, 2.45vw, 0.76rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .category-count {
+    min-width: 1.8em !important;
+    margin-left: 0.08rem !important;
+    padding: 0.04rem 0.28rem !important;
+    font-size: 0.55rem !important;
+  }
+
   .load-more-wrap {
     margin-top: 1.25rem;
   }
