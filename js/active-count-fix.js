@@ -1,16 +1,20 @@
 (() => {
-  const SOLD_RETENTION_DAYS = 14;
+  const labelKey = new Map([
+    ['Clothing', 'clothing'], ['Shoes', 'footwear'], ['Accessories', 'accessories'],
+    ['Kitchen & Dining', 'kitchen'], ['Home Decor', 'home'], ['Toys & Character', 'toys'],
+    ['Crafts', 'crafts'], ['Books & Paper', 'books'], ['Collectibles', 'collectibles'], ['Other Finds', 'other']
+  ]);
   const soldIds = new Set();
   const categoryLabels = new Map([
     ['New Arrivals', ['new']],
     ['Clothing', ['shirt','sweater','turtleneck','flannel','hoodie','jacket','coat','sport coat','blazer','vest','jeans','pants','shorts','board shorts','swim trunks','jersey','dress','apparel','top','tee']],
     ['Shoes', ['shoe','boot','sandal','sneaker','flat','loafer','slipper','heel','clog']],
     ['Accessories', ['bag','purse','hat','cap','jewelry','necklace','pendant','medal','pin','clip','watch','belt','scarf','glove','wallet','charm']],
-    ['Kitchen & Dining', ['plate','bowl','mug','cup','glass','goblet','jar','canister','pitcher','creamer','sugar','salt','pepper','shaker','tray','kitchen','dining','serving']],
+    ['Kitchen & Dining', ['plate','bowl','mug','cup','glass','goblet','jar','carafe','canister','pitcher','creamer','sugar','salt','pepper','shaker','tray','kitchen','dining','serving']],
     ['Home Decor', ['blanket','quilt','vase','mirror','lamp','wall','decor','box','tin','plaque','tapestry','pillow','sculpture']],
     ['Toys & Character', ['toy','plush','doll','disney','pokemon','harry potter','star wars','breyer','figure']],
     ['Crafts', ['cross stitch','embroidery','needlepoint','craft','kit','fabric','yarn','sewing','pattern']],
-    ['Books & Paper', ['book','manual','postcard','paper','magazine']],
+    ['Books & Paper', ['book','hardcover','paperback','manual','postcard','paper','magazine','dust jacket']],
     ['Collectibles', ['collectible','figurine','paperweight','memorabilia','vintage','statue','camera','religious','devotional','catholic','saint','mary','miraculous']]
   ]);
 
@@ -25,9 +29,10 @@
 
   const matches = (item, label) => {
     if (label === 'New Arrivals') return isNew(item) && !isSold(item);
+    if (item.categoryOverride) return item.categoryOverride === labelKey.get(label);
     const words = categoryLabels.get(label) || [];
     if (!words.length) return !Array.from(categoryLabels.keys()).some(other => other !== label && matches(item, other));
-    const text = itemText(item);
+    const text = itemText(item).replace(/dust jacket/g, '');
     return words.some(word => text.includes(word));
   };
 
