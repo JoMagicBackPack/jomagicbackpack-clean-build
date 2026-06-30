@@ -69,9 +69,23 @@
     activeItems = allItems.filter(item => !isSold(item));
   }
 
+  function updateAllItemsSummary(activeCount, soldCount) {
+    const activeWord = activeCount === 1 ? 'find' : 'finds';
+    const soldWord = soldCount === 1 ? 'piece is' : 'pieces are';
+    const message = soldCount > 0
+      ? `${activeCount} active ${activeWord} for sale. ${soldCount} recently sold ${soldWord} also shown in All Items.`
+      : `${activeCount} active ${activeWord} for sale in All Items.`;
+
+    document.querySelectorAll('.result-summary').forEach(summary => {
+      if (/All Items/i.test(summary.textContent || '')) setText(summary, message);
+    });
+  }
+
   function applyCounts() {
     ensureAccessibleH1();
     const activeCount = activeItems.length || allItems.filter(item => !isSold(item)).length;
+    const soldCount = allItems.filter(item => isSold(item)).length;
+
     document.querySelectorAll('.category-wheel-center small').forEach(node => setText(node, `${activeCount} active finds`));
     document.querySelectorAll('.category-card .category-title').forEach(title => {
       const count = title.querySelector('.category-count');
@@ -79,11 +93,7 @@
       const label = title.textContent.replace(count.textContent, '').trim();
       setText(count, String(activeItems.filter(item => matches(item, label)).length));
     });
-    document.querySelectorAll('.result-summary').forEach(summary => {
-      summary.textContent = summary.textContent
-        .replace(/items showing in All Items\./i, 'items shown in All Items, including recently sold pieces.')
-        .replace(/item showing in All Items\./i, 'item shown in All Items.');
-    });
+    updateAllItemsSummary(activeCount, soldCount);
     const desc = document.getElementById('products-description');
     if (desc && /Every active listing currently loaded/i.test(desc.textContent || '')) {
       desc.textContent = 'Available finds plus a small recently sold archive from the backpack.';
