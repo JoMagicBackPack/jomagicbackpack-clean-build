@@ -756,7 +756,10 @@
         {
           "categoryName": "Cream & Sugar"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T13:42:26.275Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204828863308",
@@ -1215,24 +1218,6 @@
           "categoryName": "Comfort Shoes"
         }
       ]
-    },
-    {
-      "id": "204993625384",
-      "title": "Abstract Metal Ram Skull Sculpture Brutalist Modern Folk Art Decor 17 In",
-      "price": "USD 36.00",
-      "condition": "Used",
-      "image": "https://i.ebayimg.com/images/g/avoAAOSwIz5mbRqX/s-l140.jpg",
-      "url": "https://www.ebay.com/itm/Abstract-Metal-Ram-Skull-Sculpture-Brutalist-Modern-Folk-Art-Decor-17-In-/204993625384",
-      "seller": "jomagicbackpack",
-      "startTime": "2024-09-15T03:31:42.000Z",
-      "categories": [
-        {
-          "categoryName": "Art Sculptures"
-        }
-      ],
-      "status": "sold",
-      "soldAt": "2026-06-17T11:19:27.685Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204993748689",
@@ -2052,24 +2037,6 @@
           "categoryName": "Flats"
         }
       ]
-    },
-    {
-      "id": "205160038812",
-      "title": "Giftco Purple Hummingbird Metal Round Serving Tray 13.5 In",
-      "price": "USD 16.00",
-      "condition": null,
-      "image": "https://i.ebayimg.com/images/g/9wYAAOSwSZJnWo2P/s-l140.jpg",
-      "url": "https://www.ebay.com/itm/Giftco-Purple-Hummingbird-Metal-Round-Serving-Tray-13-5-In-/205160038812",
-      "seller": "jomagicbackpack",
-      "startTime": "2024-12-12T07:20:55.000Z",
-      "categories": [
-        {
-          "categoryName": "Trays"
-        }
-      ],
-      "status": "sold",
-      "soldAt": "2026-06-17T11:19:27.685Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205167832577",
@@ -2920,7 +2887,10 @@
           "categoryName": "Coat of Arms"
         }
       ],
-      "categoryOverride": "home"
+      "categoryOverride": "home",
+      "status": "sold",
+      "soldAt": "2026-07-01T13:42:26.275Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205616063473",
@@ -3138,25 +3108,6 @@
           "categoryName": "Boxes, Jars & Tins"
         }
       ]
-    },
-    {
-      "id": "205653046869",
-      "title": "Antonio Gates San Diego Chargers Jersey 2007 Reebok NFL Mens S White",
-      "price": "USD 28.00",
-      "condition": null,
-      "image": "https://i.ebayimg.com/images/g/ePsAAeSw~i5oGELg/s-l140.jpg",
-      "url": "https://www.ebay.com/itm/Antonio-Gates-San-Diego-Chargers-Jersey-2007-Reebok-NFL-Mens-S-White-/205653046869",
-      "seller": "jomagicbackpack",
-      "startTime": "2025-08-05T01:23:18.000Z",
-      "categories": [
-        {
-          "categoryName": "Jerseys"
-        }
-      ],
-      "categoryOverride": "clothing",
-      "status": "sold",
-      "soldAt": "2026-06-17T11:19:27.685Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205653048369",
@@ -3660,7 +3611,10 @@
         {
           "categoryName": "Casual Button-Down Shirts"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T13:42:26.275Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205910060199",
@@ -3690,7 +3644,10 @@
         {
           "categoryName": "Decorative Fruit & Vegetables"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T13:42:26.275Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205910072424",
@@ -4312,25 +4269,6 @@
       ]
     },
     {
-      "id": "206162913191",
-      "title": "VTG Italian Ricordo Di Pompei Shell Souvenir Madonna Child Floral 4 In",
-      "price": "USD 24.00",
-      "condition": "Used",
-      "image": "https://i.ebayimg.com/images/g/qlwAAeSwrIBpwiWI/s-l140.jpg",
-      "url": "https://www.ebay.com/itm/VTG-Italian-Ricordo-Di-Pompei-Shell-Souvenir-Madonna-Child-Floral-4-In-/206162913191",
-      "seller": "jomagicbackpack",
-      "startTime": "2026-03-24T05:54:56.000Z",
-      "categories": [
-        {
-          "categoryName": "Statues & Figures"
-        }
-      ],
-      "categoryOverride": "collectibles",
-      "status": "sold",
-      "soldAt": "2026-06-17T11:19:27.685Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
-    },
-    {
       "id": "206163162921",
       "title": "NWOT Founders Club Mens M Quarter Zip Pullover Windshirt Blue Black",
       "price": "USD 24.00",
@@ -4915,24 +4853,6 @@
       ]
     },
     {
-      "id": "206335758833",
-      "title": "Abstract Metal Ram Skull Sculpture Brutalist Modern Folk Art Decor 17 In",
-      "price": "USD 36.00",
-      "condition": null,
-      "image": "https://i.ebayimg.com/images/g/avoAAOSwIz5mbRqX/s-l140.jpg",
-      "url": "https://www.ebay.com/itm/Abstract-Metal-Ram-Skull-Sculpture-Brutalist-Modern-Folk-Art-Decor-17-In-/206335758833",
-      "seller": "jomagicbackpack",
-      "startTime": "2026-06-10T07:43:44.000Z",
-      "categories": [
-        {
-          "categoryName": "Home Decor"
-        }
-      ],
-      "status": "sold",
-      "soldAt": "2026-06-17T11:19:27.685Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
-    },
-    {
       "id": "206357854867",
       "title": "The Big Book for Peace 1990 First Edition Hardcover Maurice Sendak Dust Jacket",
       "price": "USD 22.00",
@@ -5413,12 +5333,87 @@
     {
       "id": "206385378191",
       "title": "Friends Central Perk Decorative Confetti Tumbler Display Collectible",
-      "price": "USD 24.00",
+      "price": "USD 18.00",
       "condition": null,
       "image": "https://i.ebayimg.com/images/g/rgIAAOSwdgNnp3Ka/s-l140.jpg",
       "url": "https://www.ebay.com/itm/Friends-Central-Perk-Decorative-Confetti-Tumbler-Display-Collectible-/206385378191",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-01T05:33:26.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
+        }
+      ]
+    },
+    {
+      "id": "206385828695",
+      "title": "Pfaltzgraff Vickie Hanson Floral Ceramic Covered Casserole 3 Qt",
+      "price": "USD 28.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/~rsAAeSwwDZoGmHQ/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Pfaltzgraff-Vickie-Hanson-Floral-Ceramic-Covered-Casserole-3-Qt-/206385828695",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T10:50:48.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385828758",
+      "title": "The Territory Ahead Mens Large Cotton Shirt Tan Striped Short Sleeve",
+      "price": "USD 18.40",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/IkkAAeSw2DNoGmKA/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/The-Territory-Ahead-Mens-Large-Cotton-Shirt-Tan-Striped-Short-Sleeve-/206385828758",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T10:50:56.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206385828806",
+      "title": "Vintage Oversized Apple Pear Ceramic Fruit Sculptures Set of 2",
+      "price": "USD 20.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/7AAAAOSw5e9nWApK/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Vintage-Oversized-Apple-Pear-Ceramic-Fruit-Sculptures-Set-of-2-/206385828806",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T10:51:05.000Z",
+      "categories": [
+        {
+          "categoryName": "Collectibles"
+        }
+      ]
+    },
+    {
+      "id": "206385828856",
+      "title": "Vintage 1945 Noritake Harmony Fine China Sugar Bowl With Lid",
+      "price": "USD 20.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/kfYAAOSwo2JnX~TC/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Vintage-1945-Noritake-Harmony-Fine-China-Sugar-Bowl-With-Lid-/206385828856",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T10:51:14.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385829861",
+      "title": "Woodside Ireland Family Crest Name History Plaque Framed 28x16 HRC",
+      "price": "USD 60.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/5BwAAeSw8lxobuTs/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Woodside-Ireland-Family-Crest-Name-History-Plaque-Framed-28x16-HRC-/206385829861",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T10:52:12.000Z",
       "categories": [
         {
           "categoryName": "Home Decor"
