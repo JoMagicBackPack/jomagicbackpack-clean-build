@@ -47,6 +47,12 @@
     return image === item.image ? item : { ...item, image };
   }
 
+  function canonicalItemId(item) {
+    const id = String(item?.id || '');
+    const match = id.match(/\d{12}/);
+    return match ? match[0] : id;
+  }
+
   function patchInventory(data) {
     if (!data || !Array.isArray(data.items)) return data;
     const seen = new Set();
@@ -62,30 +68,88 @@
         return sharpenItemImage(patched);
       })
       .filter(item => {
-        const id = String(item.id || '');
+        const id = canonicalItemId(item);
         if (!id || seen.has(id)) return false;
         seen.add(id);
+        item.id = id;
         return true;
       });
     return data;
   }
 
+  function liveInventoryUrl() {
+    const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
+    url.searchParams.set('seller', 'jomagicbackpack');
+    url.searchParams.set('limit', '50');
+    url.searchParams.set('pages', '6');
+    url.searchParams.set('sort', 'new');
+    return url.toString();
+  }
+
+  function mergeLiveInventory(savedData, liveData) {
+    const savedItems = Array.isArray(savedData?.items) ? patchInventory({ ...savedData, items: [...savedData.items] }).items : [];
+    const liveItems = Array.isArray(liveData?.result?.items) ? liveData.result.items.map(sharpenItemImage) : [];
+    if (!liveItems.length) return savedData;
+
+    const savedById = new Map(savedItems.map(item => [canonicalItemId(item), item]));
+    const merged = [];
+    const seen = new Set();
+
+    liveItems.forEach(liveItem => {
+      const id = canonicalItemId(liveItem);
+      if (!id || seen.has(id)) return;
+      const savedItem = savedById.get(id) || {};
+      const item = {
+        ...savedItem,
+        ...liveItem,
+        id,
+        categories: savedItem.categories || liveItem.categories || []
+      };
+      delete item.status;
+      delete item.soldAt;
+      delete item.soldReason;
+      merged.push(item);
+      seen.add(id);
+    });
+
+    savedItems.forEach(item => {
+      const id = canonicalItemId(item);
+      if (!id || seen.has(id)) return;
+      item.id = id;
+      merged.push(item);
+      seen.add(id);
+    });
+
+    return { ...(savedData || {}), items: merged };
+  }
+
+  async function syncedInventoryResponse(input, init, response) {
+    const savedData = await response.clone().json().then(patchInventory);
+    let mergedData = savedData;
+    try {
+      const liveResponse = await originalFetch(liveInventoryUrl(), { cache: 'no-store' });
+      if (liveResponse.ok) {
+        const liveData = await liveResponse.json();
+        mergedData = mergeLiveInventory(savedData, liveData);
+      }
+    } catch (error) {
+      mergedData = savedData;
+    }
+
+    return new Response(JSON.stringify(mergedData), {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers
+    });
+  }
+
   window.fetch = (input, init) => {
     const url = typeof input === 'string' ? input : (input && input.url) || '';
 
-    if (url.includes('/.netlify/functions/ebay-listings')) {
-      return Promise.reject(new Error('Using synced inventory file so sold status and hand categories are preserved.'));
-    }
-
     if (/data\/inventory\.json(?:$|[?#])/.test(url)) {
-      return originalFetch(input, init).then(response => response.clone().json()
-        .then(patchInventory)
-        .then(data => new Response(JSON.stringify(data), {
-          status: response.status,
-          statusText: response.statusText,
-          headers: response.headers
-        }))
-        .catch(() => response));
+      return originalFetch(input, init)
+        .then(response => syncedInventoryResponse(input, init, response))
+        .catch(() => originalFetch(input, init));
     }
 
     return originalFetch(input, init);
