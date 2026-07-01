@@ -317,7 +317,10 @@
         {
           "categoryName": "Merchandise & Memorabilia"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204583426466",
@@ -905,7 +908,10 @@
         {
           "categoryName": "Creamers"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204944345039",
@@ -1318,7 +1324,10 @@
           "categoryName": "Shot Glasses"
         }
       ],
-      "categoryOverride": "kitchen"
+      "categoryOverride": "kitchen",
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205024932820",
@@ -1333,7 +1342,10 @@
         {
           "categoryName": "Tops"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205024942408",
@@ -1348,7 +1360,10 @@
         {
           "categoryName": "Cup & Saucers"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205026772814",
@@ -1364,7 +1379,10 @@
           "categoryName": "Boxes, Jars & Tins"
         }
       ],
-      "categoryOverride": "home"
+      "categoryOverride": "home",
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205026782134",
@@ -1379,7 +1397,10 @@
         {
           "categoryName": "Tops"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205028163422",
@@ -1394,7 +1415,10 @@
         {
           "categoryName": "Mugs"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205028257878",
@@ -1409,7 +1433,10 @@
         {
           "categoryName": "Suncatchers & Mobiles"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205033159585",
@@ -2006,7 +2033,10 @@
         {
           "categoryName": "Plaques & Signs"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205155693503",
@@ -2191,7 +2221,10 @@
         {
           "categoryName": "Other Television Memorabilia"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205292223351",
@@ -2254,7 +2287,10 @@
         {
           "categoryName": "Casual Button-Down Shirts"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205329152265",
@@ -2516,7 +2552,10 @@
         {
           "categoryName": "Boots"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205463953836",
@@ -2546,7 +2585,10 @@
         {
           "categoryName": "Bowls"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205470230237",
@@ -2744,7 +2786,10 @@
         {
           "categoryName": "Napkin Rings & Holders"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205528193430",
@@ -2759,7 +2804,10 @@
         {
           "categoryName": "Trivets"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205528208312",
@@ -2804,7 +2852,10 @@
         {
           "categoryName": "Vases"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205542539333",
@@ -2820,7 +2871,10 @@
           "categoryName": "Shorts"
         }
       ],
-      "categoryOverride": "clothing"
+      "categoryOverride": "clothing",
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205548973496",
@@ -3065,7 +3119,10 @@
           "categoryName": "Clothes Hangers"
         }
       ],
-      "categoryOverride": "home"
+      "categoryOverride": "home",
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205653045734",
@@ -3405,7 +3462,10 @@
         {
           "categoryName": "Napkin Rings & Holders"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205765403639",
@@ -3420,7 +3480,10 @@
         {
           "categoryName": "Binoculars & Monoculars"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205781862844",
@@ -3541,7 +3604,10 @@
           "categoryName": "Other Vintage US Beer Glasses"
         }
       ],
-      "categoryOverride": "kitchen"
+      "categoryOverride": "kitchen",
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205899901671",
@@ -3557,7 +3623,10 @@
           "categoryName": "Hair Extensions"
         }
       ],
-      "categoryOverride": "accessories"
+      "categoryOverride": "accessories",
+      "status": "sold",
+      "soldAt": "2026-07-01T06:48:05.339Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205910055709",
@@ -5014,6 +5083,342 @@
       "categories": [
         {
           "categoryName": "Accessories"
+        }
+      ]
+    },
+    {
+      "id": "206385077747",
+      "title": "Oakley Metal Mens T Shirt XL Black Gray Red Logo Tee",
+      "price": "USD 22.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/PPQAAeSwaYVqRHvI/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Oakley-Metal-Mens-T-Shirt-XL-Black-Gray-Red-Logo-Tee-/206385077747",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T02:01:37.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206385281165",
+      "title": "EcoThreads Mens M Short Sleeve Button Up Shirt Black White Abstract Camo",
+      "price": "USD 20.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/mK8AAeSwx1Nnwr~-/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/EcoThreads-Mens-M-Short-Sleeve-Button-Up-Shirt-Black-White-Abstract-Camo-/206385281165",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:29:32.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206385281193",
+      "title": "VTG Cobalt Blue Glass Bead Napkin Rings Set of 9 India NOS",
+      "price": "USD 28.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/fsIAAeSw9DtoPA5r/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Cobalt-Blue-Glass-Bead-Napkin-Rings-Set-of-9-India-NOS-/206385281193",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:29:38.000Z",
+      "categories": []
+    },
+    {
+      "id": "206385281219",
+      "title": "Round Cooling Plates Trivets Swirl Design Set of 3 8 In",
+      "price": "USD 18.40",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/OoEAAOSwkKlmrYYS/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Round-Cooling-Plates-Trivets-Swirl-Design-Set-of-3-8-In-/206385281219",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:29:45.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385296401",
+      "title": "VTG Napa Home Garden Black Tower Vase Lava Stoneware 10.5 In",
+      "price": "USD 44.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/-bcAAeSwt7pnxDnu/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Napa-Home-Garden-Black-Tower-Vase-Lava-Stoneware-10-5-In-/206385296401",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:04.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
+        }
+      ]
+    },
+    {
+      "id": "206385297093",
+      "title": "National Gallery London Tea Tin Gainsborough Reynolds Goya Nattier",
+      "price": "USD 12.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/GXwAAOSwJAdlasf-/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/National-Gallery-London-Tea-Tin-Gainsborough-Reynolds-Goya-Nattier-/206385297093",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:11.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
+        }
+      ]
+    },
+    {
+      "id": "206385297773",
+      "title": "VTG Wood Pant Hangers Set of 6 USA Walker Chancellor Gold Plated",
+      "price": "USD 40.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/934AAeSwYvNojaYf/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Wood-Pant-Hangers-Set-of-6-USA-Walker-Chancellor-Gold-Plated-/206385297773",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:17.000Z",
+      "categories": []
+    },
+    {
+      "id": "206385298683",
+      "title": "VTG Holt Howard Mini Jugs Creamers Set of 2",
+      "price": "USD 16.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/QE0AAOSwdn9mrTAg/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Holt-Howard-Mini-Jugs-Creamers-Set-of-2-/206385298683",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:23.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385299363",
+      "title": "VTG Federal Glass Mini Beer Mugs Snifter Shot Glasses Lot of 8",
+      "price": "USD 15.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/qm4AAOSwCexl5SfN/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Federal-Glass-Mini-Beer-Mugs-Snifter-Shot-Glasses-Lot-of-8-/206385299363",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:27.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385299728",
+      "title": "NWOT Anne Klein Sheer Floral Blouse Womens Sz L",
+      "price": "USD 20.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/s1YAAOSw0htllVQ9/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/NWOT-Anne-Klein-Sheer-Floral-Blouse-Womens-Sz-L-/206385299728",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:32.000Z",
+      "categories": []
+    },
+    {
+      "id": "206385299982",
+      "title": "VTG Home Collection Stoneware Coffee Cups Saucers Set 6 1991",
+      "price": "USD 18.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/yNgAAOSwP9dllWIN/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Home-Collection-Stoneware-Coffee-Cups-Saucers-Set-6-1991-/206385299982",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:36.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385300194",
+      "title": "Falls Creek Laura Brown Womens 11M Side Zip Block Heel Boots NWOB",
+      "price": "USD 16.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/XlIAAeSwCVpoFaEd/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Falls-Creek-Laura-Brown-Womens-11M-Side-Zip-Block-Heel-Boots-NWOB-/206385300194",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:40.000Z",
+      "categories": [
+        {
+          "categoryName": "Shoes"
+        }
+      ]
+    },
+    {
+      "id": "206385300531",
+      "title": "Gracie Knight Collection Nesting Storage Boxes Metal Lids Chicken Handles",
+      "price": "USD 23.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/100AAOSwvRJlXqNg/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Gracie-Knight-Collection-Nesting-Storage-Boxes-Metal-Lids-Chicken-Handles-/206385300531",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:45.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
+        }
+      ]
+    },
+    {
+      "id": "206385300964",
+      "title": "VTG 1990s Beach Shirt Unisex XL Green Stripe Baggy Boho",
+      "price": "USD 16.75",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/PVYAAeSw2PxoPP4G/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-1990s-Beach-Shirt-Unisex-XL-Green-Stripe-Baggy-Boho-/206385300964",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T04:34:51.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206385360036",
+      "title": "VTG Baileys Irish Cream Pedestal Mugs Set of 2 Celtic Knot EUC",
+      "price": "USD 13.56",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/mWgAAOSwMAJnKGOH/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Baileys-Irish-Cream-Pedestal-Mugs-Set-of-2-Celtic-Knot-EUC-/206385360036",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:26:01.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385360053",
+      "title": "VTG Imperial Porcelain Spring Trim Mug By Paul Webb",
+      "price": "USD 16.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/37QAAOSwFd1mX5qT/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Imperial-Porcelain-Spring-Trim-Mug-By-Paul-Webb-/206385360053",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:26:04.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385360076",
+      "title": "Joan Baker Stained Glass Suncatcher Angel Harp Hand Painted 9x6.5",
+      "price": "USD 18.20",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/DKgAAOSw82Bm2hAc/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Joan-Baker-Stained-Glass-Suncatcher-Angel-Harp-Hand-Painted-9x6-5-/206385360076",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:26:08.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
+        }
+      ]
+    },
+    {
+      "id": "206385360094",
+      "title": "VTG White Beaded Napkin Rings Set of 6 Three Rows Wrapped Wire",
+      "price": "USD 16.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/0rQAAeSwOqRoQTMj/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-White-Beaded-Napkin-Rings-Set-of-6-Three-Rows-Wrapped-Wire-/206385360094",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:26:12.000Z",
+      "categories": []
+    },
+    {
+      "id": "206385360108",
+      "title": "Antique French Opera Field Binoculars Leather Patina Central Focus 5 In",
+      "price": "USD 90.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/nJwAAeSwHSho4fYV/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Antique-French-Opera-Field-Binoculars-Leather-Patina-Central-Focus-5-In-/206385360108",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:26:16.000Z",
+      "categories": []
+    },
+    {
+      "id": "206385378072",
+      "title": "NWT REECHO 18 In Synthetic Hair Bun Extension Icee Medium Warm Brown",
+      "price": "USD 19.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/648AAeSw2FBpMzvb/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/NWT-REECHO-18-In-Synthetic-Hair-Bun-Extension-Icee-Medium-Warm-Brown-/206385378072",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:33:08.000Z",
+      "categories": []
+    },
+    {
+      "id": "206385378085",
+      "title": "VTG Noritake Pink Carnation Mystery 1 Coupe Soup Bowls Late 1940s",
+      "price": "USD 80.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/DXUAAOSwND5lpZXd/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/VTG-Noritake-Pink-Carnation-Mystery-1-Coupe-Soup-Bowls-Late-1940s-/206385378085",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:33:12.000Z",
+      "categories": [
+        {
+          "categoryName": "Kitchen & Dining"
+        }
+      ]
+    },
+    {
+      "id": "206385378145",
+      "title": "NWT Enjoy Life Wood Metal Plaque Sweet Bird Co 32x8 Cottagecore",
+      "price": "USD 26.39",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/qxAAAOSwetJnSsSv/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/NWT-Enjoy-Life-Wood-Metal-Plaque-Sweet-Bird-Co-32x8-Cottagecore-/206385378145",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:33:19.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
+        }
+      ]
+    },
+    {
+      "id": "206385378171",
+      "title": "Gap Chino Shorts Mens Sz 33 Pink Cotton Stretch Flat Front 10 In Inseam",
+      "price": "USD 17.60",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/GxgAAeSw4gRoRFo7/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Gap-Chino-Shorts-Mens-Sz-33-Pink-Cotton-Stretch-Flat-Front-10-In-Inseam-/206385378171",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:33:22.000Z",
+      "categories": [
+        {
+          "categoryName": "Shoes"
+        }
+      ]
+    },
+    {
+      "id": "206385378191",
+      "title": "Friends Central Perk Decorative Confetti Tumbler Display Collectible",
+      "price": "USD 24.00",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/rgIAAOSwdgNnp3Ka/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Friends-Central-Perk-Decorative-Confetti-Tumbler-Display-Collectible-/206385378191",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-07-01T05:33:26.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
         }
       ]
     }
