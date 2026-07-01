@@ -1,7 +1,8 @@
 (() => {
   const replacements = new Map([
-    ['Bags & Accessories', 'Accessories'],
-    ['View all Bags & Accessories on eBay', 'View all Accessories on eBay']
+    ['Bags & Accessories', 'Accessories & Wearables'],
+    ['View all Bags & Accessories on eBay', 'View all Accessories & Wearables on eBay'],
+    ['View all Accessories on eBay', 'View all Accessories & Wearables on eBay']
   ]);
 
   function cleanAccessoriesLabel(root = document.body) {
@@ -23,7 +24,7 @@
   function loadActiveCountFix() {
     if (document.querySelector('script[data-active-count-fix]')) return;
     const script = document.createElement('script');
-    script.src = 'js/active-count-fix.js?v=20260617a';
+    script.src = 'js/active-count-fix.js?v=20260701b';
     script.defer = true;
     script.dataset.activeCountFix = 'true';
     document.body.appendChild(script);
