@@ -141,7 +141,7 @@
   function cardLooksSold(card) {
     const hrefs = Array.from(card.querySelectorAll('a[href]')).map(link => link.href).join(' ');
     const id = normalizeId(hrefs);
-    if (id && soldById.has(id)) return true;
+    if (id) return soldById.has(id);
     const title = String(card.querySelector('h3')?.textContent || '').trim().toLowerCase();
     return Boolean(title && soldTitlePhrases.some(phrase => title === phrase || title.includes(phrase) || phrase.includes(title)));
   }
