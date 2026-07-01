@@ -21,6 +21,15 @@
  */
 const TOKEN_CACHE = { value: null, exp: 0 };
 
+const DEFAULT_STORE_CATEGORY_IDS = [
+  '1', '99', '220', '267', '281', '550', '553', '625', '870', '11450',
+  '11700', '14339', '20081', '237', '26395', '2984', '45100', '6000',
+  '64482', '888'
+];
+
+const DEFAULT_DIRECT_ITEM_IDS = ['v1|205926898769|0'];
+
+
 const RESP_HEADERS = {
   'Content-Type': 'application/json; charset=utf-8',
   'Access-Control-Allow-Origin': '*',
@@ -131,8 +140,9 @@ function buildSearchURL(query) {
   const sort = (query.sort || 'new').toString().toLowerCase();
   const order = (query.order || 'desc').toString().toLowerCase();
 
-  const searchQ = q || (seller ? 'a' : '');
-  if (searchQ) params.set('q', searchQ);
+  const categoryIds = (query.category_ids || query.categoryIds || '').toString().trim();
+  if (q) params.set('q', q);
+  if (categoryIds) params.set('category_ids', categoryIds);
 
   const filterParts = ['buyingOptions:{FIXED_PRICE|BEST_OFFER|AUCTION}'];
   if (seller) {
@@ -168,6 +178,17 @@ async function fetchSearchPage(token, url) {
   return res.json();
 }
 
+
+async function fetchItemById(token, itemId) {
+  const encoded = encodeURIComponent(itemId);
+  const res = await fetch(`${API_HOST}/buy/browse/v1/item/${encoded}`, {
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+  });
+
+  if (!res.ok) return null;
+  return normalizeItemSummary(await res.json());
+}
+
 function uniqueItems(items) {
   const seen = new Set();
   return items.filter(item => {
@@ -180,6 +201,15 @@ function uniqueItems(items) {
 
 async function searchItems(token, query) {
   const next = (query.next || '').toString().trim();
+  const q = (query.q || '').toString().trim();
+  const categoryIds = (query.category_ids || query.categoryIds || '').toString().trim();
+  const seller = (query.seller || env('EBAY_DEFAULT_SELLER') || '').toString().trim();
+  const shouldAggregateStore = seller && !next && !q && !categoryIds;
+
+  if (shouldAggregateStore) {
+    return aggregateStoreItems(token, query);
+  }
+
   const maxPages = Math.max(1, Math.min(Number(query.pages || 1), 6));
   let url = next || buildSearchURL(query);
   let finalHref = url;
@@ -207,6 +237,50 @@ async function searchItems(token, query) {
     next: finalNext,
     fetched: items.length,
     pagesRequested: maxPages,
+  };
+}
+
+async function aggregateStoreItems(token, query) {
+  const pages = Math.max(1, Math.min(Number(query.pages || 6), 6));
+  const categoryIds = String(env('EBAY_STORE_CATEGORY_IDS', DEFAULT_STORE_CATEGORY_IDS.join(',')))
+    .split(',')
+    .map(value => value.trim())
+    .filter(Boolean);
+  const directItemIds = String(env('EBAY_STORE_DIRECT_ITEM_IDS', DEFAULT_DIRECT_ITEM_IDS.join(',')))
+    .split(',')
+    .map(value => value.trim())
+    .filter(Boolean);
+
+  let allItems = [];
+  let categoryTotals = {};
+  let hrefs = [];
+
+  for (const categoryId of categoryIds) {
+    const result = await searchItems(token, { ...query, category_ids: categoryId, pages });
+    allItems = allItems.concat(result.items || []);
+    categoryTotals[categoryId] = result.total || 0;
+    if (result.href) hrefs.push(result.href);
+  }
+
+  for (const itemId of directItemIds) {
+    const item = await fetchItemById(token, itemId);
+    if (item) allItems.push(item);
+  }
+
+  const items = uniqueItems(allItems)
+    .sort((a, b) => new Date(b.startTime || 0).getTime() - new Date(a.startTime || 0).getTime());
+
+  return {
+    items,
+    total: items.length,
+    href: hrefs[0] || null,
+    next: null,
+    fetched: items.length,
+    pagesRequested: pages,
+    aggregateMode: 'sellerCategories',
+    categoryTotals,
+    categoryIds,
+    directItemIds,
   };
 }
 
