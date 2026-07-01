@@ -34,18 +34,32 @@
     }]
   ]);
 
+  function sharperEbayImageUrl(url) {
+    if (!url || !/i\.ebayimg\.com/i.test(url)) return url;
+    return String(url)
+      .replace(/\/s-l\d+(?=\.(?:jpg|jpeg|png|webp)(?:[?#]|$))/i, '/s-l1000')
+      .replace(/\/\$_\d+(?=\.(?:jpg|jpeg|png|webp)(?:[?#]|$))/i, '/$_57');
+  }
+
+  function sharpenItemImage(item) {
+    if (!item || typeof item !== 'object') return item;
+    const image = sharperEbayImageUrl(item.image);
+    return image === item.image ? item : { ...item, image };
+  }
+
   function patchInventory(data) {
     if (!data || !Array.isArray(data.items)) return data;
     const seen = new Set();
     data.items = data.items
       .map(item => {
         const replacement = relistedItems.get(String(item.id || ''));
-        if (!replacement) return item;
-        const patched = { ...item, ...replacement };
-        delete patched.status;
-        delete patched.soldAt;
-        delete patched.soldReason;
-        return patched;
+        const patched = replacement ? { ...item, ...replacement } : item;
+        if (replacement) {
+          delete patched.status;
+          delete patched.soldAt;
+          delete patched.soldReason;
+        }
+        return sharpenItemImage(patched);
       })
       .filter(item => {
         const id = String(item.id || '');
