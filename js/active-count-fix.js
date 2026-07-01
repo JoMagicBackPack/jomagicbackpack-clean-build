@@ -86,7 +86,17 @@
     const activeCount = activeItems.length || allItems.filter(item => !isSold(item)).length;
     const soldCount = allItems.filter(item => isSold(item)).length;
 
-    document.querySelectorAll('.category-wheel-center small').forEach(node => setText(node, `${activeCount} active finds`));
+    document.querySelectorAll('.category-wheel-center small').forEach(node => {
+      const numberNode = node.querySelector('.category-count-number');
+      const labelNodes = node.querySelectorAll('.category-count-label');
+      if (numberNode) {
+        setText(numberNode, String(activeCount));
+        if (labelNodes[0]) setText(labelNodes[0], 'All Items');
+        if (labelNodes[1]) setText(labelNodes[1], 'active finds');
+      } else {
+        setText(node, `${activeCount} active finds`);
+      }
+    });
     document.querySelectorAll('.category-card .category-title').forEach(title => {
       const count = title.querySelector('.category-count');
       if (!count) return;
