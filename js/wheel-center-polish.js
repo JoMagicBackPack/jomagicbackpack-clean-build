@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const match = text.match(/^(\d+)\s+(.*)$/);
       if (match) {
         const count = Number(match[1]);
-        small.innerHTML = `<span class="category-count-number">0</span><span class="category-count-label">${match[2].replace(/finds/i, 'listings')}</span>`;
+        const label = match[2].replace(/finds/i, 'active finds');
+        small.innerHTML = `<span class="category-count-label category-count-label-top">All Items</span><span class="category-count-number">0</span><span class="category-count-label">${label}</span>`;
         const numberNode = small.querySelector('.category-count-number');
         if (numberNode && Number.isFinite(count)) animateCount(numberNode, count);
       }
