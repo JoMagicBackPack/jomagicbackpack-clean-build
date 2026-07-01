@@ -1,6 +1,6 @@
 (() => {
   const labelKey = new Map([
-    ['Clothing', 'clothing'], ['Shoes', 'footwear'], ['Accessories', 'accessories'],
+    ['Clothing', 'clothing'], ['Shoes', 'footwear'], ['Accessories', 'accessories'], ['Accessories & Wearables', 'accessories'],
     ['Kitchen & Dining', 'kitchen'], ['Home Decor', 'home'], ['Toys & Character', 'toys'],
     ['Crafts', 'crafts'], ['Books & Paper', 'books'], ['Collectibles', 'collectibles'], ['Other Finds', 'other']
   ]);
@@ -9,7 +9,7 @@
     ['New Arrivals', ['new']],
     ['Clothing', ['shirt','sweater','turtleneck','flannel','hoodie','jacket','coat','sport coat','blazer','vest','jeans','pants','shorts','board shorts','swim trunks','jersey','dress','apparel','top','tee']],
     ['Shoes', ['shoe','boot','sandal','sneaker','flat','loafer','slipper','heel','clog']],
-    ['Accessories', ['bag','purse','hat','cap','jewelry','necklace','pendant','medal','pin','clip','watch','belt','scarf','glove','wallet','charm']],
+    ['Accessories & Wearables', ['bag','purse','hat','cap','jewelry','necklace','pendant','medal','pin','clip','watch','belt','scarf','glove','wallet','charm']],
     ['Kitchen & Dining', ['plate','bowl','mug','cup','glass','goblet','jar','carafe','canister','pitcher','creamer','sugar','salt','pepper','shaker','tray','kitchen','dining','serving']],
     ['Home Decor', ['blanket','quilt','vase','mirror','lamp','wall','decor','box','tin','plaque','tapestry','pillow','sculpture']],
     ['Toys & Character', ['toy','plush','doll','disney','pokemon','harry potter','star wars','breyer','figure']],
