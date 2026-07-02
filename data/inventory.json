@@ -4638,7 +4638,10 @@
           "categoryName": "Ice Cream & Frozen Yoghurt Makers"
         }
       ],
-      "categoryOverride": "kitchen"
+      "categoryOverride": "kitchen",
+      "status": "sold",
+      "soldAt": "2026-07-02T19:56:11.140Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206274271606",
