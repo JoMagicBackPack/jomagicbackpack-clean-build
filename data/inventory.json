@@ -4855,7 +4855,10 @@
         {
           "categoryName": "Shoes"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-07T20:59:56.003Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206370535568",
