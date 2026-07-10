@@ -4520,7 +4520,10 @@
           "categoryName": "Scarves & Wraps"
         }
       ],
-      "categoryOverride": "accessories"
+      "categoryOverride": "accessories",
+      "status": "sold",
+      "soldAt": "2026-07-10T08:44:40.459Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206271325389",
