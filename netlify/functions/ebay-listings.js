@@ -27,7 +27,54 @@ const DEFAULT_STORE_CATEGORY_IDS = [
   '64482', '888'
 ];
 
-const DEFAULT_DIRECT_ITEM_IDS = ['v1|205926898769|0'];
+// Browse search is discovery-oriented and does not always return every older
+// active listing for a seller. These verified active IDs fill that gap through
+// Browse getItem while normal category aggregation continues to pick up new
+// listings automatically.
+const DEFAULT_DIRECT_ITEM_IDS = [
+  'v1|205926898769|0',
+  'v1|204471448616|0',
+  'v1|204483503224|0',
+  'v1|204494671218|0',
+  'v1|204503212049|0',
+  'v1|204504358781|0',
+  'v1|204504393287|0',
+  'v1|204510198954|0',
+  'v1|204518930284|0',
+  'v1|204520612907|0',
+  'v1|204547369870|0',
+  'v1|204547403964|0',
+  'v1|204548316958|0',
+  'v1|204550148138|0',
+  'v1|204550243685|0',
+  'v1|204583426466|0',
+  'v1|204609831559|0',
+  'v1|204622265817|0',
+  'v1|204624260130|0',
+  'v1|204643387282|0',
+  'v1|204649929232|0',
+  'v1|204670882000|0',
+  'v1|204687211107|0',
+  'v1|204688150302|0',
+  'v1|204688698109|0',
+  'v1|204691605291|0',
+  'v1|204742361924|0',
+  'v1|204753073486|0',
+  'v1|204757675766|0',
+  'v1|204757779412|0',
+  'v1|204816652856|0',
+  'v1|204825722544|0',
+  'v1|204825730243|0',
+  'v1|204825744318|0',
+  'v1|204828863308|0',
+  'v1|204889137046|0',
+  'v1|204955150694|0',
+  'v1|204960618472|0',
+  'v1|204991885410|0',
+  'v1|205013057754|0',
+  'v1|205040622331|0',
+  'v1|205048240086|0',
+];
 
 
 const RESP_HEADERS = {
@@ -35,6 +82,10 @@ const RESP_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
+  // Keep browsers responsive while limiting the roughly 60 Browse calls used
+  // to assemble the complete store to safely below eBay's daily default quota.
+  'Cache-Control': 'public, max-age=300, must-revalidate',
+  'Netlify-CDN-Cache-Control': 'public, durable, max-age=1800, stale-while-revalidate=3600',
 };
 
 const now = () => Math.floor(Date.now() / 1000);
@@ -186,7 +237,34 @@ async function fetchItemById(token, itemId) {
   });
 
   if (!res.ok) return null;
-  return normalizeItemSummary(await res.json());
+  const item = await res.json();
+  const endMs = item.itemEndDate ? Date.parse(item.itemEndDate) : NaN;
+  const availabilityStatuses = Array.isArray(item.estimatedAvailabilities)
+    ? item.estimatedAvailabilities
+      .map(value => value && value.estimatedAvailabilityStatus)
+      .filter(Boolean)
+    : [];
+
+  if (Number.isFinite(endMs) && endMs <= Date.now()) return null;
+  if (availabilityStatuses.length && availabilityStatuses.every(value => value === 'OUT_OF_STOCK')) {
+    return null;
+  }
+
+  return normalizeItemSummary(item);
+}
+
+async function fetchDirectItems(token, itemIds, batchSize = 8) {
+  const items = [];
+
+  // Bounded parallelism avoids the old sequential timeout risk without
+  // sending every direct lookup to eBay at the same instant.
+  for (let index = 0; index < itemIds.length; index += batchSize) {
+    const batch = itemIds.slice(index, index + batchSize);
+    const results = await Promise.all(batch.map(itemId => fetchItemById(token, itemId)));
+    items.push(...results.filter(Boolean));
+  }
+
+  return items;
 }
 
 function uniqueItems(items) {
@@ -262,10 +340,7 @@ async function aggregateStoreItems(token, query) {
     if (result.href) hrefs.push(result.href);
   }
 
-  for (const itemId of directItemIds) {
-    const item = await fetchItemById(token, itemId);
-    if (item) allItems.push(item);
-  }
+  allItems = allItems.concat(await fetchDirectItems(token, directItemIds));
 
   const items = uniqueItems(allItems)
     .sort((a, b) => new Date(b.startTime || 0).getTime() - new Date(a.startTime || 0).getTime());
