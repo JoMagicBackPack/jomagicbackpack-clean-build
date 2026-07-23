@@ -2123,9 +2123,7 @@
           "categoryName": "Hoodies & Sweatshirts"
         }
       ],
-      "status": "sold",
-      "soldAt": "2026-07-23T18:40:24.782Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
+      "status": "active"
     },
     {
       "id": "205376549489",
