@@ -4952,7 +4952,10 @@
       "url": "https://www.ebay.com/itm/Vintage-Stanley-No-80-Sweetheart-Cabinet-Scraper-Plane-1920s-1930s-/206425354086",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-19T09:16:16.000Z",
-      "categories": []
+      "categories": [],
+      "status": "sold",
+      "soldAt": "2026-07-23T00:16:02.954Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206425463892",
