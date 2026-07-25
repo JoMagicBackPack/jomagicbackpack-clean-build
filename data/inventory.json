@@ -4407,7 +4407,11 @@
       "url": "https://www.ebay.com/itm/VTG-Cobalt-Blue-Glass-Bead-Napkin-Rings-Set-of-9-India-NOS-/206385281193",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-01T04:29:38.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Home & Garden:Kitchen, Dining & Bar:Linens & Textiles:Napkin Rings & Holders"
+        }
+      ]
     },
     {
       "id": "206385281219",
