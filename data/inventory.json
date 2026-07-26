@@ -4111,7 +4111,10 @@
         {
           "categoryName": "Kitchen & Dining"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-07-26T17:27:09.058Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206309044362",
