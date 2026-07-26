@@ -4467,7 +4467,11 @@
       "url": "https://www.ebay.com/itm/VTG-Wood-Pant-Hangers-Set-of-6-USA-Walker-Chancellor-Gold-Plated-/206385297773",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-01T04:34:17.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Clothing, Shoes & Accessories:Specialty:Vintage:Vintage Accessories:Clothes Hangers"
+        }
+      ]
     },
     {
       "id": "206385298683",
