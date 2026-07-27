@@ -4665,7 +4665,11 @@
       "url": "https://www.ebay.com/itm/NWT-REECHO-18-In-Synthetic-Hair-Bun-Extension-Icee-Medium-Warm-Brown-/206385378072",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-01T05:33:08.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Health & Beauty:Hair Care & Styling:Hair Extensions & Wigs:Hair Extensions"
+        }
+      ]
     },
     {
       "id": "206385378085",
