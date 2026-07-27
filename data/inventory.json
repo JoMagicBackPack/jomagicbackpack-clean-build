@@ -4635,7 +4635,11 @@
       "url": "https://www.ebay.com/itm/VTG-White-Beaded-Napkin-Rings-Set-of-6-Three-Rows-Wrapped-Wire-/206385360094",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-01T05:26:12.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Home & Garden:Kitchen, Dining & Bar:Linens & Textiles:Napkin Rings & Holders"
+        }
+      ]
     },
     {
       "id": "206385360108",
@@ -4646,7 +4650,11 @@
       "url": "https://www.ebay.com/itm/Antique-French-Opera-Field-Binoculars-Leather-Patina-Central-Focus-5-In-/206385360108",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-01T05:26:16.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Cameras & Photo:Binoculars & Telescopes:Binoculars & Monoculars"
+        }
+      ]
     },
     {
       "id": "206385378072",
