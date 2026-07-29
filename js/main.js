@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       key: 'accessories',
-      label: 'Bags & Accessories',
-      heading: 'Bags & Accessories',
+      label: 'Accessories & Wearables',
+      heading: 'Accessories & Wearables',
       description: 'Bags, hats, jewelry, pins, watches, belts, and smaller wearable details.',
       mood: 'The smaller details that complete the picture.',
       viewQuery: 'bag wallet hat jewelry accessories'
@@ -651,3 +651,4 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchStoreInventory().then(renderCategories).catch(() => {});
   }
 });
+
