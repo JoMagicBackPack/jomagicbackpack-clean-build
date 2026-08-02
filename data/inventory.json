@@ -4279,7 +4279,10 @@
         {
           "categoryName": "Home Decor"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-02T04:43:02.485Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206376072448",
