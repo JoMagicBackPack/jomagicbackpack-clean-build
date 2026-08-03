@@ -3067,7 +3067,10 @@
         {
           "categoryName": "Figures & Sculptures"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-03T20:02:53.037Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205910060199",
