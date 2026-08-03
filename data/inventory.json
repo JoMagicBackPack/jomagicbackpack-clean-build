@@ -5034,7 +5034,10 @@
       "url": "https://www.ebay.com/itm/Vintage-Vernco-Chef-Tong-BBQ-Fork-Spatula-Can-Bottle-Opener-Japan-Box-/206436425817",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-23T22:25:40.000Z",
-      "categories": []
+      "categories": [],
+      "status": "sold",
+      "soldAt": "2026-08-03T04:51:34.717Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206437585495",
