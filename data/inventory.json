@@ -5293,6 +5293,21 @@
       "seller": "jomagicbackpack",
       "startTime": "2026-08-08T07:11:47.000Z",
       "categories": []
+    },
+    {
+      "id": "206479479272",
+      "title": "New York & Company Faux Suede Moto Jacket Womens Sz L NWT",
+      "price": "USD 39.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/HyIAAeSwuKZqeXFs/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/New-York-Company-Faux-Suede-Moto-Jacket-Womens-Sz-L-NWT-/206479479272",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-08-10T06:40:23.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
     }
   ]
 }
