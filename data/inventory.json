@@ -4069,7 +4069,10 @@
         {
           "categoryName": "Flats"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-12T23:05:17.160Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206286721875",
