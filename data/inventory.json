@@ -4055,9 +4055,7 @@
         }
       ],
       "categoryOverride": "collectibles",
-      "status": "sold",
-      "soldAt": "2026-08-16T04:53:14.441Z",
-      "soldReason": "No longer returned by eBay active-listings sync."
+      "status": "active"
     },
     {
       "id": "206279660682",
