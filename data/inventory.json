@@ -4954,7 +4954,11 @@
       "url": "https://www.ebay.com/itm/Pflueger-Monarch-PFLMONARCHLP-Baitcast-Reel-6-2-1-Right-Hand-4-Bearing-/206428200610",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-20T13:15:46.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Sporting Goods:Fishing:Reels"
+        }
+      ]
     },
     {
       "id": "206432517412",
@@ -5368,6 +5372,21 @@
       "categories": [
         {
           "categoryName": "Accessories"
+        }
+      ]
+    },
+    {
+      "id": "206497203875",
+      "title": "Vintage Artisan Style Hand-Painted Segmented Wood Folk Art Table Lamp 7.5in",
+      "price": "USD 79.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/0B4AAeSwTrRqgply/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Vintage-Artisan-Style-Hand-Painted-Segmented-Wood-Folk-Art-Table-Lamp-7-5in-/206497203875",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-08-17T05:20:19.000Z",
+      "categories": [
+        {
+          "categoryName": "Home Decor"
         }
       ]
     }
