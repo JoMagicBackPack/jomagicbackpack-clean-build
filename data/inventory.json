@@ -494,7 +494,10 @@
         {
           "categoryName": "Pants"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-18T17:47:54.982Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204690335745",
