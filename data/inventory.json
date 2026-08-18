@@ -4951,7 +4951,11 @@
       "url": "https://www.ebay.com/itm/Skatro-Picasso-22-Inch-Mini-Cruiser-Skateboard-Black-Gold-Marble-Wheels-/206432517412",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-22T09:32:07.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Sporting Goods:Outdoor Sports:Skateboarding & Longboarding:Skateboards-Complete"
+        }
+      ]
     },
     {
       "id": "206432671442",
