@@ -4984,7 +4984,11 @@
       "url": "https://www.ebay.com/itm/Vintage-Kirlin-Detroit-Recessed-Light-Cover-Trim-Prismatic-Glass-Panel-/206437585495",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-24T09:59:45.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Collectibles:Lamps, Lighting:Chandeliers & Ceiling Fixtures"
+        }
+      ]
     },
     {
       "id": "206443612196",
