@@ -5059,7 +5059,11 @@
       "url": "https://www.ebay.com/itm/Schwinn-Noseless-Wide-Comfort-Bike-Seat-Black-Padded-Spring-Saddle-11in-/206449424637",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-29T04:48:52.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Sporting Goods:Cycling:Bicycle Components & Parts:Saddles & Seats"
+        }
+      ]
     },
     {
       "id": "206454142268",
