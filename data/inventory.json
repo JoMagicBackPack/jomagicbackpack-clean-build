@@ -5074,7 +5074,11 @@
       "url": "https://www.ebay.com/itm/Heritage-1981-Men-s-Blazer-43in-Chest-Gray-Pinstripe-Cotton-Distressed-/206454142268",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-31T03:19:00.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Clothing, Shoes & Accessories:Men:Men&apos;s Clothing:Suits & Suit Separates"
+        }
+      ]
     },
     {
       "id": "206454264487",
