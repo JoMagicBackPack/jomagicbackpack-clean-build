@@ -3982,7 +3982,7 @@
     {
       "id": "206271328495",
       "title": "Merrell Blue Mountains Tee Mens M",
-      "price": "USD 17.00",
+      "price": "USD 13.00",
       "condition": "Pre-owned - Excellent",
       "image": "https://i.ebayimg.com/images/g/QEAAAOSwqidnhRsm/s-l140.jpg",
       "url": "https://www.ebay.com/itm/Merrell-Blue-Mountains-Tee-Mens-M-/206271328495",
@@ -4253,7 +4253,10 @@
         {
           "categoryName": "Clothing"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-26T10:54:07.470Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206376072652",
@@ -4603,7 +4606,7 @@
     {
       "id": "206385360108",
       "title": "Antique French Opera Field Binoculars Leather Patina Central Focus 5 In",
-      "price": "USD 76.50",
+      "price": "USD 50.00",
       "condition": null,
       "image": "https://i.ebayimg.com/images/g/nJwAAeSwHSho4fYV/s-l140.jpg",
       "url": "https://www.ebay.com/itm/Antique-French-Opera-Field-Binoculars-Leather-Patina-Central-Focus-5-In-/206385360108",
@@ -5396,11 +5399,41 @@
       "title": "Vintage Britches Great Outdoors Rugby Polo Men s L Long Sleeve Striped Cotton",
       "price": "USD 29.74",
       "condition": null,
-      "image": "https://i.ebayimg.com/images/g/ktIAAeSw92lqhYa8/s-l140.jpg",
+      "image": "https://i.ebayimg.com/images/g/lBsAAeSwfPFqjrqx/s-l140.jpg",
       "url": "https://www.ebay.com/itm/Vintage-Britches-Great-Outdoors-Rugby-Polo-Men-s-L-Long-Sleeve-Striped-Cotton-/206502763831",
       "seller": "jomagicbackpack",
       "startTime": "2026-08-19T10:37:53.000Z",
       "categories": []
+    },
+    {
+      "id": "206516533925",
+      "title": "Aelfric Eden Dino Graphic V-Neck Knit Sweater Vest Green Unisex 21in PTP",
+      "price": "USD 29.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/mYIAAeSwdK5qjret/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Aelfric-Eden-Dino-Graphic-V-Neck-Knit-Sweater-Vest-Green-Unisex-21in-PTP-/206516533925",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-08-26T10:00:30.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
+    },
+    {
+      "id": "206516560291",
+      "title": "Vintage Curlee Sportswear Plaid Sport Coat Mens 40L Brown Gray Blazer",
+      "price": "USD 39.99",
+      "condition": null,
+      "image": "https://i.ebayimg.com/images/g/yDsAAeSwQ61qP1zS/s-l140.jpg",
+      "url": "https://www.ebay.com/itm/Vintage-Curlee-Sportswear-Plaid-Sport-Coat-Mens-40L-Brown-Gray-Blazer-/206516560291",
+      "seller": "jomagicbackpack",
+      "startTime": "2026-08-26T10:18:39.000Z",
+      "categories": [
+        {
+          "categoryName": "Clothing"
+        }
+      ]
     }
   ]
 }
