@@ -3622,7 +3622,10 @@
         {
           "categoryName": "Necklaces & Pendants"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-29T02:17:08.063Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206086076755",
@@ -5400,7 +5403,10 @@
         {
           "categoryName": "Clothing"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-29T02:17:08.063Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206516560291",
