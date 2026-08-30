@@ -677,7 +677,10 @@
         {
           "categoryName": "Baseball-MLB"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-08-30T21:14:17.772Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "204825730243",
