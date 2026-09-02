@@ -5242,7 +5242,11 @@
       "url": "https://www.ebay.com/itm/Vintage-Y2K-Nike-Mens-Heavyweight-Gray-Fleece-Crewneck-Sweatshirt-Sz-L-Swoosh-/206474374286",
       "seller": "jomagicbackpack",
       "startTime": "2026-08-08T07:11:47.000Z",
-      "categories": []
+      "categories": [
+        {
+          "categoryName": "Clothing, Shoes & Accessories:Women:Women&apos;s Clothing:Sweaters"
+        }
+      ]
     },
     {
       "id": "206479479272",
