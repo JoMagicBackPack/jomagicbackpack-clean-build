@@ -1588,7 +1588,6 @@ footer {
 .product-detail-thumbnail { aspect-ratio: 1 / 1; padding: 0; overflow: hidden; border: 1px solid rgba(126,208,255,0.22); border-radius: 9px; background: #eef3f7; cursor: pointer; }
 .product-detail-thumbnail.is-selected, .product-detail-thumbnail:hover, .product-detail-thumbnail:focus-visible { border: 2px solid var(--treasure-gold); outline: none; }
 .product-detail-thumbnail img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.product-details-top-cta { margin: 0.85rem 0 0.2rem; }
 .product-quick-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.85rem; margin: 0; padding: 0; list-style: none; color: #c5d8e8; }
 .product-quick-details li { overflow-wrap: anywhere; }
 .product-quick-details strong { color: #eef8ff; }
@@ -1599,3 +1598,10 @@ footer {
 .product-card:focus-visible { outline: 2px solid var(--treasure-gold); outline-offset: 4px; }
 .product-image.product-card-open { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
 .product-image.product-card-open img { display: block; width: 100%; }
+
+.backpack-icon { margin-right: 0.28rem; font-size: 0.95em; }
+.product-ebay-cta { display: inline-flex; align-items: center; justify-content: center; gap: 0.48rem; background: rgba(255,255,255,0.96); color: #172333; border-color: rgba(255,255,255,0.8); }
+.product-ebay-cta:hover, .product-ebay-cta:focus-visible { color: #172333; background: #ffffff; border-color: var(--treasure-gold); }
+.ebay-wordmark { display: inline-flex; align-items: baseline; letter-spacing: -0.12em; font-family: Arial, sans-serif; font-size: 1.17em; font-weight: 800; line-height: 1; }
+.ebay-wordmark span:nth-child(1) { color: #e53238; }.ebay-wordmark span:nth-child(2) { color: #0064d2; }.ebay-wordmark span:nth-child(3) { color: #f5af02; }.ebay-wordmark span:nth-child(4) { color: #86b817; }
+.product-details-purchase { border-top: 1px solid rgba(246,200,95,0.25); padding-top: 1rem; }

@@ -11,7 +11,8 @@ test('Backpack cards provide compact and expanded eBay paths', () => {
   assert.match(js, /Expand for details/);
   assert.match(js, /data-ga4-outbound="ebay"/);
   assert.match(js, /product-details-ebay/);
-  assert.match(js, /product-details-top-cta/);
+  assert.match(js, /backpack-icon/);
+  assert.match(js, /ebay-wordmark/);
   assert.match(js, /role=\"button\"/);
   assert.match(js, /event.target.closest\('\.product-cta'\)/);
   assert.match(js, /Ready to make it yours/);
@@ -60,4 +61,12 @@ test('measurement classifier requires physical numeric values and keeps card nav
   assert.match(js, /product-card-open/);
   assert.match(js, /productsGrid\.addEventListener\('keydown'/);
   assert.doesNotMatch(js, /<a class=\"product-image\" href=/);
+});
+
+test('product actions prioritize JoMagic details over eBay navigation', () => {
+  const js = read('js/main.js'); const css = read('css/styles.css');
+  assert.ok(js.indexOf('product-details-trigger') < js.indexOf('product-ebay-cta'));
+  assert.doesNotMatch(js, /product-details-top-cta/);
+  assert.match(js, /product-details-purchase/);
+  assert.match(css, /product-ebay-cta/);
 });

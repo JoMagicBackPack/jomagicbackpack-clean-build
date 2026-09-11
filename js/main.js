@@ -513,8 +513,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
         <div class="product-actions">
-          <a class="product-cta" data-ga4-outbound="ebay" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">View on eBay</a>
-          <button class="product-details-trigger" type="button" data-item-id="${item.id || ''}">Expand for details</button>
+          <button class="product-details-trigger" type="button" data-item-id="${item.id || ''}"><span class="backpack-icon" aria-hidden="true">&#x1F392;</span> Expand for details</button>
+          <a class="product-cta product-ebay-cta" data-ga4-outbound="ebay" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer"><span class="ebay-wordmark" aria-hidden="true"><span>e</span><span>b</span><span>a</span><span>y</span></span><span>View on eBay</span></a>
         </div>
       </article>
     `;
@@ -662,7 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const details = curatedRows(rows);
     const quick = quickRows(item, [...details, ...measurements]);
     const shipping = shippingLines(item);
-    const cta = `<a class="product-cta product-details-ebay" data-ga4-outbound="ebay" href="${escapeHtml(item.url || storeUrl)}" target="_blank" rel="noopener noreferrer">View on eBay</a>`;
+    const cta = `<a class="product-cta product-ebay-cta product-details-ebay" data-ga4-outbound="ebay" href="${escapeHtml(item.url || storeUrl)}" target="_blank" rel="noopener noreferrer"><span class="ebay-wordmark" aria-hidden="true"><span>e</span><span>b</span><span>a</span><span>y</span></span><span>View on eBay</span></a>`;
     productDetailsContent.innerHTML = `
       <div class="product-details-layout">
         <div class="product-details-gallery">${galleryMarkup(images, item.title || 'JoMagicBackpack item')}</div>
@@ -670,7 +670,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <p class="product-details-category">${escapeHtml(categories.find(entry => entry.key === assignedCategoryKey(item))?.label || 'Other Finds')}</p>
           <h2 id="productDetailsTitle">${escapeHtml(item.title || 'JoMagicBackpack item')}</h2>
           ${item.price ? `<p class="product-details-price">${escapeHtml(item.price)}</p>` : ''}
-          <div class="product-details-top-cta">${cta}</div>
           ${quick.length ? `<section><h3>Quick details</h3><ul class="product-quick-details">${quick.map(([name, value]) => `<li><strong>${escapeHtml(name)}:</strong> ${escapeHtml(value)}</li>`).join('')}</ul></section>` : ''}
           ${descriptionText ? `<section><h3>About this find</h3><p>${escapeHtml(descriptionText)}</p></section>` : ''}
           ${item.condition && item.condition !== '—' ? `<section><h3>Condition</h3><p class="product-details-condition"><strong>${escapeHtml(item.condition)}</strong>${conditionDetails && conditionDetails !== item.condition ? `<br>${escapeHtml(conditionDetails)}` : ''}</p></section>` : ''}
