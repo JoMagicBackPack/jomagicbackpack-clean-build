@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const inventorySearch = document.getElementById('inventorySearch');
   const inventorySort = document.getElementById('inventorySort');
   const resultSummary = document.getElementById('resultSummary');
+  const productDetailsDialog = document.getElementById('productDetailsDialog');
+  const productDetailsContent = document.getElementById('productDetailsContent');
+  const closeProductDetails = document.getElementById('closeProductDetails');
 
   const seller = 'jomagicbackpack';
   const storeUrl = `https://www.ebay.com/str/${seller}`;
@@ -291,6 +294,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return Date.now() - time <= newArrivalDays * 24 * 60 * 60 * 1000;
   }
 
+  function isActiveItem(item) {
+    const state = String(item?.status || item?.listingStatus || item?.raw?.status || '').toLowerCase();
+    const availability = Array.isArray(item?.raw?.estimatedAvailabilities)
+      ? item.raw.estimatedAvailabilities.map(value => String(value?.estimatedAvailabilityStatus || '').toUpperCase()) : [];
+    const endDate = Date.parse(item?.endTime || item?.itemEndDate || item?.raw?.itemEndDate || '');
+    return !item?.soldAt && !['sold', 'ended', 'out_of_stock'].includes(state)
+      && !(Number.isFinite(endDate) && endDate <= Date.now())
+      && !(availability.length && availability.every(value => value === 'OUT_OF_STOCK'));
+  }
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+  }
+
   function priceValue(item) {
     if (typeof item.priceNumber === 'number') return item.priceNumber;
     const match = String(item.price || '').match(/[0-9]+(?:\.[0-9]+)?/);
@@ -321,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!data.ok || !data.result || !Array.isArray(data.result.items)) throw new Error('Live feed failed.');
         const liveItems = uniqueItems(data.result.items);
         if (liveItems.length < 100) throw new Error('Live feed returned too few items.');
-        storeInventory = sortNewestFirst(liveItems);
+        storeInventory = sortNewestFirst(liveItems.filter(isActiveItem));
         return storeInventory;
       })
       .catch(() => fetch('data/inventory.json')
@@ -330,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return response.json();
         })
         .then(data => {
-          storeInventory = sortNewestFirst(uniqueItems(data.items || []));
+          storeInventory = sortNewestFirst(uniqueItems(data.items || []).filter(isActiveItem));
           return storeInventory;
         })
         .catch(() => fetch('data/inventory.csv')
@@ -339,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text();
           })
           .then(text => {
-            storeInventory = sortNewestFirst(uniqueItems(parseCsv(text)));
+            storeInventory = sortNewestFirst(uniqueItems(parseCsv(text)).filter(isActiveItem));
             return storeInventory;
           })))
       .finally(() => {
@@ -494,9 +511,59 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="product-meta">${category ? category.label : 'Other Finds'}</div>
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
-        <a class="product-cta" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">View on eBay</a>
+        <div class="product-actions">
+          <a class="product-cta" data-ga4-outbound="ebay" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">View on eBay</a>
+          <button class="product-details-trigger" type="button" data-item-id="${item.id || ''}">Expand for details</button>
+        </div>
       </article>
     `;
+  }
+
+  function detailRows(item) {
+    const raw = item.raw || {};
+    const aspects = Array.isArray(raw.localizedAspects) ? raw.localizedAspects : [];
+    const known = [
+      ['Brand', item.brand || raw.brand || raw.seller?.username], ['Material', item.material || raw.material],
+      ['Color', item.color || raw.color], ['Size', item.size || raw.size], ['Style', item.style || raw.style], ['Model', item.model || raw.model]
+    ];
+    aspects.forEach(aspect => {
+      const name = aspect.name || aspect.localizedName;
+      const value = aspect.value || aspect.localizedValue;
+      if (name && value) known.push([name, value]);
+    });
+    const unique = new Map();
+    known.forEach(([name, value]) => { if (value && !unique.has(String(name).toLowerCase())) unique.set(String(name).toLowerCase(), [name, value]); });
+    return [...unique.values()];
+  }
+
+  function detailImages(item) {
+    const raw = item.raw || {};
+    const candidates = [item.image, ...(item.images || []), raw.image?.imageUrl, ...(raw.additionalImages || []).map(image => image?.imageUrl), ...(raw.thumbnailImages || []).map(image => image?.imageUrl)];
+    return [...new Set(candidates.filter(Boolean))];
+  }
+
+  function openProductDetails(item) {
+    if (!productDetailsDialog || !productDetailsContent) return;
+    const images = detailImages(item);
+    const descriptionText = item.description || item.shortDescription || item.raw?.shortDescription || item.raw?.itemDescription || '';
+    const rows = detailRows(item);
+    const shipping = item.shipping || item.raw?.shippingOptions?.[0];
+    const shippingText = shipping ? [shipping.type || shipping.shippingServiceType, shipping.cost || (shipping.shippingCost?.value ? `${shipping.shippingCost.currency || 'USD'} ${shipping.shippingCost.value}` : '')].filter(Boolean).join(' - ') : '';
+    productDetailsContent.innerHTML = `
+      <div class="product-details-layout">
+        <div class="product-details-gallery">${images.length ? images.map((image, index) => `<img src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}${images.length > 1 ? ` image ${index + 1}` : ''}">`).join('') : '<div class="product-image-fallback">No image available</div>'}</div>
+        <div class="product-details-copy">
+          <p class="product-details-category">${escapeHtml(categories.find(entry => entry.key === assignedCategoryKey(item))?.label || 'Other Finds')}</p>
+          <h2 id="productDetailsTitle">${escapeHtml(item.title || 'JoMagicBackpack item')}</h2>
+          ${item.price ? `<p class="product-details-price">${escapeHtml(item.price)}</p>` : ''}
+          ${item.condition ? `<p class="product-details-condition"><strong>Condition:</strong> ${escapeHtml(item.condition)}</p>` : ''}
+          ${descriptionText ? `<section><h3>About this item</h3><p>${escapeHtml(descriptionText)}</p></section>` : ''}
+          ${rows.length ? `<section><h3>Details</h3><dl class="product-details-list">${rows.map(([name, value]) => `<div><dt>${escapeHtml(name)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>` : ''}
+          ${shippingText ? `<section><h3>Shipping</h3><p>${escapeHtml(shippingText)}</p></section>` : ''}
+          <section class="product-details-purchase"><h3>Purchase</h3><a class="product-cta product-details-ebay" data-ga4-outbound="ebay" href="${escapeHtml(item.url || storeUrl)}" target="_blank" rel="noopener noreferrer">View on eBay</a></section>
+        </div>
+      </div>`;
+    productDetailsDialog.showModal();
   }
 
   function renderItems() {
@@ -596,6 +663,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (productsGrid) {
     productsGrid.addEventListener('click', event => {
+      const detailButton = event.target.closest('.product-details-trigger');
+      if (detailButton) {
+        const item = activeItems.find(candidate => String(candidate.id) === String(detailButton.dataset.itemId));
+        if (item) openProductDetails(item);
+        return;
+      }
       const loadMoreButton = event.target.closest('#loadMoreItems');
       if (!loadMoreButton) return;
       visibleItemCount += loadMoreStep;
@@ -615,6 +688,11 @@ document.addEventListener('DOMContentLoaded', () => {
       visibleItemCount = initialVisibleCount;
       renderItems();
     });
+  }
+
+  if (closeProductDetails && productDetailsDialog) {
+    closeProductDetails.addEventListener('click', () => productDetailsDialog.close());
+    productDetailsDialog.addEventListener('click', event => { if (event.target === productDetailsDialog) productDetailsDialog.close(); });
   }
 
   if (backToCategories) {

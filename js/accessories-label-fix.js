@@ -21,18 +21,8 @@
     });
   }
 
-  function loadActiveCountFix() {
-    if (document.querySelector('script[data-active-count-fix]')) return;
-    const script = document.createElement('script');
-    script.src = 'js/active-count-fix.js?v=20260701b';
-    script.defer = true;
-    script.dataset.activeCountFix = 'true';
-    document.body.appendChild(script);
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
     cleanAccessoriesLabel();
-    loadActiveCountFix();
     const observer = new MutationObserver(mutations => {
       mutations.forEach(mutation => {
         mutation.addedNodes.forEach(node => {

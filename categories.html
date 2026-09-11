@@ -269,6 +269,10 @@
         </div>
         <p id="resultSummary" class="result-summary" aria-live="polite"></p>
         <div id="productsGrid" class="products-grid" aria-live="polite"></div>
+        <dialog id="productDetailsDialog" class="product-details-dialog" aria-labelledby="productDetailsTitle">
+          <button id="closeProductDetails" class="product-details-close" type="button" aria-label="Close details">Close</button>
+          <div id="productDetailsContent"></div>
+        </dialog>
         <div style="text-align:center; margin-top: 2rem;">
           <button class="back-to-top-inline back-link" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="font-size:1rem;font-weight:800;padding:0.65rem 1.6rem;border-radius:999px;border:2px solid rgba(246,200,95,0.55);background:linear-gradient(135deg,rgba(246,200,95,0.13),rgba(120,220,255,0.09));color:var(--treasure-gold,#f6c85f);cursor:pointer;">↑ Back to Top</button>
         </div>
@@ -290,10 +294,8 @@
 <footer><div class="container"><p>&copy; 2026 JoMagicBackpack. All rights reserved.</p></div></footer>
 <script src="js/use-synced-inventory.js?v=20260701e"></script>
 <script src="js/category-normalizer.js?v=20260701b"></script>
-<script src="js/main.js?v=20260701activecount"></script>
+<script src="js/main.js?v=20260910details"></script>
 <script src="js/wheel-center-polish.js?v=20260701readable"></script>
-<script src="js/sold-items.js?v=20260701a"></script>
 <script src="js/accessories-label-fix.js?v=20260701b"></script>
-<script src="js/active-count-fix.js?v=20260701a"></script>
 </body>
 </html>
