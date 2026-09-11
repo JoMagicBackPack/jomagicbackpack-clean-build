@@ -504,11 +504,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const newBadge = isNewArrival(item) ? '<span class="product-new-badge">New Arrival</span>' : '';
 
     return `
-      <article class="product-card">
+      <article class="product-card" data-item-id="${item.id || ''}" tabindex="0" role="button" aria-label="View details for ${escapeHtml(item.title || 'JoMagicBackpack item')}">
         ${newBadge}
-        <a class="product-image" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer">
+        <button class="product-image product-card-open" type="button" aria-hidden="true">
           ${imageMarkup}
-        </a>
+        </button>
         <div class="product-meta">${category ? category.label : 'Other Finds'}</div>
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
         ${item.price ? `<p class="price">${item.price}</p>` : ''}
@@ -521,7 +521,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const privateDetailNames = /(?:acquisition|purchase cost|owner note|research note|confidence|provenance|approval|policy id|sku|inventory|internal|package template)/i;
-  const measurementNames = /(?:measurement|\b(length|width|height|depth|diameter|waist|inseam|pit to pit|opening|overall)\b)/i;
+  const measurementNames = /(?:measurement|\b(length|width|height|depth|diameter|waist|inseam|rise|shoulder|sleeve|pit to pit|opening|overall|circumference|capacity|weight)\b)/i;
+  const measurementValue = /(?:\b\d+(?:\.\d+)?\s*(?:in(?:ches)?|cm|mm|ft|feet|oz|lb|lbs|pounds?|ml|l|liters?|gal|gallons?|qt|quarts?)\b|\b\d+(?:\.\d+)?\s*(?:x|×)\s*\d+(?:\.\d+)?(?:\s*(?:x|×)\s*\d+(?:\.\d+)?)?\s*(?:in(?:ches)?|cm|mm|ft)\b)/i;
 
   function cleanText(value) {
     return String(value || '').replace(/\s+/g, ' ').trim();
@@ -575,12 +576,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return mergeRows(known.map(([name, value]) => [name, Array.isArray(value) ? value.join(', ') : value]));
   }
 
+  function isMeasurementRow(name, value) {
+    return measurementNames.test(name) && measurementValue.test(value);
+  }
+
+  function displayDetailName(name, value) {
+    if (/^sleeve length$/i.test(name) && !isMeasurementRow(name, value)) return 'Sleeve Type';
+    return name;
+  }
+
   function measurementRows(rows) {
-    return rows.filter(([name]) => measurementNames.test(name));
+    return rows.filter(([name, value]) => isMeasurementRow(name, value));
   }
 
   function curatedRows(rows) {
-    return rows.filter(([name]) => !measurementNames.test(name));
+    return rows.filter(([name, value]) => !isMeasurementRow(name, value)).map(([name, value]) => [displayDetailName(name, value), value]);
   }
 
   function quickRows(item, rows) {
@@ -768,9 +778,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (productsGrid) {
     productsGrid.addEventListener('click', event => {
-      const detailButton = event.target.closest('.product-details-trigger');
-      if (detailButton) {
-        const item = activeItems.find(candidate => String(candidate.id) === String(detailButton.dataset.itemId));
+      if (event.target.closest('.product-cta')) return;
+      const card = event.target.closest('.product-card');
+      if (card) {
+        const item = activeItems.find(candidate => String(candidate.id) === String(card.dataset.itemId));
         if (item) openProductDetails(item);
         return;
       }
@@ -778,6 +789,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!loadMoreButton) return;
       visibleItemCount += loadMoreStep;
       renderItems();
+    });
+  }
+
+  if (productsGrid) {
+    productsGrid.addEventListener('keydown', event => {
+      if (event.target.closest('.product-cta')) return;
+      const card = event.target.closest('.product-card');
+      if (!card || !['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      const item = activeItems.find(candidate => String(candidate.id) === String(card.dataset.itemId));
+      if (item) openProductDetails(item);
     });
   }
 

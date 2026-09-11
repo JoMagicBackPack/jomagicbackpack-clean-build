@@ -12,6 +12,8 @@ test('Backpack cards provide compact and expanded eBay paths', () => {
   assert.match(js, /data-ga4-outbound="ebay"/);
   assert.match(js, /product-details-ebay/);
   assert.match(js, /product-details-top-cta/);
+  assert.match(js, /role=\"button\"/);
+  assert.match(js, /event.target.closest\('\.product-cta'\)/);
   assert.match(js, /Ready to make it yours/);
 });
 
@@ -27,6 +29,9 @@ test('details omit unavailable fields and active filtering excludes unavailable 
   assert.match(js, /Quick details/);
   assert.match(js, /Measurements/);
   assert.match(js, /privateDetailNames/);
+  assert.match(js, /function isMeasurementRow/);
+  assert.match(js, /measurementValue/);
+  assert.match(js, /Sleeve Type/);
   assert.doesNotMatch(js, /raw\.seller\?\.username/);
   assert.doesNotMatch(js, /Buy Direct|checkout|stripe/i);
 });
@@ -45,4 +50,13 @@ test('existing feed supports on-demand active detail hydration', () => {
   assert.match(feed, /fetchItemById\(token, normalizedItemId\)/);
   assert.match(feed, /conditionDescription/);
   assert.match(feed, /description:/);
+});
+
+test('measurement classifier requires physical numeric values and keeps card navigation local', () => {
+  const js = read('js/main.js');
+  assert.match(js, /isMeasurementRow\(name, value\)/);
+  assert.match(js, /measurementValue\.test\(value\)/);
+  assert.match(js, /product-card-open/);
+  assert.match(js, /productsGrid\.addEventListener\('keydown'/);
+  assert.doesNotMatch(js, /<a class=\"product-image\" href=/);
 });
