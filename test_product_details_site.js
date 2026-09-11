@@ -22,6 +22,7 @@ test('details omit unavailable fields and active filtering excludes unavailable 
   assert.match(js, /descriptionText \?/);
   assert.match(js, /function hydrateItemDetails/);
   assert.match(js, /conditionDescription/);
+  assert.match(js, /split\(\/\\n\{2,\}\//);
   assert.match(js, /About this find/);
   assert.match(js, /Quick details/);
   assert.match(js, /Measurements/);

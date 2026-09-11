@@ -638,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const images = detailImages(item);
     const sourceDescription = item.description || item.shortDescription || item.raw?.description || item.raw?.shortDescription || item.raw?.itemDescription;
     const descriptionText = listingDescription(sourceDescription);
-    const conditionDetails = cleanText(item.conditionDescription || item.raw?.conditionDescription) || buyerText(sourceDescription).split(/(?<=[.!?])\s+/).filter(sentence => /\b(condition|wear|tear|hole|stain|chip|crack|scratch|scuff|flaw|damage)\b/i.test(sentence)).join(' ');
+    const conditionDetails = cleanText(item.conditionDescription || item.raw?.conditionDescription) || buyerText(sourceDescription).split(/\n{2,}/).filter(paragraph => /\b(condition|wear|tear|hole|stain|chip|crack|scratch|scuff|flaw|damage)\b/i.test(paragraph)).join(' ');
     const rows = mergeRows(detailRows(item), descriptionRows(sourceDescription));
     const measurements = measurementRows(rows);
     const details = curatedRows(rows);
