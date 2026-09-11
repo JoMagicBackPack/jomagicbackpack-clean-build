@@ -87,3 +87,18 @@ test('measurement parser keeps distinct concepts and preserves non-apparel dimen
   assert.equal(measurements.isMeasurementRow('Sleeve Length', 'Long Sleeve'), false);
   assert.equal(measurements.isMeasurementRow('Sleeve', '25 inches'), true);
 });
+
+
+test('offer status, condition hierarchy, and processing use the shared storefront renderer', () => {
+  const js = read('js/main.js'); const feed = read('netlify/functions/ebay-listings.js'); const css = read('css/styles.css');
+  assert.match(feed, /acceptsBestOffer: buyingOptions\.includes\('BEST_OFFER'\)/);
+  assert.match(js, /function acceptsBestOffer/);
+  assert.match(js, /acceptsBestOffer\(item\) ? .*or Best Offer/);
+  assert.match(js, /function storefrontPrice/);
+  assert.match(js, /function conditionPresentation/);
+  assert.match(js, /const descriptionText = condition\.about/);
+  assert.match(js, /const conditionDetails = condition\.detailed/);
+  assert.match(js, /Orders are processed within one business day\./);
+  assert.match(css, /product-best-offer/);
+  assert.doesNotMatch(js, /Make Offer|offer submission|one-day delivery/i);
+});

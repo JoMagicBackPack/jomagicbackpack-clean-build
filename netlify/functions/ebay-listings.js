@@ -155,6 +155,8 @@ function normalizeItemSummary(item) {
     ? item.shippingOptions[0]
     : null;
 
+  const buyingOptions = Array.isArray(item?.buyingOptions) ? item.buyingOptions : [];
+
   const startTime =
     item.itemCreationDate ||
     item.itemOriginDate ||
@@ -170,6 +172,7 @@ function normalizeItemSummary(item) {
       : null,
     condition: item?.condition || item?.itemGroupType || '—',
     conditionDescription: item?.conditionDescription || null,
+    acceptsBestOffer: buyingOptions.includes('BEST_OFFER'),
     description: item?.description || item?.shortDescription || null,
     image: imageUrl,
     url: item?.itemWebUrl || item?.itemAffiliateWebUrl || item?.itemHref || null,

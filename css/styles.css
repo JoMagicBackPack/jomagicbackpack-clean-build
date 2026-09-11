@@ -1605,3 +1605,5 @@ footer {
 .ebay-wordmark { display: inline-flex; align-items: baseline; letter-spacing: -0.12em; font-family: Arial, sans-serif; font-size: 1.17em; font-weight: 800; line-height: 1; }
 .ebay-wordmark span:nth-child(1) { color: #e53238; }.ebay-wordmark span:nth-child(2) { color: #0064d2; }.ebay-wordmark span:nth-child(3) { color: #f5af02; }.ebay-wordmark span:nth-child(4) { color: #86b817; }
 .product-details-purchase { border-top: 1px solid rgba(246,200,95,0.25); padding-top: 1rem; }
+
+.product-best-offer { display: block; margin-top: 0.2rem; color: var(--muted, #9ca3af); font-size: 0.85rem; font-weight: 500; }

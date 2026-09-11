@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
         <div class="product-meta">${category ? category.label : 'Other Finds'}</div>
         <h3>${item.title || 'JoMagicBackpack item'}</h3>
-        ${item.price ? `<p class="price">${item.price}</p>` : ''}
+        ${item.price ? `<p class="price">${escapeHtml(storefrontPrice(item.price))}</p>` : ''}
         <div class="product-actions">
           <button class="product-details-trigger" type="button" data-item-id="${item.id || ''}"><span class="backpack-icon" aria-hidden="true">&#x1F392;</span> Expand for details</button>
           <a class="product-cta product-ebay-cta" data-ga4-outbound="ebay" href="${item.url || storeUrl}" target="_blank" rel="noopener noreferrer"><span class="ebay-wordmark" aria-hidden="true"><span>e</span><span>b</span><span>a</span><span>y</span></span><span>View on eBay</span></a>
@@ -539,6 +539,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function listingDescription(value) {
     return buyerText(value).split(/(?:Thanks for taking a peek in my magic backpack!|Processing and Shipping Info:)/i)[0].trim();
+  }
+
+  function conditionPresentation(value, conditionDescription) {
+    const description = listingDescription(value);
+    const blocks = description.split(/\n{2,}/).map(block => block.trim()).filter(Boolean);
+    const conditionIndex = blocks.findIndex(block => /^(?:item\s+)?condition\s*:/i.test(block));
+    let detailed = '';
+    if (conditionIndex >= 0) {
+      const withoutHeading = blocks[conditionIndex].replace(/^(?:item\s+)?condition\s*:\s*/i, '').trim();
+      if (withoutHeading) {
+        detailed = withoutHeading;
+        blocks.splice(conditionIndex, 1);
+      } else if (blocks[conditionIndex + 1]) {
+        detailed = blocks[conditionIndex + 1];
+        blocks.splice(conditionIndex, 2);
+      }
+    }
+    return { about: blocks.join('\n\n'), detailed: cleanText(detailed || conditionDescription) };
+  }
+
+  function storefrontPrice(value) {
+    const price = cleanText(value);
+    const usd = price.match(/^USD\s+(\d+(?:\.\d{1,2})?)$/i);
+    return usd ? `$${Number(usd[1]).toFixed(2)}` : price;
+  }
+
+  function acceptsBestOffer(item) {
+    if (typeof item.acceptsBestOffer === 'boolean') return item.acceptsBestOffer;
+    return Array.isArray(item.raw?.buyingOptions) && item.raw.buyingOptions.includes('BEST_OFFER');
   }
 
   function descriptionRows(value) {
@@ -634,7 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function shippingLines(item) {
     const shipping = item.shipping || item.raw?.shippingOptions?.[0] || {};
-    const lines = [];
+    const lines = ['Orders are processed within one business day.'];
     const cost = shipping.cost || (shipping.shippingCost?.value != null ? `${shipping.shippingCost.currency || 'USD'} ${shipping.shippingCost.value}` : '');
     const service = shipping.type || shipping.shippingServiceType || shipping.optionType;
     const handling = item.raw?.handlingTime || item.raw?.handlingTimeDays || item.raw?.shippingOptions?.[0]?.handlingTime;
@@ -648,8 +677,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderProductDetails(item) {
     const images = detailImages(item);
     const sourceDescription = item.description || item.shortDescription || item.raw?.description || item.raw?.shortDescription || item.raw?.itemDescription;
-    const descriptionText = listingDescription(sourceDescription);
-    const conditionDetails = cleanText(item.conditionDescription || item.raw?.conditionDescription) || buyerText(sourceDescription).split(/\n{2,}/).filter(paragraph => /\b(condition|wear|tear|hole|stain|chip|crack|scratch|scuff|flaw|damage)\b/i.test(paragraph)).join(' ');
+    const condition = conditionPresentation(sourceDescription, item.conditionDescription || item.raw?.conditionDescription);
+    const descriptionText = condition.about;
+    const conditionDetails = condition.detailed;
     const rows = mergeRows(detailRows(item), descriptionRows(sourceDescription));
     const measurements = measurementRows(rows);
     const details = curatedRows(rows);
@@ -662,10 +692,10 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="product-details-copy">
           <p class="product-details-category">${escapeHtml(categories.find(entry => entry.key === assignedCategoryKey(item))?.label || 'Other Finds')}</p>
           <h2 id="productDetailsTitle">${escapeHtml(item.title || 'JoMagicBackpack item')}</h2>
-          ${item.price ? `<p class="product-details-price">${escapeHtml(item.price)}</p>` : ''}
+          ${item.price ? `<p class="product-details-price">${escapeHtml(storefrontPrice(item.price))}${acceptsBestOffer(item) ? `<span class="product-best-offer">or Best Offer</span>` : ''}</p>` : ''}
           ${quick.length ? `<section><h3>Quick details</h3><ul class="product-quick-details">${quick.map(([name, value]) => `<li><strong>${escapeHtml(name)}:</strong> ${escapeHtml(value)}</li>`).join('')}</ul></section>` : ''}
           ${descriptionText ? `<section><h3>About this find</h3><p>${escapeHtml(descriptionText)}</p></section>` : ''}
-          ${item.condition && item.condition !== '—' ? `<section><h3>Condition</h3><p class="product-details-condition"><strong>${escapeHtml(item.condition)}</strong>${conditionDetails && conditionDetails !== item.condition ? `<br>${escapeHtml(conditionDetails)}` : ''}</p></section>` : ''}
+          ${(conditionDetails || (item.condition && item.condition !== '\u2014')) ? `<section><h3>Condition</h3><p class="product-details-condition">${escapeHtml(conditionDetails || item.condition)}</p></section>` : ''}
           ${details.length ? `<section><h3>Details</h3><dl class="product-details-list">${details.map(([name, value]) => `<div><dt>${escapeHtml(name)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>` : ''}
           ${measurements.length ? `<section><h3>Measurements</h3><dl class="product-details-list product-measurements">${measurements.map(([name, value]) => `<div><dt>${escapeHtml(name)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>` : ''}
           ${shipping.length ? `<section><h3>Shipping</h3><p>${shipping.map(escapeHtml).join('<br>')}</p></section>` : ''}
