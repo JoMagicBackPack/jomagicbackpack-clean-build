@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = __dirname;
 const read = name => fs.readFileSync(path.join(root, name), 'utf8');
+const measurements = require('./js/measurement-parser.js');
 
 test('Backpack cards provide compact and expanded eBay paths', () => {
   const html = read('categories.html'); const js = read('js/main.js');
@@ -31,9 +32,9 @@ test('details omit unavailable fields and active filtering excludes unavailable 
   assert.match(js, /Measurements/);
   assert.match(js, /privateDetailNames/);
   assert.match(js, /function isMeasurementRow/);
-  assert.match(js, /measurementValue/);
+  assert.match(js, /JoMagicMeasurements/);
   assert.match(js, /Sleeve Type/);
-  assert.match(js, /inlinePattern/);
+  assert.match(js, /inlineMeasurementRows/);
   assert.doesNotMatch(js, /raw\.seller\?\.username/);
   assert.doesNotMatch(js, /Buy Direct|checkout|stripe/i);
 });
@@ -57,7 +58,7 @@ test('existing feed supports on-demand active detail hydration', () => {
 test('measurement classifier requires physical numeric values and keeps card navigation local', () => {
   const js = read('js/main.js');
   assert.match(js, /isMeasurementRow\(name, value\)/);
-  assert.match(js, /measurementValue\.test\(value\)/);
+  assert.match(js, /measurements\.isMeasurementRow\(name, value\)/);
   assert.match(js, /product-card-open/);
   assert.match(js, /productsGrid\.addEventListener\('keydown'/);
   assert.doesNotMatch(js, /<a class=\"product-image\" href=/);
@@ -69,4 +70,20 @@ test('product actions prioritize JoMagic details over eBay navigation', () => {
   assert.doesNotMatch(js, /product-details-top-cta/);
   assert.match(js, /product-details-purchase/);
   assert.match(css, /product-ebay-cta/);
+});
+
+
+test('specific apparel labels consume generic aliases from the same source span', () => {
+  const rows = measurements.inlineMeasurementRows(['Pit to pit: 21.5 inches', 'Shoulder to shoulder: 18 inches', 'Shoulder to cuff: 27 inches', 'Back length: 29 inches'].join('\n'));
+  assert.deepEqual(rows, [['Pit To Pit', '21.5 inches'], ['Shoulder To Shoulder', '18 inches'], ['Shoulder To Cuff', '27 inches'], ['Back Length', '29 inches']]);
+  assert.equal(rows.some(([name]) => /^(Shoulder|Length|Cuff)$/i.test(name)), false);
+});
+
+test('measurement parser keeps distinct concepts and preserves non-apparel dimensions', () => {
+  assert.deepEqual(measurements.inlineMeasurementRows('Front length: 28 in'), [['Front Length', '28 in']]);
+  assert.deepEqual(measurements.inlineMeasurementRows('Back length: 29"'), [['Back Length', '29"']]);
+  assert.deepEqual(measurements.inlineMeasurementRows('Sleeve: 24 in\nWaist: 24 in'), [['Sleeve', '24 in'], ['Waist', '24 in']]);
+  assert.deepEqual(measurements.inlineMeasurementRows('Diameter: 46 in\nHeight: 6.5 in\nOpening diameter: 3.75 in\nWidth: 1.25 in'), [['Diameter', '46 in'], ['Height', '6.5 in'], ['Opening Diameter', '3.75 in'], ['Width', '1.25 in']]);
+  assert.equal(measurements.isMeasurementRow('Sleeve Length', 'Long Sleeve'), false);
+  assert.equal(measurements.isMeasurementRow('Sleeve', '25 inches'), true);
 });

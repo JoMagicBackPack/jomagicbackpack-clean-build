@@ -521,8 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const privateDetailNames = /(?:acquisition|purchase cost|owner note|research note|confidence|provenance|approval|policy id|sku|inventory|internal|package template)/i;
-  const measurementNames = /(?:measurement|\b(length|width|height|depth|diameter|waist|inseam|rise|shoulder|sleeve|pit to pit|opening|overall|circumference|capacity|weight)\b)/i;
-  const measurementValue = /(?:\b\d+(?:\.\d+)?\s*(?:in(?:ches)?|cm|mm|ft|feet|oz|lb|lbs|pounds?|ml|l|liters?|gal|gallons?|qt|quarts?)\b|\b\d+(?:\.\d+)?\s*(?:x|×)\s*\d+(?:\.\d+)?(?:\s*(?:x|×)\s*\d+(?:\.\d+)?)?\s*(?:in(?:ches)?|cm|mm|ft)\b)/i;
+  const measurements = window.JoMagicMeasurements;
 
   function cleanText(value) {
     return String(value || '').replace(/\s+/g, ' ').trim();
@@ -549,13 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (match && !privateDetailNames.test(match[1])) found.push([match[1].trim(), match[2].trim()]);
       return found;
     }, []);
-    const inlinePattern = /\b(pit to pit|p2p|sleeve(?: length)?|length|shoulder(?: to shoulder)?|waist|chest|diameter|height|opening)\b[^\d]{0,45}(\d+(?:\.\d+)?\s*(?:in(?:ches)?|cm|mm|ft|feet))/gi;
-    let match;
-    while ((match = inlinePattern.exec(text))) {
-      const label = match[1].replace(/^p2p$/i, 'Pit to pit').replace(/\b\w/g, character => character.toUpperCase());
-      rows.push([label, match[2]]);
-    }
-    return rows;
+    return rows.concat(measurements.inlineMeasurementRows(text));
   }
 
   function mergeRows(...groups) {
@@ -585,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function isMeasurementRow(name, value) {
-    return measurementNames.test(name) && measurementValue.test(value);
+    return measurements.isMeasurementRow(name, value);
   }
 
   function displayDetailName(name, value) {
