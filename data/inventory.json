@@ -1776,7 +1776,10 @@
         {
           "categoryName": "Casual Button-Down Shirts"
         }
-      ]
+      ],
+      "status": "sold",
+      "soldAt": "2026-09-11T11:31:38.498Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "205137679983",
