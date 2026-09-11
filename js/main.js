@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const raw = item.raw || {};
     const aspects = Array.isArray(raw.localizedAspects) ? raw.localizedAspects : [];
     const known = [
-      ['Brand', item.brand || raw.brand || raw.seller?.username], ['Material', item.material || raw.material],
+      ['Brand', item.brand || raw.brand], ['Material', item.material || raw.material],
       ['Color', item.color || raw.color], ['Size', item.size || raw.size], ['Style', item.style || raw.style], ['Model', item.model || raw.model]
     ];
     aspects.forEach(aspect => {

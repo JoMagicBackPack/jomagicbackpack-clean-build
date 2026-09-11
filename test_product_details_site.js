@@ -19,6 +19,7 @@ test('details omit unavailable fields and active filtering excludes unavailable 
   assert.match(js, /liveItems\.filter\(isActiveItem\)/);
   assert.match(js, /descriptionText \?/);
   assert.match(js, /rows\.length \?/);
+  assert.doesNotMatch(js, /raw\.seller\?\.username/);
   assert.doesNotMatch(js, /Buy Direct|checkout|stripe/i);
 });
 
