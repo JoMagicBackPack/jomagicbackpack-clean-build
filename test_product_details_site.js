@@ -11,6 +11,8 @@ test('Backpack cards provide compact and expanded eBay paths', () => {
   assert.match(js, /Expand for details/);
   assert.match(js, /data-ga4-outbound="ebay"/);
   assert.match(js, /product-details-ebay/);
+  assert.match(js, /product-details-top-cta/);
+  assert.match(js, /Ready to make it yours/);
 });
 
 test('details omit unavailable fields and active filtering excludes unavailable inventory', () => {
@@ -18,7 +20,12 @@ test('details omit unavailable fields and active filtering excludes unavailable 
   assert.match(js, /function isActiveItem/);
   assert.match(js, /liveItems\.filter\(isActiveItem\)/);
   assert.match(js, /descriptionText \?/);
-  assert.match(js, /rows\.length \?/);
+  assert.match(js, /function hydrateItemDetails/);
+  assert.match(js, /conditionDescription/);
+  assert.match(js, /About this find/);
+  assert.match(js, /Quick details/);
+  assert.match(js, /Measurements/);
+  assert.match(js, /privateDetailNames/);
   assert.doesNotMatch(js, /raw\.seller\?\.username/);
   assert.doesNotMatch(js, /Buy Direct|checkout|stripe/i);
 });
@@ -27,4 +34,14 @@ test('responsive detail styles protect narrow screens', () => {
   const css = read('css/styles.css');
   assert.match(css, /@media \(max-width: 700px\)/);
   assert.match(css, /product-details-layout \{ grid-template-columns: 1fr/);
+  assert.match(css, /product-detail-thumbnails/);
+  assert.match(css, /product-quick-details/);
+});
+
+test('existing feed supports on-demand active detail hydration', () => {
+  const feed = read('netlify/functions/ebay-listings.js');
+  assert.match(feed, /requestedItemId/);
+  assert.match(feed, /fetchItemById\(token, normalizedItemId\)/);
+  assert.match(feed, /conditionDescription/);
+  assert.match(feed, /description:/);
 });

@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeItems = [];
   let visibleItemCount = initialVisibleCount;
   let categoryOpening = false;
+  const detailCache = new Map();
 
   const categories = [
     {
@@ -519,12 +520,21 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
+  const privateDetailNames = /(?:acquisition|purchase cost|owner note|research note|confidence|provenance|approval|policy id|sku|inventory|internal|package template)/i;
+  const measurementNames = /(?:measurement|\b(length|width|height|depth|diameter|waist|inseam|pit to pit|opening|overall)\b)/i;
+
+  function cleanText(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
   function detailRows(item) {
     const raw = item.raw || {};
     const aspects = Array.isArray(raw.localizedAspects) ? raw.localizedAspects : [];
     const known = [
       ['Brand', item.brand || raw.brand], ['Material', item.material || raw.material],
-      ['Color', item.color || raw.color], ['Size', item.size || raw.size], ['Style', item.style || raw.style], ['Model', item.model || raw.model]
+      ['Color', item.color || raw.color], ['Size', item.size || raw.size], ['Style', item.style || raw.style], ['Model', item.model || raw.model],
+      ['Type', item.type || raw.type], ['Pattern', item.pattern || raw.pattern], ['Shape', item.shape || raw.shape],
+      ['Theme', item.theme || raw.theme], ['Features', item.features || raw.features], ['Room', item.room || raw.room]
     ];
     aspects.forEach(aspect => {
       const name = aspect.name || aspect.localizedName;
@@ -532,8 +542,27 @@ document.addEventListener('DOMContentLoaded', () => {
       if (name && value) known.push([name, value]);
     });
     const unique = new Map();
-    known.forEach(([name, value]) => { if (value && !unique.has(String(name).toLowerCase())) unique.set(String(name).toLowerCase(), [name, value]); });
+    known.forEach(([name, value]) => {
+      const label = cleanText(name); const text = cleanText(Array.isArray(value) ? value.join(', ') : value);
+      const key = label.toLowerCase();
+      if (label && text && !privateDetailNames.test(label) && !unique.has(key)) unique.set(key, [label, text]);
+    });
     return [...unique.values()];
+  }
+
+  function measurementRows(rows) {
+    return rows.filter(([name]) => measurementNames.test(name));
+  }
+
+  function curatedRows(rows) {
+    return rows.filter(([name]) => !measurementNames.test(name));
+  }
+
+  function quickRows(item, rows) {
+    const preferred = /^(Brand|Material|Color|Size|Style|Type|Shape|Pattern|Features|Room|Theme)$/i;
+    const picked = rows.filter(([name]) => preferred.test(name)).slice(0, 5);
+    if (item.condition && item.condition !== '—' && picked.length < 6) picked.push(['Condition', item.condition]);
+    return picked.slice(0, 6);
   }
 
   function detailImages(item) {
@@ -542,28 +571,78 @@ document.addEventListener('DOMContentLoaded', () => {
     return [...new Set(candidates.filter(Boolean))];
   }
 
-  function openProductDetails(item) {
-    if (!productDetailsDialog || !productDetailsContent) return;
+  function itemDetailUrl(item) {
+    const rawId = String(item?.raw?.itemId || item?.id || '');
+    const id = /^\d{9,15}$/.test(rawId) ? `v1|${rawId}|0` : rawId;
+    const url = new URL('/.netlify/functions/ebay-listings', window.location.origin);
+    url.searchParams.set('item_id', id);
+    return url.toString();
+  }
+
+  async function hydrateItemDetails(item) {
+    const key = String(item?.raw?.itemId || item?.id || '');
+    if (!key) return item;
+    if (detailCache.has(key)) return detailCache.get(key);
+    const request = fetch(itemDetailUrl(item), { cache: 'no-store' })
+      .then(response => response.ok ? response.json() : null)
+      .then(data => data?.ok && data?.result?.item ? { ...item, ...data.result.item, id: String(data.result.item.id || item.id) } : item)
+      .catch(() => item);
+    detailCache.set(key, request);
+    return request;
+  }
+
+  function galleryMarkup(images, title) {
+    if (!images.length) return '<div class="product-image-fallback">No image available</div>';
+    return `<div class="product-detail-hero"><img data-detail-selected-image src="${escapeHtml(images[0])}" alt="${escapeHtml(title)}"></div><div class="product-detail-thumbnails">${images.map((image, index) => `<button type="button" class="product-detail-thumbnail${index === 0 ? ' is-selected' : ''}" data-detail-image="${escapeHtml(image)}" aria-label="Show image ${index + 1} of ${images.length}"><img src="${escapeHtml(image)}" alt=""></button>`).join('')}</div>`;
+  }
+
+  function shippingLines(item) {
+    const shipping = item.shipping || item.raw?.shippingOptions?.[0] || {};
+    const lines = [];
+    const cost = shipping.cost || (shipping.shippingCost?.value != null ? `${shipping.shippingCost.currency || 'USD'} ${shipping.shippingCost.value}` : '');
+    const service = shipping.type || shipping.shippingServiceType || shipping.optionType;
+    const handling = item.raw?.handlingTime || item.raw?.handlingTimeDays || item.raw?.shippingOptions?.[0]?.handlingTime;
+    if (service) lines.push(service);
+    if (cost) lines.push(`Shipping: ${cost}`);
+    if (handling) lines.push(`Handling: ${handling}${typeof handling === 'number' ? ' business day' + (handling === 1 ? '' : 's') : ''}`);
+    if (lines.length) lines.push('Shipping is calculated through eBay.');
+    return lines;
+  }
+
+  function renderProductDetails(item) {
     const images = detailImages(item);
-    const descriptionText = item.description || item.shortDescription || item.raw?.shortDescription || item.raw?.itemDescription || '';
+    const descriptionText = cleanText(item.description || item.shortDescription || item.raw?.description || item.raw?.shortDescription || item.raw?.itemDescription);
+    const conditionDetails = cleanText(item.conditionDescription || item.raw?.conditionDescription);
     const rows = detailRows(item);
-    const shipping = item.shipping || item.raw?.shippingOptions?.[0];
-    const shippingText = shipping ? [shipping.type || shipping.shippingServiceType, shipping.cost || (shipping.shippingCost?.value ? `${shipping.shippingCost.currency || 'USD'} ${shipping.shippingCost.value}` : '')].filter(Boolean).join(' - ') : '';
+    const measurements = measurementRows(rows);
+    const details = curatedRows(rows);
+    const quick = quickRows(item, [...details, ...measurements]);
+    const shipping = shippingLines(item);
+    const cta = `<a class="product-cta product-details-ebay" data-ga4-outbound="ebay" href="${escapeHtml(item.url || storeUrl)}" target="_blank" rel="noopener noreferrer">View on eBay</a>`;
     productDetailsContent.innerHTML = `
       <div class="product-details-layout">
-        <div class="product-details-gallery">${images.length ? images.map((image, index) => `<img src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}${images.length > 1 ? ` image ${index + 1}` : ''}">`).join('') : '<div class="product-image-fallback">No image available</div>'}</div>
+        <div class="product-details-gallery">${galleryMarkup(images, item.title || 'JoMagicBackpack item')}</div>
         <div class="product-details-copy">
           <p class="product-details-category">${escapeHtml(categories.find(entry => entry.key === assignedCategoryKey(item))?.label || 'Other Finds')}</p>
           <h2 id="productDetailsTitle">${escapeHtml(item.title || 'JoMagicBackpack item')}</h2>
           ${item.price ? `<p class="product-details-price">${escapeHtml(item.price)}</p>` : ''}
-          ${item.condition ? `<p class="product-details-condition"><strong>Condition:</strong> ${escapeHtml(item.condition)}</p>` : ''}
-          ${descriptionText ? `<section><h3>About this item</h3><p>${escapeHtml(descriptionText)}</p></section>` : ''}
-          ${rows.length ? `<section><h3>Details</h3><dl class="product-details-list">${rows.map(([name, value]) => `<div><dt>${escapeHtml(name)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>` : ''}
-          ${shippingText ? `<section><h3>Shipping</h3><p>${escapeHtml(shippingText)}</p></section>` : ''}
-          <section class="product-details-purchase"><h3>Purchase</h3><a class="product-cta product-details-ebay" data-ga4-outbound="ebay" href="${escapeHtml(item.url || storeUrl)}" target="_blank" rel="noopener noreferrer">View on eBay</a></section>
+          <div class="product-details-top-cta">${cta}</div>
+          ${quick.length ? `<section><h3>Quick details</h3><ul class="product-quick-details">${quick.map(([name, value]) => `<li><strong>${escapeHtml(name)}:</strong> ${escapeHtml(value)}</li>`).join('')}</ul></section>` : ''}
+          ${descriptionText ? `<section><h3>About this find</h3><p>${escapeHtml(descriptionText)}</p></section>` : ''}
+          ${item.condition && item.condition !== '—' ? `<section><h3>Condition</h3><p class="product-details-condition"><strong>${escapeHtml(item.condition)}</strong>${conditionDetails && conditionDetails !== item.condition ? `<br>${escapeHtml(conditionDetails)}` : ''}</p></section>` : ''}
+          ${details.length ? `<section><h3>Details</h3><dl class="product-details-list">${details.map(([name, value]) => `<div><dt>${escapeHtml(name)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>` : ''}
+          ${measurements.length ? `<section><h3>Measurements</h3><dl class="product-details-list product-measurements">${measurements.map(([name, value]) => `<div><dt>${escapeHtml(name)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('')}</dl></section>` : ''}
+          ${shipping.length ? `<section><h3>Shipping</h3><p>${shipping.map(escapeHtml).join('<br>')}</p></section>` : ''}
+          <section class="product-details-purchase"><h3>Ready to make it yours?</h3>${cta}</section>
         </div>
       </div>`;
+  }
+
+  async function openProductDetails(item) {
+    if (!productDetailsDialog || !productDetailsContent) return;
+    productDetailsContent.innerHTML = '<div class="product-detail-loading">Gathering the details from the backpack...</div>';
     productDetailsDialog.showModal();
+    renderProductDetails(await hydrateItemDetails(item));
   }
 
   function renderItems() {
@@ -693,6 +772,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeProductDetails && productDetailsDialog) {
     closeProductDetails.addEventListener('click', () => productDetailsDialog.close());
     productDetailsDialog.addEventListener('click', event => { if (event.target === productDetailsDialog) productDetailsDialog.close(); });
+    productDetailsContent.addEventListener('click', event => {
+      const thumbnail = event.target.closest('.product-detail-thumbnail');
+      if (!thumbnail) return;
+      const selected = productDetailsContent.querySelector('[data-detail-selected-image]');
+      if (selected) selected.src = thumbnail.dataset.detailImage;
+      productDetailsContent.querySelectorAll('.product-detail-thumbnail').forEach(button => button.classList.toggle('is-selected', button === thumbnail));
+    });
   }
 
   if (backToCategories) {

@@ -169,6 +169,8 @@ function normalizeItemSummary(item) {
       ? `${priceObj.currency || 'USD'} ${Number(priceObj.value).toFixed(2)}`
       : null,
     condition: item?.condition || item?.itemGroupType || '—',
+    conditionDescription: item?.conditionDescription || null,
+    description: item?.description || item?.shortDescription || null,
     image: imageUrl,
     url: item?.itemWebUrl || item?.itemAffiliateWebUrl || item?.itemHref || null,
     seller: item?.seller?.username || null,
@@ -370,6 +372,21 @@ exports.handler = async (event) => {
 
     const qs = event.queryStringParameters || {};
     const token = await getAccessToken();
+    const requestedItemId = String(qs.item_id || qs.itemId || '').trim();
+    if (requestedItemId) {
+      const normalizedItemId = /^\d{9,15}$/.test(requestedItemId) ? `v1|${requestedItemId}|0` : requestedItemId;
+      const item = await fetchItemById(token, normalizedItemId);
+      if (!item) return {
+        statusCode: 404,
+        headers: RESP_HEADERS,
+        body: JSON.stringify({ ok: false, error: 'Active item was not found.' }),
+      };
+      return {
+        statusCode: 200,
+        headers: RESP_HEADERS,
+        body: JSON.stringify({ ok: true, result: { item } }),
+      };
+    }
     const result = await searchItems(token, qs);
 
     return {
