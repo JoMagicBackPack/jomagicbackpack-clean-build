@@ -543,11 +543,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function descriptionRows(value) {
-    return buyerText(value).split('\n').map(line => line.trim()).reduce((rows, line) => {
+    const text = buyerText(value);
+    const rows = text.split('\n').map(line => line.trim()).reduce((found, line) => {
       const match = line.match(/^([A-Za-z][A-Za-z /&()-]{1,36}):\s*(.{1,180})$/);
-      if (match && !privateDetailNames.test(match[1])) rows.push([match[1].trim(), match[2].trim()]);
-      return rows;
+      if (match && !privateDetailNames.test(match[1])) found.push([match[1].trim(), match[2].trim()]);
+      return found;
     }, []);
+    const inlinePattern = /\b(pit to pit|p2p|sleeve(?: length)?|length|shoulder(?: to shoulder)?|waist|chest|diameter|height|opening)\b[^\d]{0,45}(\d+(?:\.\d+)?\s*(?:in(?:ches)?|cm|mm|ft|feet))/gi;
+    let match;
+    while ((match = inlinePattern.exec(text))) {
+      const label = match[1].replace(/^p2p$/i, 'Pit to pit').replace(/\b\w/g, character => character.toUpperCase());
+      rows.push([label, match[2]]);
+    }
+    return rows;
   }
 
   function mergeRows(...groups) {

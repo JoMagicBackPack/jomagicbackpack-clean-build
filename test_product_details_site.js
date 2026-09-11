@@ -32,6 +32,7 @@ test('details omit unavailable fields and active filtering excludes unavailable 
   assert.match(js, /function isMeasurementRow/);
   assert.match(js, /measurementValue/);
   assert.match(js, /Sleeve Type/);
+  assert.match(js, /inlinePattern/);
   assert.doesNotMatch(js, /raw\.seller\?\.username/);
   assert.doesNotMatch(js, /Buy Direct|checkout|stripe/i);
 });
