@@ -527,6 +527,37 @@ document.addEventListener('DOMContentLoaded', () => {
     return String(value || '').replace(/\s+/g, ' ').trim();
   }
 
+  function buyerText(value) {
+    const withLines = String(value || '')
+      .replace(/<br\s*\/?>(\r?\n)?/gi, '\n')
+      .replace(/<\/(?:p|div|li|h[1-6])>/gi, '\n')
+      .replace(/<[^>]*>/g, ' ');
+    const decoder = document.createElement('textarea');
+    decoder.innerHTML = withLines;
+    return decoder.value.replace(/\r/g, '').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+  }
+
+  function listingDescription(value) {
+    return buyerText(value).split(/(?:Thanks for taking a peek in my magic backpack!|Processing and Shipping Info:)/i)[0].trim();
+  }
+
+  function descriptionRows(value) {
+    return buyerText(value).split('\n').map(line => line.trim()).reduce((rows, line) => {
+      const match = line.match(/^([A-Za-z][A-Za-z /&()-]{1,36}):\s*(.{1,180})$/);
+      if (match && !privateDetailNames.test(match[1])) rows.push([match[1].trim(), match[2].trim()]);
+      return rows;
+    }, []);
+  }
+
+  function mergeRows(...groups) {
+    const unique = new Map();
+    groups.flat().forEach(([name, value]) => {
+      const label = cleanText(name); const text = cleanText(value);
+      if (label && text && !privateDetailNames.test(label) && !unique.has(label.toLowerCase())) unique.set(label.toLowerCase(), [label, text]);
+    });
+    return [...unique.values()];
+  }
+
   function detailRows(item) {
     const raw = item.raw || {};
     const aspects = Array.isArray(raw.localizedAspects) ? raw.localizedAspects : [];
@@ -541,13 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const value = aspect.value || aspect.localizedValue;
       if (name && value) known.push([name, value]);
     });
-    const unique = new Map();
-    known.forEach(([name, value]) => {
-      const label = cleanText(name); const text = cleanText(Array.isArray(value) ? value.join(', ') : value);
-      const key = label.toLowerCase();
-      if (label && text && !privateDetailNames.test(label) && !unique.has(key)) unique.set(key, [label, text]);
-    });
-    return [...unique.values()];
+    return mergeRows(known.map(([name, value]) => [name, Array.isArray(value) ? value.join(', ') : value]));
   }
 
   function measurementRows(rows) {
@@ -611,9 +636,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderProductDetails(item) {
     const images = detailImages(item);
-    const descriptionText = cleanText(item.description || item.shortDescription || item.raw?.description || item.raw?.shortDescription || item.raw?.itemDescription);
-    const conditionDetails = cleanText(item.conditionDescription || item.raw?.conditionDescription);
-    const rows = detailRows(item);
+    const sourceDescription = item.description || item.shortDescription || item.raw?.description || item.raw?.shortDescription || item.raw?.itemDescription;
+    const descriptionText = listingDescription(sourceDescription);
+    const conditionDetails = cleanText(item.conditionDescription || item.raw?.conditionDescription) || buyerText(sourceDescription).split(/(?<=[.!?])\s+/).filter(sentence => /\b(condition|wear|tear|hole|stain|chip|crack|scratch|scuff|flaw|damage)\b/i.test(sentence)).join(' ');
+    const rows = mergeRows(detailRows(item), descriptionRows(sourceDescription));
     const measurements = measurementRows(rows);
     const details = curatedRows(rows);
     const quick = quickRows(item, [...details, ...measurements]);
