@@ -3,6 +3,7 @@
  * the private JoMagic Drive pull queue. No buyer information is retained.
  * Credentials are supplied only through Netlify runtime configuration.
  */
+// Runtime configuration check.
 const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive";
 const EBAY_SCOPE = "https://api.ebay.com/oauth/api_scope";
 const DRIVE_FOLDER_ID = process.env.JMB_DRIVE_INVENTORY_FOLDER_ID;
