@@ -1,6 +1,7 @@
 /**
  * Receives eBay fixed-price transaction notifications and immediately updates
  * the private JoMagic Drive pull queue. No buyer information is retained.
+ * Credentials are supplied only through Netlify runtime configuration.
  */
 const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive";
 const EBAY_SCOPE = "https://api.ebay.com/oauth/api_scope";
