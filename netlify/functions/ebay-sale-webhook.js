@@ -10,7 +10,7 @@ const WEBHOOK_TOKEN = process.env.JMB_EBAY_WEBHOOK_TOKEN;
 
 const xmlValue = (xml, name) => {
   const match = new RegExp("<(?:\\w+:)?" + name + "(?:\\s[^>]*)?>([\\s\\S]*?)<\\/(?:\\w+:)?" + name + ">", "i").exec(xml || "");
-  return match ? match[1].replace(/<!\\[CDATA\\[([\\s\\S]*?)\\]\\]>/g, "$1").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').trim() : "";
+  return match ? match[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').trim() : "";
 };
 
 function parseCsv(text) {
