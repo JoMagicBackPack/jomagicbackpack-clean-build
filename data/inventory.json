@@ -3530,7 +3530,10 @@
           "categoryName": "Electrical & Lighting"
         }
       ],
-      "categoryOverride": "other"
+      "categoryOverride": "other",
+      "status": "sold",
+      "soldAt": "2026-09-16T00:27:55.666Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206030051971",
@@ -4902,11 +4905,11 @@
     },
     {
       "id": "206437585495",
-      "title": "Vintage Kirlin Detroit Recessed Light Cover Trim Prismatic Glass Panel",
+      "title": "Vintage Kirlin Recessed Light Trim Cover Prismatic Glass Replacement",
       "price": "USD 42.49",
       "condition": null,
       "image": "https://i.ebayimg.com/images/g/ofAAAeSwAQ9qYzar/s-l140.jpg",
-      "url": "https://www.ebay.com/itm/Vintage-Kirlin-Detroit-Recessed-Light-Cover-Trim-Prismatic-Glass-Panel-/206437585495",
+      "url": "https://www.ebay.com/itm/Vintage-Kirlin-Recessed-Light-Trim-Cover-Prismatic-Glass-Replacement-/206437585495",
       "seller": "jomagicbackpack",
       "startTime": "2026-07-24T09:59:45.000Z",
       "categories": [
