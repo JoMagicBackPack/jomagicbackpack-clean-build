@@ -3923,7 +3923,10 @@
           "categoryName": "Convertible Tops & Parts"
         }
       ],
-      "categoryOverride": "other"
+      "categoryOverride": "other",
+      "status": "sold",
+      "soldAt": "2026-09-17T07:47:29.815Z",
+      "soldReason": "No longer returned by eBay active-listings sync."
     },
     {
       "id": "206271325389",
